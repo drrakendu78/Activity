@@ -1,0 +1,88 @@
+{
+  "nav": { "dashboard": "Πίνακας", "apps": "Εφαρμογές", "settings": "Ρυθμίσεις" },
+  "sidebar": { "connected": "Συνδεδεμένο", "disconnected": "Αποσυνδεδεμένο" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Πίνακας", "subtitle": "Παρακολουθήστε και ελέγξτε την παρουσία σας στο Discord",
+    "serviceRunning": "Υπηρεσία ενεργή", "serviceStopped": "Υπηρεσία σταματημένη",
+    "connectedToDiscord": "Συνδεδεμένο στο Discord", "notConnected": "Μη συνδεδεμένο",
+    "stop": "Διακοπή", "start": "Εκκίνηση", "currentActivity": "Τρέχουσα δραστηριότητα",
+    "waitingForFocus": "Αναμονή εστίασης παραθύρου...", "startServicePrompt": "Εκκινήστε την υπηρεσία για να ξεκινήσετε",
+    "elapsed": "παρήλθε",
+    "footer1": "Οι εφαρμογές ανιχνεύονται αυτόματα από βάση δεδομένων 80+ εφαρμογών.",
+    "footer2": "Εναλλάξτε μεταξύ παραθύρων και δείτε την παρουσία σας να ενημερώνεται ζωντανά."
+  },
+  "settings": {
+    "title": "Ρυθμίσεις", "subtitle": "Διαμορφώστε τις προτιμήσεις Discord RPC",
+    "appearance": "Εμφάνιση", "darkMode": "Σκοτεινή λειτουργία", "darkModeDesc": "Εναλλαγή μεταξύ φωτεινού και σκοτεινού",
+    "language": "Γλώσσα", "languageLabel": "Γλώσσα εμφάνισης", "languageDesc": "Επιλέξτε τη γλώσσα σας",
+    "polling": "Σάρωση", "pollInterval": "Διάστημα σάρωσης",
+    "defaultPresence": "Προεπιλεγμένη παρουσία",
+    "defaultPresenceDesc": "Χρησιμοποιείται για εφαρμογές χωρίς ρύθμιση. Χρησιμοποιήστε {app_name} ως placeholder.",
+    "defaultPresenceDesc2": "Αυτό βλέπουν οι άνθρωποι στο Discord όταν χρησιμοποιείτε μια εφαρμογή χωρίς ρύθμιση.",
+    "detailsLabel": "Κύριο κείμενο",
+    "detailsPlaceholder": "Π.χ. Χρησιμοποιώ {app_name}",
+    "detailsHint": "Χρησιμοποιήστε {app_name} για αυτόματη εισαγωγή ονόματος εφαρμογής",
+    "stateLabel": "Δευτερεύον κείμενο",
+    "statePlaceholder": "Π.χ. Χαλαρώνω...",
+    "imageLabel": "Εικόνα",
+    "imagePlaceholder": "URL εικόνας ή αφήστε προεπιλογή",
+    "previewAppName": "Η εφαρμογή μου",
+    "previewDetails": "Χρησιμοποιώ {app_name}",
+    "presenceStyle": "Τι βλέπουν οι άλλοι;",
+    "styleUsing": "Χρησιμοποιεί...",
+    "stylePlaying": "Παίζει...",
+    "styleOn": "Σε...",
+    "styleWatching": "Παρακολουθεί...",
+    "styleListening": "Ακούει...",
+    "presenceStatus": "Κατάσταση (προαιρετικό)",
+    "statusNone": "Καμία",
+    "statusChilling": "Χαλαρώνει",
+    "statusWorking": "Εργάζεται",
+    "statusStreaming": "Κάνει streaming",
+    "statusAFK": "AFK",
+    "details": "Λεπτομέρειες", "state": "Κατάσταση", "largeImageKey": "Κλειδί μεγάλης εικόνας",
+    "steamgriddb": "SteamGridDB — Αυτόματα εικονίδια",
+    "apiKey": "Κλειδί API", "apiKeyPlaceholder": "Εισάγετε το κλειδί API SteamGridDB",
+    "apiKeyDesc": "Αποκτήστε δωρεάν στο steamgriddb.com",
+    "startOnBoot": "Αυτόματη εκκίνηση", "startOnBootDesc": "Εκκίνηση ελαχιστοποιημένο κατά την εκκίνηση Windows",
+    "saveSettings": "Αποθήκευση ρυθμίσεων", "saved": "Αποθηκεύτηκε!"
+  },
+  "apps": {
+    "title": "Εφαρμογές", "subtitle": "Διαχειριστείτε ρυθμίσεις εφαρμογών",
+    "detected": "Ανιχνευμένες", "database": "Βάση δεδομένων", "custom": "Προσαρμοσμένες",
+    "noAppsDetected": "Δεν ανιχνεύθηκαν εφαρμογές", "noAppsDetectedDesc": "Εκκινήστε την υπηρεσία και εναλλάξτε μεταξύ εφαρμογών.",
+    "searchApps": "Αναζήτηση εφαρμογών...", "noCustomOverrides": "Χωρίς προσαρμογές",
+    "noCustomOverridesDesc": "Κάντε κλικ στο \"Επεξεργασία\" για να προσαρμόσετε μια εφαρμογή.",
+    "edit": "Επεξεργασία", "delete": "Διαγραφή", "changeIcon": "Αλλαγή εικονιδίου", "noDetails": "Χωρίς λεπτομέρειες", "loading": "Φόρτωση..."
+  },
+  "appConfigForm": {
+    "editTitle": "Επεξεργασία ρύθμισης", "addTitle": "Προσθήκη ρύθμισης",
+    "executableName": "Όνομα εκτελέσιμου", "displayName": "Εμφανιζόμενο όνομα",
+    "details": "Λεπτομέρειες", "detailsPlaceholder": "Τι κάνετε...",
+    "state": "Κατάσταση", "statePlaceholder": "Τρέχουσα κατάσταση...",
+    "images": "Εικόνες", "largeImage": "Μεγάλη εικόνα (URL ή κλειδί)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Προεπισκόπηση", "largeImageTooltip": "Tooltip μεγάλης εικόνας", "hoverText": "Κείμενο αιώρησης",
+    "smallImage": "Μικρή εικόνα", "smallTooltip": "Μικρό tooltip", "showElapsedTime": "Εμφάνιση χρόνου",
+    "buttons": "Κουμπιά", "add": "Προσθήκη", "buttonText": "Κείμενο κουμπιού",
+    "buttonLinkDesc": "Προσθέστε κουμπιά με σύνδεσμο (μέγ. 2)", "cancel": "Ακύρωση", "save": "Αποθήκευση"
+  },
+  "iconPicker": {
+    "title": "Επιλογή εικονιδίου", "pickFor": "Επιλέξτε εικονίδιο για",
+    "searchPlaceholder": "Αναζήτηση εικονιδίων...", "search": "Αναζήτηση",
+    "noIcons": "Δεν βρέθηκαν εικονίδια. Δοκιμάστε άλλο όρο.", "customUrl": "Προσαρμοσμένο URL...",
+    "cancel": "Ακύρωση", "enterUrl": "Εισάγετε URL εικόνας (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Καλώς ήρθατε!", "welcomeDesc": "Ας ρυθμίσουμε το Discord RPC Manager σας",
+    "chooseLanguage": "Επιλέξτε γλώσσα", "chooseTheme": "Επιλέξτε θέμα",
+    "light": "Φωτεινό", "dark": "Σκοτεινό",
+    "autoStart": "Αυτόματη εκκίνηση", "autoStartDesc": "Εκκίνηση ελαχιστοποιημένο κατά την εκκίνηση",
+    "getStarted": "Ξεκινήστε", "next": "Επόμενο", "back": "Πίσω", "step": "Βήμα {{current}} από {{total}}"
+  },
+  "categories": {
+    "gaming": "Παιχνίδια", "dev": "Ανάπτυξη", "browser": "Φυλλομετρητές", "social": "Κοινωνικά",
+    "media": "Μέσα", "creative": "Δημιουργικά", "productivity": "Παραγωγικότητα",
+    "system": "Σύστημα", "discovered": "Ανιχνευμένα", "other": "Άλλα"
+  }
+}

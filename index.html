@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discord RPC Manager</title>
+  </head>
+  <body style="overflow:hidden">
+    <script>
+      // Apply theme instantly to prevent flash
+      if (localStorage.getItem("theme") !== "light") {
+        document.documentElement.classList.add("dark");
+      }
+      document.body.style.background = localStorage.getItem("theme") === "light" ? "#f5f5f7" : "#0d0d0f";
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+{
+  "nav": { "dashboard": "Bảng điều khiển", "apps": "Ứng dụng", "settings": "Cài đặt" },
+  "sidebar": { "connected": "Đã kết nối", "disconnected": "Ngắt kết nối" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Bảng điều khiển", "subtitle": "Theo dõi và kiểm soát trạng thái Discord của bạn",
+    "serviceRunning": "Dịch vụ đang chạy", "serviceStopped": "Dịch vụ đã dừng",
+    "connectedToDiscord": "Đã kết nối với Discord", "notConnected": "Chưa kết nối",
+    "stop": "Dừng", "start": "Bắt đầu", "currentActivity": "Hoạt động hiện tại",
+    "waitingForFocus": "Đang chờ focus cửa sổ...", "startServicePrompt": "Bắt đầu dịch vụ để theo dõi",
+    "elapsed": "đã trôi qua",
+    "footer1": "Ứng dụng được tự động phát hiện từ cơ sở dữ liệu hơn 80 ứng dụng.",
+    "footer2": "Chuyển đổi giữa các cửa sổ và xem trạng thái Discord cập nhật trực tiếp."
+  },
+  "settings": {
+    "title": "Cài đặt", "subtitle": "Cấu hình tùy chọn Discord RPC",
+    "appearance": "Giao diện", "darkMode": "Chế độ tối", "darkModeDesc": "Chuyển đổi giữa sáng và tối",
+    "language": "Ngôn ngữ", "languageLabel": "Ngôn ngữ hiển thị", "languageDesc": "Chọn ngôn ngữ ưa thích",
+    "polling": "Kiểm tra", "pollInterval": "Khoảng thời gian kiểm tra",
+    "defaultPresence": "Trạng thái mặc định",
+    "defaultPresenceDesc": "Dùng cho ứng dụng không có cấu hình tùy chỉnh. Sử dụng {app_name} làm trình giữ chỗ.",
+    "defaultPresenceDesc2": "Đây là những gì mọi người thấy trên Discord khi bạn sử dụng ứng dụng không có cấu hình tùy chỉnh.",
+    "detailsLabel": "Văn bản chính",
+    "detailsPlaceholder": "Vd. Đang dùng {app_name}",
+    "detailsHint": "Dùng {app_name} để tự động chèn tên ứng dụng",
+    "stateLabel": "Văn bản phụ",
+    "statePlaceholder": "Vd. Đang thư giãn...",
+    "imageLabel": "Hình ảnh",
+    "imagePlaceholder": "URL hình ảnh hoặc để mặc định",
+    "previewAppName": "Ứng dụng của tôi",
+    "previewDetails": "Đang dùng {app_name}",
+    "presenceStyle": "Người khác thấy gì?",
+    "styleUsing": "Đang dùng...",
+    "stylePlaying": "Đang chơi...",
+    "styleOn": "Trên...",
+    "styleWatching": "Đang xem...",
+    "styleListening": "Đang nghe...",
+    "presenceStatus": "Trạng thái (tùy chọn)",
+    "statusNone": "Không có",
+    "statusChilling": "Đang thư giãn",
+    "statusWorking": "Đang làm việc",
+    "statusStreaming": "Đang stream",
+    "statusAFK": "AFK",
+    "details": "Chi tiết", "state": "Trạng thái", "largeImageKey": "Khóa hình ảnh lớn",
+    "steamgriddb": "SteamGridDB — Biểu tượng tự động",
+    "apiKey": "Khóa API", "apiKeyPlaceholder": "Nhập khóa API SteamGridDB", "apiKeyDesc": "Nhận miễn phí tại steamgriddb.com",
+    "startOnBoot": "Tự động khởi động", "startOnBootDesc": "Khởi chạy thu nhỏ khi Windows bắt đầu",
+    "saveSettings": "Lưu cài đặt", "saved": "Đã lưu!"
+  },
+  "apps": {
+    "title": "Ứng dụng", "subtitle": "Quản lý cấu hình và tùy chỉnh ứng dụng",
+    "detected": "Đã phát hiện", "database": "Cơ sở dữ liệu", "custom": "Tùy chỉnh",
+    "noAppsDetected": "Chưa phát hiện ứng dụng", "noAppsDetectedDesc": "Bắt đầu dịch vụ và chuyển đổi giữa các ứng dụng.",
+    "searchApps": "Tìm ứng dụng...", "noCustomOverrides": "Không có tùy chỉnh",
+    "noCustomOverridesDesc": "Nhấn \"Sửa\" trên ứng dụng đã phát hiện để tùy chỉnh.",
+    "edit": "Sửa", "delete": "Xóa", "changeIcon": "Đổi biểu tượng", "noDetails": "Không có chi tiết", "loading": "Đang tải..."
+  },
+  "appConfigForm": {
+    "editTitle": "Sửa cấu hình", "addTitle": "Thêm cấu hình",
+    "executableName": "Tên tệp thực thi", "displayName": "Tên hiển thị",
+    "details": "Chi tiết", "detailsPlaceholder": "Bạn đang làm gì...", "state": "Trạng thái", "statePlaceholder": "Trạng thái hiện tại...",
+    "images": "Hình ảnh", "largeImage": "Hình ảnh lớn (URL hoặc khóa)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Xem trước", "largeImageTooltip": "Tooltip hình ảnh lớn", "hoverText": "Văn bản khi di chuột",
+    "smallImage": "Hình ảnh nhỏ", "smallTooltip": "Tooltip nhỏ", "showElapsedTime": "Hiển thị thời gian",
+    "buttons": "Nút", "add": "Thêm", "buttonText": "Văn bản nút",
+    "buttonLinkDesc": "Thêm nút liên kết (tối đa 2)", "cancel": "Hủy", "save": "Lưu"
+  },
+  "iconPicker": {
+    "title": "Chọn biểu tượng", "pickFor": "Chọn biểu tượng cho",
+    "searchPlaceholder": "Tìm biểu tượng...", "search": "Tìm",
+    "noIcons": "Không tìm thấy biểu tượng.", "customUrl": "URL tùy chỉnh...",
+    "cancel": "Hủy", "enterUrl": "Nhập URL hình ảnh trực tiếp (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Chào mừng!", "welcomeDesc": "Hãy thiết lập Discord RPC Manager của bạn",
+    "chooseLanguage": "Chọn ngôn ngữ", "chooseTheme": "Chọn giao diện",
+    "light": "Sáng", "dark": "Tối",
+    "autoStart": "Tự động khởi động", "autoStartDesc": "Khởi chạy thu nhỏ khi Windows bắt đầu",
+    "getStarted": "Bắt đầu", "next": "Tiếp theo", "back": "Quay lại", "step": "Bước {{current}} / {{total}}"
+  },
+  "categories": {
+    "gaming": "Game", "dev": "Phát triển", "browser": "Trình duyệt", "social": "Xã hội",
+    "media": "Phương tiện", "creative": "Sáng tạo", "productivity": "Năng suất",
+    "system": "Hệ thống", "discovered": "Đã khám phá", "other": "Khác"
+  }
+}

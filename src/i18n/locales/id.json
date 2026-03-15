@@ -1,0 +1,86 @@
+{
+  "nav": { "dashboard": "Dasbor", "apps": "Aplikasi", "settings": "Pengaturan" },
+  "sidebar": { "connected": "Terhubung", "disconnected": "Terputus" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Dasbor", "subtitle": "Pantau dan kontrol kehadiran Discord Anda",
+    "serviceRunning": "Layanan aktif", "serviceStopped": "Layanan berhenti",
+    "connectedToDiscord": "Terhubung ke Discord", "notConnected": "Tidak terhubung",
+    "stop": "Hentikan", "start": "Mulai", "currentActivity": "Aktivitas saat ini",
+    "waitingForFocus": "Menunggu fokus jendela...", "startServicePrompt": "Mulai layanan untuk mulai melacak",
+    "elapsed": "berlalu",
+    "footer1": "Aplikasi terdeteksi otomatis dari database 80+ aplikasi.",
+    "footer2": "Beralih antar jendela dan lihat kehadiran Discord Anda diperbarui secara langsung."
+  },
+  "settings": {
+    "title": "Pengaturan", "subtitle": "Konfigurasi preferensi Discord RPC Anda",
+    "appearance": "Tampilan", "darkMode": "Mode gelap", "darkModeDesc": "Beralih antara terang dan gelap",
+    "language": "Bahasa", "languageLabel": "Bahasa tampilan", "languageDesc": "Pilih bahasa pilihan Anda",
+    "polling": "Polling", "pollInterval": "Interval polling",
+    "defaultPresence": "Kehadiran default",
+    "defaultPresenceDesc": "Digunakan untuk aplikasi tanpa konfigurasi kustom. Gunakan {app_name} sebagai placeholder.",
+    "defaultPresenceDesc2": "Ini yang dilihat orang di Discord saat Anda menggunakan aplikasi tanpa konfigurasi kustom.",
+    "detailsLabel": "Teks utama",
+    "detailsPlaceholder": "Mis. Menggunakan {app_name}",
+    "detailsHint": "Gunakan {app_name} untuk menyisipkan nama aplikasi secara otomatis",
+    "stateLabel": "Teks sekunder",
+    "statePlaceholder": "Mis. Bersantai...",
+    "imageLabel": "Gambar",
+    "imagePlaceholder": "URL gambar atau biarkan default",
+    "previewAppName": "Aplikasi Saya",
+    "previewDetails": "Menggunakan {app_name}",
+    "presenceStyle": "Apa yang dilihat orang lain?",
+    "styleUsing": "Menggunakan...",
+    "stylePlaying": "Bermain...",
+    "styleOn": "Di...",
+    "styleWatching": "Menonton...",
+    "styleListening": "Mendengarkan...",
+    "presenceStatus": "Status (opsional)",
+    "statusNone": "Tidak ada",
+    "statusChilling": "Santai",
+    "statusWorking": "Bekerja",
+    "statusStreaming": "Streaming",
+    "statusAFK": "AFK",
+    "details": "Detail", "state": "Status", "largeImageKey": "Kunci gambar besar",
+    "steamgriddb": "SteamGridDB — Ikon otomatis",
+    "apiKey": "Kunci API", "apiKeyPlaceholder": "Masukkan kunci API SteamGridDB", "apiKeyDesc": "Dapatkan gratis di steamgriddb.com",
+    "startOnBoot": "Mulai otomatis", "startOnBootDesc": "Luncurkan diminimalkan saat Windows mulai",
+    "saveSettings": "Simpan pengaturan", "saved": "Tersimpan!"
+  },
+  "apps": {
+    "title": "Aplikasi", "subtitle": "Kelola konfigurasi dan kustomisasi aplikasi",
+    "detected": "Terdeteksi", "database": "Database", "custom": "Kustom",
+    "noAppsDetected": "Belum ada aplikasi terdeteksi", "noAppsDetectedDesc": "Mulai layanan dan beralih antar aplikasi.",
+    "searchApps": "Cari aplikasi...", "noCustomOverrides": "Tidak ada kustomisasi",
+    "noCustomOverridesDesc": "Klik \"Edit\" pada aplikasi terdeteksi untuk menyesuaikan.",
+    "edit": "Edit", "delete": "Hapus", "changeIcon": "Ubah ikon", "noDetails": "Tidak ada detail", "loading": "Memuat..."
+  },
+  "appConfigForm": {
+    "editTitle": "Edit konfigurasi", "addTitle": "Tambah konfigurasi",
+    "executableName": "Nama file eksekusi", "displayName": "Nama tampilan",
+    "details": "Detail", "detailsPlaceholder": "Apa yang Anda lakukan...", "state": "Status", "statePlaceholder": "Status saat ini...",
+    "images": "Gambar", "largeImage": "Gambar besar (URL atau kunci)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Pratinjau", "largeImageTooltip": "Tooltip gambar besar", "hoverText": "Teks hover",
+    "smallImage": "Gambar kecil", "smallTooltip": "Tooltip kecil", "showElapsedTime": "Tampilkan waktu",
+    "buttons": "Tombol", "add": "Tambah", "buttonText": "Teks tombol",
+    "buttonLinkDesc": "Tambahkan tombol tautan (maks 2)", "cancel": "Batal", "save": "Simpan"
+  },
+  "iconPicker": {
+    "title": "Pilih ikon", "pickFor": "Pilih ikon untuk",
+    "searchPlaceholder": "Cari ikon...", "search": "Cari",
+    "noIcons": "Ikon tidak ditemukan.", "customUrl": "URL kustom...",
+    "cancel": "Batal", "enterUrl": "Masukkan URL gambar langsung (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Selamat datang!", "welcomeDesc": "Mari atur Discord RPC Manager Anda",
+    "chooseLanguage": "Pilih bahasa Anda", "chooseTheme": "Pilih tema Anda",
+    "light": "Terang", "dark": "Gelap",
+    "autoStart": "Mulai otomatis", "autoStartDesc": "Luncurkan diminimalkan saat Windows mulai",
+    "getStarted": "Mulai", "next": "Berikutnya", "back": "Kembali", "step": "Langkah {{current}} dari {{total}}"
+  },
+  "categories": {
+    "gaming": "Game", "dev": "Pengembangan", "browser": "Browser", "social": "Sosial",
+    "media": "Media", "creative": "Kreatif", "productivity": "Produktivitas",
+    "system": "Sistem", "discovered": "Ditemukan", "other": "Lainnya"
+  }
+}

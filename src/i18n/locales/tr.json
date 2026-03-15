@@ -1,0 +1,89 @@
+{
+  "nav": { "dashboard": "Panel", "apps": "Uygulamalar", "settings": "Ayarlar" },
+  "sidebar": { "connected": "Bağlı", "disconnected": "Bağlı değil" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Panel", "subtitle": "Discord durumunuzu izleyin ve kontrol edin",
+    "serviceRunning": "Servis aktif", "serviceStopped": "Servis durduruldu",
+    "connectedToDiscord": "Discord'a bağlı", "notConnected": "Bağlı değil",
+    "stop": "Durdur", "start": "Başlat", "currentActivity": "Mevcut aktivite",
+    "waitingForFocus": "Pencere odağı bekleniyor...",
+    "startServicePrompt": "İzlemeye başlamak için servisi başlatın",
+    "elapsed": "geçti",
+    "footer1": "Uygulamalar 80'den fazla uygulamanın bulunduğu veritabanından otomatik algılanır.",
+    "footer2": "Pencereler arasında geçiş yapın ve Discord durumunuzun canlı güncellenmesini izleyin."
+  },
+  "settings": {
+    "title": "Ayarlar", "subtitle": "Discord RPC tercihlerinizi yapılandırın",
+    "appearance": "Görünüm", "darkMode": "Karanlık mod", "darkModeDesc": "Açık ve karanlık arasında geçiş",
+    "language": "Dil", "languageLabel": "Görüntüleme dili", "languageDesc": "Tercih ettiğiniz dili seçin",
+    "polling": "Yoklama", "pollInterval": "Yoklama aralığı",
+    "defaultPresence": "Varsayılan durum",
+    "defaultPresenceDesc": "Özel yapılandırması olmayan uygulamalar için kullanılır. {app_name} yer tutucusunu kullanın.",
+    "defaultPresenceDesc2": "Bu, insanların özel yapılandırması olmayan bir uygulama kullandığınızda Discord'da gördükleridir.",
+    "detailsLabel": "Ana metin",
+    "detailsPlaceholder": "Örn. {app_name} kullanıyorum",
+    "detailsHint": "Uygulama adını otomatik eklemek için {app_name} kullanın",
+    "stateLabel": "İkincil metin",
+    "statePlaceholder": "Örn. Dinleniyorum...",
+    "imageLabel": "Görsel",
+    "imagePlaceholder": "Görsel URL'si veya varsayılanı bırakın",
+    "previewAppName": "Uygulamam",
+    "previewDetails": "{app_name} kullanıyorum",
+    "presenceStyle": "Başkaları ne görür?",
+    "styleUsing": "Kullanıyor...",
+    "stylePlaying": "Oynuyor...",
+    "styleOn": "Üzerinde...",
+    "styleWatching": "İzliyor...",
+    "styleListening": "Dinliyor...",
+    "presenceStatus": "Durum (isteğe bağlı)",
+    "statusNone": "Yok",
+    "statusChilling": "Dinleniyor",
+    "statusWorking": "Çalışıyor",
+    "statusStreaming": "Yayın yapıyor",
+    "statusAFK": "AFK",
+    "details": "Ayrıntılar", "state": "Durum", "largeImageKey": "Büyük görsel anahtarı",
+    "steamgriddb": "SteamGridDB — Otomatik simgeler",
+    "apiKey": "API Anahtarı", "apiKeyPlaceholder": "SteamGridDB API anahtarınızı girin",
+    "apiKeyDesc": "steamgriddb.com'dan ücretsiz alın",
+    "startOnBoot": "Otomatik başlat", "startOnBootDesc": "Windows başlatıldığında küçültülmüş olarak başlat",
+    "saveSettings": "Ayarları kaydet", "saved": "Kaydedildi!"
+  },
+  "apps": {
+    "title": "Uygulamalar", "subtitle": "Uygulama yapılandırmalarını ve özelleştirmelerini yönetin",
+    "detected": "Algılanan", "database": "Veritabanı", "custom": "Özel",
+    "noAppsDetected": "Uygulama algılanmadı", "noAppsDetectedDesc": "Servisi başlatın ve uygulamalar arasında geçiş yapın.",
+    "searchApps": "Uygulama ara...", "noCustomOverrides": "Özelleştirme yok",
+    "noCustomOverridesDesc": "Algılanan bir uygulamada \"Düzenle\" ye tıklayarak Discord durumunu özelleştirin.",
+    "edit": "Düzenle", "delete": "Sil", "changeIcon": "Simgeyi değiştir", "noDetails": "Ayrıntı yok", "loading": "Yükleniyor..."
+  },
+  "appConfigForm": {
+    "editTitle": "Yapılandırmayı düzenle", "addTitle": "Yapılandırma ekle",
+    "executableName": "Yürütülebilir dosya adı", "displayName": "Görüntüleme adı",
+    "details": "Ayrıntılar", "detailsPlaceholder": "Ne yapıyorsunuz...",
+    "state": "Durum", "statePlaceholder": "Mevcut durum...",
+    "images": "Görseller", "largeImage": "Büyük görsel (URL veya anahtar)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Önizleme", "largeImageTooltip": "Büyük görsel ipucu", "hoverText": "Üzerine gelince metin",
+    "smallImage": "Küçük görsel", "smallTooltip": "Küçük ipucu", "showElapsedTime": "Geçen süreyi göster",
+    "buttons": "Düğmeler", "add": "Ekle", "buttonText": "Düğme metni",
+    "buttonLinkDesc": "Durumunuza tıklanabilir bağlantı düğmeleri ekleyin (maks. 2)", "cancel": "İptal", "save": "Kaydet"
+  },
+  "iconPicker": {
+    "title": "Simge seç", "pickFor": "Simge seç:",
+    "searchPlaceholder": "Simge ara...", "search": "Ara",
+    "noIcons": "Simge bulunamadı. Farklı bir terim deneyin.", "customUrl": "Özel URL...",
+    "cancel": "İptal", "enterUrl": "Doğrudan görsel URL'si girin (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Hoş geldiniz!", "welcomeDesc": "Discord RPC Manager'ınızı kuralım",
+    "chooseLanguage": "Dilinizi seçin", "chooseTheme": "Temanızı seçin",
+    "light": "Açık", "dark": "Karanlık",
+    "autoStart": "Otomatik başlat", "autoStartDesc": "Windows başlatıldığında küçültülmüş olarak başlat",
+    "getStarted": "Başla", "next": "İleri", "back": "Geri", "step": "Adım {{current}} / {{total}}"
+  },
+  "categories": {
+    "gaming": "Oyunlar", "dev": "Geliştirme", "browser": "Tarayıcılar", "social": "Sosyal",
+    "media": "Medya", "creative": "Yaratıcı", "productivity": "Verimlilik",
+    "system": "Sistem", "discovered": "Keşfedilen", "other": "Diğer"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "nav": { "dashboard": "Dashboard", "apps": "Apps", "settings": "Instellingen" },
+  "sidebar": { "connected": "Verbonden", "disconnected": "Niet verbonden" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Dashboard", "subtitle": "Beheer en controleer je Discord-aanwezigheid",
+    "serviceRunning": "Service actief", "serviceStopped": "Service gestopt",
+    "connectedToDiscord": "Verbonden met Discord", "notConnected": "Niet verbonden",
+    "stop": "Stoppen", "start": "Starten", "currentActivity": "Huidige activiteit",
+    "waitingForFocus": "Wachten op vensterfocus...",
+    "startServicePrompt": "Start de service om te beginnen met volgen",
+    "elapsed": "verstreken",
+    "footer1": "Apps worden automatisch gedetecteerd uit een database van meer dan 80 apps.",
+    "footer2": "Schakel tussen vensters en zie je Discord-aanwezigheid live bijwerken."
+  },
+  "settings": {
+    "title": "Instellingen", "subtitle": "Configureer je Discord RPC-voorkeuren",
+    "appearance": "Uiterlijk", "darkMode": "Donkere modus", "darkModeDesc": "Schakel tussen licht en donker",
+    "language": "Taal", "languageLabel": "Weergavetaal", "languageDesc": "Kies je voorkeurstaal",
+    "polling": "Polling", "pollInterval": "Polling-interval",
+    "defaultPresence": "Standaard aanwezigheid",
+    "defaultPresenceDesc": "Gebruikt voor apps zonder aangepaste configuratie. Gebruik {app_name} als tijdelijke aanduiding.",
+    "defaultPresenceDesc2": "Dit is wat mensen op Discord zien wanneer je een app gebruikt zonder aangepaste configuratie.",
+    "detailsLabel": "Hoofdtekst",
+    "detailsPlaceholder": "Bijv. Bezig met {app_name}",
+    "detailsHint": "Gebruik {app_name} om de appnaam automatisch in te voegen",
+    "stateLabel": "Secundaire tekst",
+    "statePlaceholder": "Bijv. Ontspannen...",
+    "imageLabel": "Afbeelding",
+    "imagePlaceholder": "Afbeeldings-URL of standaard laten",
+    "previewAppName": "Mijn App",
+    "previewDetails": "Bezig met {app_name}",
+    "presenceStyle": "Wat zien anderen?",
+    "styleUsing": "Bezig met...",
+    "stylePlaying": "Aan het spelen...",
+    "styleOn": "Op...",
+    "styleWatching": "Aan het kijken...",
+    "styleListening": "Aan het luisteren...",
+    "presenceStatus": "Status (optioneel)",
+    "statusNone": "Geen",
+    "statusChilling": "Ontspannen",
+    "statusWorking": "Aan het werken",
+    "statusStreaming": "Aan het streamen",
+    "statusAFK": "AFK",
+    "details": "Details", "state": "Status", "largeImageKey": "Grote afbeelding sleutel",
+    "steamgriddb": "SteamGridDB — Automatische pictogrammen",
+    "apiKey": "API-sleutel", "apiKeyPlaceholder": "Voer je SteamGridDB API-sleutel in",
+    "apiKeyDesc": "Gratis verkrijgbaar op steamgriddb.com",
+    "startOnBoot": "Automatisch starten", "startOnBootDesc": "Geminimaliseerd starten bij Windows-start",
+    "saveSettings": "Instellingen opslaan", "saved": "Opgeslagen!"
+  },
+  "apps": {
+    "title": "Apps", "subtitle": "Beheer app-configuraties en aanpassingen",
+    "detected": "Gedetecteerd", "database": "Database", "custom": "Aangepast",
+    "noAppsDetected": "Geen apps gedetecteerd", "noAppsDetectedDesc": "Start de service en schakel tussen apps om ze hier te zien.",
+    "searchApps": "Apps zoeken...", "noCustomOverrides": "Geen aanpassingen",
+    "noCustomOverridesDesc": "Klik op \"Bewerken\" op een gedetecteerde app om de Discord-aanwezigheid aan te passen.",
+    "edit": "Bewerken", "delete": "Verwijderen", "changeIcon": "Pictogram wijzigen", "noDetails": "Geen details", "loading": "Laden..."
+  },
+  "appConfigForm": {
+    "editTitle": "Configuratie bewerken", "addTitle": "Configuratie toevoegen",
+    "executableName": "Naam uitvoerbaar bestand", "displayName": "Weergavenaam",
+    "details": "Details", "detailsPlaceholder": "Wat je aan het doen bent...",
+    "state": "Status", "statePlaceholder": "Huidige status...",
+    "images": "Afbeeldingen", "largeImage": "Grote afbeelding (URL of sleutel)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Voorbeeld", "largeImageTooltip": "Grote afbeelding tooltip", "hoverText": "Zweeftekst",
+    "smallImage": "Kleine afbeelding", "smallTooltip": "Kleine tooltip", "showElapsedTime": "Verstreken tijd tonen",
+    "buttons": "Knoppen", "add": "Toevoegen", "buttonText": "Knoptekst",
+    "buttonLinkDesc": "Voeg klikbare linkknoppen toe (max 2)", "cancel": "Annuleren", "save": "Opslaan"
+  },
+  "iconPicker": {
+    "title": "Pictogram kiezen", "pickFor": "Kies een pictogram voor",
+    "searchPlaceholder": "Pictogrammen zoeken...", "search": "Zoeken",
+    "noIcons": "Geen pictogrammen gevonden. Probeer een andere zoekterm.", "customUrl": "Aangepaste URL...",
+    "cancel": "Annuleren", "enterUrl": "Voer een directe afbeeldings-URL in (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Welkom!", "welcomeDesc": "Laten we je Discord RPC Manager instellen",
+    "chooseLanguage": "Kies je taal", "chooseTheme": "Kies je thema",
+    "light": "Licht", "dark": "Donker",
+    "autoStart": "Automatisch starten", "autoStartDesc": "Geminimaliseerd starten bij Windows-start",
+    "getStarted": "Aan de slag", "next": "Volgende", "back": "Terug", "step": "Stap {{current}} van {{total}}"
+  },
+  "categories": {
+    "gaming": "Games", "dev": "Ontwikkeling", "browser": "Browsers", "social": "Sociaal",
+    "media": "Media", "creative": "Creatief", "productivity": "Productiviteit",
+    "system": "Systeem", "discovered": "Ontdekt", "other": "Overig"
+  }
+}

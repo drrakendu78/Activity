@@ -1,0 +1,86 @@
+{
+  "nav": { "dashboard": "Skydelis", "apps": "Programos", "settings": "Nustatymai" },
+  "sidebar": { "connected": "Prisijungta", "disconnected": "Atjungta" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Skydelis", "subtitle": "Stebėkite ir valdykite savo buvimą Discord",
+    "serviceRunning": "Paslauga veikia", "serviceStopped": "Paslauga sustabdyta",
+    "connectedToDiscord": "Prisijungta prie Discord", "notConnected": "Neprisijungta",
+    "stop": "Sustabdyti", "start": "Paleisti", "currentActivity": "Dabartinė veikla",
+    "waitingForFocus": "Laukiama lango fokuso...", "startServicePrompt": "Paleiskite paslaugą sekimui pradėti",
+    "elapsed": "praėjo",
+    "footer1": "Programos automatiškai aptinkamos iš 80+ programų duomenų bazės.",
+    "footer2": "Perjunkite langus ir stebėkite, kaip atnaujinamas jūsų Discord buvimas."
+  },
+  "settings": {
+    "title": "Nustatymai", "subtitle": "Konfigūruokite Discord RPC nuostatas",
+    "appearance": "Išvaizda", "darkMode": "Tamsusis režimas", "darkModeDesc": "Perjungti tarp šviesaus ir tamsaus",
+    "language": "Kalba", "languageLabel": "Rodymo kalba", "languageDesc": "Pasirinkite pageidaujamą kalbą",
+    "polling": "Tikrinimas", "pollInterval": "Tikrinimo intervalas",
+    "defaultPresence": "Numatytasis buvimas",
+    "defaultPresenceDesc": "Naudojama programoms be pasirinktinės konfigūracijos. Naudokite {app_name} kaip vietos žymeklį.",
+    "defaultPresenceDesc2": "Tai matys žmonės Discord, kai naudosite programą be pasirinktinės konfigūracijos.",
+    "detailsLabel": "Pagrindinis tekstas",
+    "detailsPlaceholder": "Pvz. Naudoju {app_name}",
+    "detailsHint": "Naudokite {app_name} automatiškai įterpti programos pavadinimą",
+    "stateLabel": "Papildomas tekstas",
+    "statePlaceholder": "Pvz. Ilsiuosi...",
+    "imageLabel": "Paveikslėlis",
+    "imagePlaceholder": "Paveikslėlio URL arba palikti numatytąjį",
+    "previewAppName": "Mano programa",
+    "previewDetails": "Naudoju {app_name}",
+    "presenceStyle": "Ką mato kiti?",
+    "styleUsing": "Naudoja...",
+    "stylePlaying": "Žaidžia...",
+    "styleOn": "Naudoja...",
+    "styleWatching": "Žiūri...",
+    "styleListening": "Klausosi...",
+    "presenceStatus": "Statusas (neprivaloma)",
+    "statusNone": "Nėra",
+    "statusChilling": "Ilsisi",
+    "statusWorking": "Dirba",
+    "statusStreaming": "Transliuoja",
+    "statusAFK": "AFK",
+    "details": "Detalės", "state": "Būsena", "largeImageKey": "Didelio paveikslėlio raktas",
+    "steamgriddb": "SteamGridDB — Automatinės piktogramos",
+    "apiKey": "API raktas", "apiKeyPlaceholder": "Įveskite SteamGridDB API raktą", "apiKeyDesc": "Gaukite nemokamai steamgriddb.com",
+    "startOnBoot": "Automatinis paleidimas", "startOnBootDesc": "Paleisti sumažintą paleidžiant Windows",
+    "saveSettings": "Išsaugoti nustatymus", "saved": "Išsaugota!"
+  },
+  "apps": {
+    "title": "Programos", "subtitle": "Tvarkykite programų konfigūracijas",
+    "detected": "Aptiktos", "database": "Duomenų bazė", "custom": "Pasirinktinės",
+    "noAppsDetected": "Programos neaptiktos", "noAppsDetectedDesc": "Paleiskite paslaugą ir perjunkite programas.",
+    "searchApps": "Ieškoti programų...", "noCustomOverrides": "Nėra pritaikymų",
+    "noCustomOverridesDesc": "Spustelėkite \"Redaguoti\" aptiktoje programoje.",
+    "edit": "Redaguoti", "delete": "Ištrinti", "changeIcon": "Keisti piktogramą", "noDetails": "Nėra detalių", "loading": "Kraunama..."
+  },
+  "appConfigForm": {
+    "editTitle": "Redaguoti konfigūraciją", "addTitle": "Pridėti konfigūraciją",
+    "executableName": "Vykdomojo failo pavadinimas", "displayName": "Rodomas pavadinimas",
+    "details": "Detalės", "detailsPlaceholder": "Ką darote...", "state": "Būsena", "statePlaceholder": "Dabartinė būsena...",
+    "images": "Paveikslėliai", "largeImage": "Didelis paveikslėlis (URL arba raktas)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Peržiūra", "largeImageTooltip": "Didelio paveikslėlio patarimas", "hoverText": "Tekstas užvedus",
+    "smallImage": "Mažas paveikslėlis", "smallTooltip": "Mažas patarimas", "showElapsedTime": "Rodyti praėjusį laiką",
+    "buttons": "Mygtukai", "add": "Pridėti", "buttonText": "Mygtuko tekstas",
+    "buttonLinkDesc": "Pridėkite nuorodų mygtukus (maks. 2)", "cancel": "Atšaukti", "save": "Išsaugoti"
+  },
+  "iconPicker": {
+    "title": "Pasirinkti piktogramą", "pickFor": "Pasirinkite piktogramą",
+    "searchPlaceholder": "Ieškoti piktogramų...", "search": "Ieškoti",
+    "noIcons": "Piktogramų nerasta.", "customUrl": "Pasirinktinis URL...",
+    "cancel": "Atšaukti", "enterUrl": "Įveskite tiesioginį paveikslėlio URL (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Sveiki!", "welcomeDesc": "Nustatykime jūsų Discord RPC Manager",
+    "chooseLanguage": "Pasirinkite kalbą", "chooseTheme": "Pasirinkite temą",
+    "light": "Šviesi", "dark": "Tamsi",
+    "autoStart": "Automatinis paleidimas", "autoStartDesc": "Paleisti sumažintą paleidžiant Windows",
+    "getStarted": "Pradėti", "next": "Toliau", "back": "Atgal", "step": "Žingsnis {{current}} iš {{total}}"
+  },
+  "categories": {
+    "gaming": "Žaidimai", "dev": "Programavimas", "browser": "Naršyklės", "social": "Socialinės",
+    "media": "Medija", "creative": "Kūrybinės", "productivity": "Produktyvumas",
+    "system": "Sistema", "discovered": "Aptiktos", "other": "Kita"
+  }
+}

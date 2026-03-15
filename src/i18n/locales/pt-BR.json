@@ -1,0 +1,89 @@
+{
+  "nav": { "dashboard": "Painel", "apps": "Apps", "settings": "Configurações" },
+  "sidebar": { "connected": "Conectado", "disconnected": "Desconectado" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Painel", "subtitle": "Monitore e controle sua presença no Discord",
+    "serviceRunning": "Serviço ativo", "serviceStopped": "Serviço parado",
+    "connectedToDiscord": "Conectado ao Discord", "notConnected": "Não conectado",
+    "stop": "Parar", "start": "Iniciar", "currentActivity": "Atividade atual",
+    "waitingForFocus": "Aguardando foco da janela...",
+    "startServicePrompt": "Inicie o serviço para começar o rastreamento",
+    "elapsed": "decorrido",
+    "footer1": "Os apps são detectados automaticamente de um banco de dados de mais de 80 apps.",
+    "footer2": "Alterne entre janelas e veja sua presença no Discord atualizar ao vivo."
+  },
+  "settings": {
+    "title": "Configurações", "subtitle": "Configure suas preferências do Discord RPC",
+    "appearance": "Aparência", "darkMode": "Modo escuro", "darkModeDesc": "Alternar entre claro e escuro",
+    "language": "Idioma", "languageLabel": "Idioma de exibição", "languageDesc": "Escolha seu idioma preferido",
+    "polling": "Sondagem", "pollInterval": "Intervalo de sondagem",
+    "defaultPresence": "Presença padrão",
+    "defaultPresenceDesc": "Usado para apps sem configuração personalizada. Use {app_name} como marcador.",
+    "defaultPresenceDesc2": "Isso é o que as pessoas veem no Discord quando você usa um app sem configuração personalizada.",
+    "detailsLabel": "Texto principal",
+    "detailsPlaceholder": "Ex. Usando {app_name}",
+    "detailsHint": "Use {app_name} para inserir automaticamente o nome do app",
+    "stateLabel": "Texto secundário",
+    "statePlaceholder": "Ex. Relaxando...",
+    "imageLabel": "Imagem",
+    "imagePlaceholder": "URL da imagem ou deixar padrão",
+    "previewAppName": "Meu App",
+    "previewDetails": "Usando {app_name}",
+    "presenceStyle": "O que os outros veem?",
+    "styleUsing": "Usando...",
+    "stylePlaying": "Jogando...",
+    "styleOn": "Em...",
+    "styleWatching": "Assistindo...",
+    "styleListening": "Ouvindo...",
+    "presenceStatus": "Status (opcional)",
+    "statusNone": "Nenhum",
+    "statusChilling": "Relaxando",
+    "statusWorking": "Trabalhando",
+    "statusStreaming": "Transmitindo",
+    "statusAFK": "AFK",
+    "details": "Detalhes", "state": "Estado", "largeImageKey": "Chave da imagem grande",
+    "steamgriddb": "SteamGridDB — Ícones automáticos",
+    "apiKey": "Chave API", "apiKeyPlaceholder": "Insira sua chave API do SteamGridDB",
+    "apiKeyDesc": "Obtenha uma grátis em steamgriddb.com",
+    "startOnBoot": "Iniciar com o Windows", "startOnBootDesc": "Abrir minimizado ao iniciar o Windows",
+    "saveSettings": "Salvar configurações", "saved": "Salvo!"
+  },
+  "apps": {
+    "title": "Apps", "subtitle": "Gerencie configurações e personalizações de apps",
+    "detected": "Detectados", "database": "Banco de dados", "custom": "Personalizados",
+    "noAppsDetected": "Nenhum app detectado", "noAppsDetectedDesc": "Inicie o serviço e alterne entre apps para vê-los aqui.",
+    "searchApps": "Buscar apps...", "noCustomOverrides": "Sem personalizações",
+    "noCustomOverridesDesc": "Clique em \"Editar\" em um app detectado para personalizar sua presença.",
+    "edit": "Editar", "delete": "Excluir", "changeIcon": "Mudar ícone", "noDetails": "Sem detalhes", "loading": "Carregando..."
+  },
+  "appConfigForm": {
+    "editTitle": "Editar configuração", "addTitle": "Adicionar configuração",
+    "executableName": "Nome do executável", "displayName": "Nome de exibição",
+    "details": "Detalhes", "detailsPlaceholder": "O que você está fazendo...",
+    "state": "Estado", "statePlaceholder": "Estado atual...",
+    "images": "Imagens", "largeImage": "Imagem grande (URL ou chave)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Pré-visualização", "largeImageTooltip": "Tooltip da imagem grande", "hoverText": "Texto ao passar o cursor",
+    "smallImage": "Imagem pequena", "smallTooltip": "Tooltip pequeno", "showElapsedTime": "Mostrar tempo decorrido",
+    "buttons": "Botões", "add": "Adicionar", "buttonText": "Texto do botão",
+    "buttonLinkDesc": "Adicione botões com link à sua presença (máx. 2)", "cancel": "Cancelar", "save": "Salvar"
+  },
+  "iconPicker": {
+    "title": "Escolher ícone", "pickFor": "Escolher ícone para",
+    "searchPlaceholder": "Buscar ícones...", "search": "Buscar",
+    "noIcons": "Nenhum ícone encontrado. Tente outro termo.", "customUrl": "URL personalizada...",
+    "cancel": "Cancelar", "enterUrl": "Insira uma URL direta de imagem (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Bem-vindo!", "welcomeDesc": "Vamos configurar seu Discord RPC Manager",
+    "chooseLanguage": "Escolha seu idioma", "chooseTheme": "Escolha seu tema",
+    "light": "Claro", "dark": "Escuro",
+    "autoStart": "Iniciar com o Windows", "autoStartDesc": "Abrir minimizado ao iniciar o Windows",
+    "getStarted": "Começar", "next": "Próximo", "back": "Voltar", "step": "Passo {{current}} de {{total}}"
+  },
+  "categories": {
+    "gaming": "Jogos", "dev": "Desenvolvimento", "browser": "Navegadores", "social": "Social",
+    "media": "Mídia", "creative": "Criativo", "productivity": "Produtividade",
+    "system": "Sistema", "discovered": "Descobertos", "other": "Outros"
+  }
+}

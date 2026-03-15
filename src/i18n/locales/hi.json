@@ -1,0 +1,86 @@
+{
+  "nav": { "dashboard": "डैशबोर्ड", "apps": "ऐप्स", "settings": "सेटिंग्स" },
+  "sidebar": { "connected": "कनेक्टेड", "disconnected": "डिस्कनेक्टेड" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "डैशबोर्ड", "subtitle": "अपनी Discord उपस्थिति को मॉनिटर और नियंत्रित करें",
+    "serviceRunning": "सेवा चालू", "serviceStopped": "सेवा बंद",
+    "connectedToDiscord": "Discord से कनेक्टेड", "notConnected": "कनेक्ट नहीं है",
+    "stop": "बंद करें", "start": "शुरू करें", "currentActivity": "वर्तमान गतिविधि",
+    "waitingForFocus": "विंडो फोकस की प्रतीक्षा...", "startServicePrompt": "ट्रैकिंग शुरू करने के लिए सेवा शुरू करें",
+    "elapsed": "बीत चुका",
+    "footer1": "ऐप्स 80+ ऐप्स के बिल्ट-इन डेटाबेस से स्वतः पहचाने जाते हैं।",
+    "footer2": "विंडो के बीच स्विच करें और अपनी Discord उपस्थिति को लाइव अपडेट होते देखें।"
+  },
+  "settings": {
+    "title": "सेटिंग्स", "subtitle": "अपनी Discord RPC प्राथमिकताएँ कॉन्फ़िगर करें",
+    "appearance": "दिखावट", "darkMode": "डार्क मोड", "darkModeDesc": "लाइट और डार्क के बीच स्विच करें",
+    "language": "भाषा", "languageLabel": "प्रदर्शन भाषा", "languageDesc": "अपनी पसंदीदा भाषा चुनें",
+    "polling": "पोलिंग", "pollInterval": "पोलिंग अंतराल",
+    "defaultPresence": "डिफ़ॉल्ट उपस्थिति",
+    "defaultPresenceDesc": "कस्टम कॉन्फ़िगरेशन के बिना ऐप्स के लिए उपयोग किया जाता है। {app_name} प्लेसहोल्डर का उपयोग करें।",
+    "defaultPresenceDesc2": "जब आप बिना कस्टम कॉन्फ़िगरेशन के ऐप का उपयोग करते हैं तो लोग Discord पर यही देखते हैं।",
+    "detailsLabel": "मुख्य टेक्स्ट",
+    "detailsPlaceholder": "उदा. {app_name} का उपयोग कर रहा हूँ",
+    "detailsHint": "ऐप का नाम स्वतः डालने के लिए {app_name} का उपयोग करें",
+    "stateLabel": "द्वितीयक टेक्स्ट",
+    "statePlaceholder": "उदा. आराम कर रहा हूँ...",
+    "imageLabel": "छवि",
+    "imagePlaceholder": "छवि URL या डिफ़ॉल्ट छोड़ें",
+    "previewAppName": "मेरा ऐप",
+    "previewDetails": "{app_name} का उपयोग कर रहा हूँ",
+    "presenceStyle": "दूसरे क्या देखते हैं?",
+    "styleUsing": "उपयोग कर रहा है...",
+    "stylePlaying": "खेल रहा है...",
+    "styleOn": "पर है...",
+    "styleWatching": "देख रहा है...",
+    "styleListening": "सुन रहा है...",
+    "presenceStatus": "स्थिति (वैकल्पिक)",
+    "statusNone": "कोई नहीं",
+    "statusChilling": "आराम कर रहा है",
+    "statusWorking": "काम कर रहा है",
+    "statusStreaming": "स्ट्रीम कर रहा है",
+    "statusAFK": "AFK",
+    "details": "विवरण", "state": "स्थिति", "largeImageKey": "बड़ी छवि कुंजी",
+    "steamgriddb": "SteamGridDB — ऑटो आइकन",
+    "apiKey": "API कुंजी", "apiKeyPlaceholder": "SteamGridDB API कुंजी दर्ज करें", "apiKeyDesc": "steamgriddb.com पर मुफ्त प्राप्त करें",
+    "startOnBoot": "ऑटो स्टार्ट", "startOnBootDesc": "Windows शुरू होने पर मिनिमाइज़्ड लॉन्च करें",
+    "saveSettings": "सेटिंग्स सहेजें", "saved": "सहेजा गया!"
+  },
+  "apps": {
+    "title": "ऐप्स", "subtitle": "ऐप कॉन्फ़िगरेशन और ओवरराइड प्रबंधित करें",
+    "detected": "पहचाने गए", "database": "डेटाबेस", "custom": "कस्टम",
+    "noAppsDetected": "कोई ऐप नहीं मिला", "noAppsDetectedDesc": "सेवा शुरू करें और ऐप्स के बीच स्विच करें।",
+    "searchApps": "ऐप्स खोजें...", "noCustomOverrides": "कोई कस्टम ओवरराइड नहीं",
+    "noCustomOverridesDesc": "किसी पहचाने गए ऐप पर \"एडिट\" क्लिक करें।",
+    "edit": "एडिट", "delete": "हटाएं", "changeIcon": "आइकन बदलें", "noDetails": "कोई विवरण नहीं", "loading": "लोड हो रहा है..."
+  },
+  "appConfigForm": {
+    "editTitle": "कॉन्फ़िगरेशन एडिट करें", "addTitle": "कॉन्फ़िगरेशन जोड़ें",
+    "executableName": "एक्ज़ीक्यूटेबल नाम", "displayName": "प्रदर्शन नाम",
+    "details": "विवरण", "detailsPlaceholder": "आप क्या कर रहे हैं...", "state": "स्थिति", "statePlaceholder": "वर्तमान स्थिति...",
+    "images": "छवियाँ", "largeImage": "बड़ी छवि (URL या कुंजी)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "पूर्वावलोकन", "largeImageTooltip": "बड़ी छवि टूलटिप", "hoverText": "होवर टेक्स्ट",
+    "smallImage": "छोटी छवि", "smallTooltip": "छोटा टूलटिप", "showElapsedTime": "बीता समय दिखाएं",
+    "buttons": "बटन", "add": "जोड़ें", "buttonText": "बटन टेक्स्ट",
+    "buttonLinkDesc": "क्लिक करने योग्य लिंक बटन जोड़ें (अधिकतम 2)", "cancel": "रद्द करें", "save": "सहेजें"
+  },
+  "iconPicker": {
+    "title": "आइकन चुनें", "pickFor": "आइकन चुनें:",
+    "searchPlaceholder": "आइकन खोजें...", "search": "खोजें",
+    "noIcons": "कोई आइकन नहीं मिला।", "customUrl": "कस्टम URL...",
+    "cancel": "रद्द करें", "enterUrl": "सीधा छवि URL दर्ज करें (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "स्वागत है!", "welcomeDesc": "आइए आपका Discord RPC Manager सेट करें",
+    "chooseLanguage": "अपनी भाषा चुनें", "chooseTheme": "अपनी थीम चुनें",
+    "light": "लाइट", "dark": "डार्क",
+    "autoStart": "ऑटो स्टार्ट", "autoStartDesc": "Windows शुरू होने पर मिनिमाइज़्ड लॉन्च करें",
+    "getStarted": "शुरू करें", "next": "अगला", "back": "पीछे", "step": "चरण {{current}} / {{total}}"
+  },
+  "categories": {
+    "gaming": "गेमिंग", "dev": "डेवलपमेंट", "browser": "ब्राउज़र", "social": "सोशल",
+    "media": "मीडिया", "creative": "क्रिएटिव", "productivity": "प्रोडक्टिविटी",
+    "system": "सिस्टम", "discovered": "खोजे गए", "other": "अन्य"
+  }
+}

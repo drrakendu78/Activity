@@ -1,0 +1,88 @@
+{
+  "nav": { "dashboard": "Přehled", "apps": "Aplikace", "settings": "Nastavení" },
+  "sidebar": { "connected": "Připojeno", "disconnected": "Odpojeno" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Přehled", "subtitle": "Sledujte a ovládejte svou přítomnost na Discordu",
+    "serviceRunning": "Služba běží", "serviceStopped": "Služba zastavena",
+    "connectedToDiscord": "Připojeno k Discordu", "notConnected": "Nepřipojeno",
+    "stop": "Zastavit", "start": "Spustit", "currentActivity": "Aktuální aktivita",
+    "waitingForFocus": "Čekání na zaměření okna...", "startServicePrompt": "Spusťte službu pro zahájení sledování",
+    "elapsed": "uplynulo",
+    "footer1": "Aplikace jsou automaticky detekovány z databáze více než 80 aplikací.",
+    "footer2": "Přepínejte mezi okny a sledujte aktualizaci přítomnosti na Discordu."
+  },
+  "settings": {
+    "title": "Nastavení", "subtitle": "Nakonfigurujte předvolby Discord RPC",
+    "appearance": "Vzhled", "darkMode": "Tmavý režim", "darkModeDesc": "Přepínání mezi světlým a tmavým",
+    "language": "Jazyk", "languageLabel": "Jazyk zobrazení", "languageDesc": "Vyberte preferovaný jazyk",
+    "polling": "Dotazování", "pollInterval": "Interval dotazování",
+    "defaultPresence": "Výchozí přítomnost",
+    "defaultPresenceDesc": "Používá se pro aplikace bez vlastní konfigurace. Použijte {app_name} jako zástupce.",
+    "defaultPresenceDesc2": "To vidí lidé na Discordu, když používáte aplikaci bez vlastní konfigurace.",
+    "detailsLabel": "Hlavní text",
+    "detailsPlaceholder": "Např. Používám {app_name}",
+    "detailsHint": "Použijte {app_name} pro automatické vložení názvu aplikace",
+    "stateLabel": "Vedlejší text",
+    "statePlaceholder": "Např. Relaxuji...",
+    "imageLabel": "Obrázek",
+    "imagePlaceholder": "URL obrázku nebo ponechat výchozí",
+    "previewAppName": "Moje aplikace",
+    "previewDetails": "Používám {app_name}",
+    "presenceStyle": "Co vidí ostatní?",
+    "styleUsing": "Používám...",
+    "stylePlaying": "Hraji...",
+    "styleOn": "Na...",
+    "styleWatching": "Sleduji...",
+    "styleListening": "Poslouchám...",
+    "presenceStatus": "Stav (volitelně)",
+    "statusNone": "Žádný",
+    "statusChilling": "Relaxuji",
+    "statusWorking": "Pracuji",
+    "statusStreaming": "Streamuji",
+    "statusAFK": "AFK",
+    "details": "Podrobnosti", "state": "Stav", "largeImageKey": "Klíč velkého obrázku",
+    "steamgriddb": "SteamGridDB — Automatické ikony",
+    "apiKey": "API klíč", "apiKeyPlaceholder": "Zadejte svůj SteamGridDB API klíč",
+    "apiKeyDesc": "Získejte zdarma na steamgriddb.com",
+    "startOnBoot": "Automatický start", "startOnBootDesc": "Spouštět minimalizovaně při startu Windows",
+    "saveSettings": "Uložit nastavení", "saved": "Uloženo!"
+  },
+  "apps": {
+    "title": "Aplikace", "subtitle": "Spravujte konfigurace a přizpůsobení aplikací",
+    "detected": "Detekované", "database": "Databáze", "custom": "Vlastní",
+    "noAppsDetected": "Žádné aplikace nebyly detekovány", "noAppsDetectedDesc": "Spusťte službu a přepínejte mezi aplikacemi.",
+    "searchApps": "Hledat aplikace...", "noCustomOverrides": "Žádná přizpůsobení",
+    "noCustomOverridesDesc": "Klikněte na \"Upravit\" u detekované aplikace pro přizpůsobení.",
+    "edit": "Upravit", "delete": "Smazat", "changeIcon": "Změnit ikonu", "noDetails": "Žádné podrobnosti", "loading": "Načítání..."
+  },
+  "appConfigForm": {
+    "editTitle": "Upravit konfiguraci", "addTitle": "Přidat konfiguraci",
+    "executableName": "Název spustitelného souboru", "displayName": "Zobrazovaný název",
+    "details": "Podrobnosti", "detailsPlaceholder": "Co děláte...",
+    "state": "Stav", "statePlaceholder": "Aktuální stav...",
+    "images": "Obrázky", "largeImage": "Velký obrázek (URL nebo klíč)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Náhled", "largeImageTooltip": "Popisek velkého obrázku", "hoverText": "Text při najetí",
+    "smallImage": "Malý obrázek", "smallTooltip": "Malý popisek", "showElapsedTime": "Zobrazit uplynulý čas",
+    "buttons": "Tlačítka", "add": "Přidat", "buttonText": "Text tlačítka",
+    "buttonLinkDesc": "Přidejte klikací odkazy (max 2)", "cancel": "Zrušit", "save": "Uložit"
+  },
+  "iconPicker": {
+    "title": "Vybrat ikonu", "pickFor": "Vybrat ikonu pro",
+    "searchPlaceholder": "Hledat ikony...", "search": "Hledat",
+    "noIcons": "Žádné ikony nenalezeny. Zkuste jiný výraz.", "customUrl": "Vlastní URL...",
+    "cancel": "Zrušit", "enterUrl": "Zadejte přímý URL obrázku (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Vítejte!", "welcomeDesc": "Nastavme váš Discord RPC Manager",
+    "chooseLanguage": "Vyberte jazyk", "chooseTheme": "Vyberte motiv",
+    "light": "Světlý", "dark": "Tmavý",
+    "autoStart": "Automatický start", "autoStartDesc": "Spouštět minimalizovaně při startu Windows",
+    "getStarted": "Začít", "next": "Další", "back": "Zpět", "step": "Krok {{current}} z {{total}}"
+  },
+  "categories": {
+    "gaming": "Hry", "dev": "Vývoj", "browser": "Prohlížeče", "social": "Sociální",
+    "media": "Média", "creative": "Kreativní", "productivity": "Produktivita",
+    "system": "Systém", "discovered": "Objevené", "other": "Ostatní"
+  }
+}

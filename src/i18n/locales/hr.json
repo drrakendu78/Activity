@@ -1,0 +1,86 @@
+{
+  "nav": { "dashboard": "Nadzorna ploča", "apps": "Aplikacije", "settings": "Postavke" },
+  "sidebar": { "connected": "Povezano", "disconnected": "Nepovezano" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Nadzorna ploča", "subtitle": "Pratite i kontrolirajte svoju prisutnost na Discordu",
+    "serviceRunning": "Usluga aktivna", "serviceStopped": "Usluga zaustavljena",
+    "connectedToDiscord": "Povezano s Discordom", "notConnected": "Nije povezano",
+    "stop": "Zaustavi", "start": "Pokreni", "currentActivity": "Trenutna aktivnost",
+    "waitingForFocus": "Čekanje na fokus prozora...", "startServicePrompt": "Pokrenite uslugu za početak praćenja",
+    "elapsed": "proteklo",
+    "footer1": "Aplikacije se automatski otkrivaju iz baze podataka s više od 80 aplikacija.",
+    "footer2": "Prebacujte se između prozora i pratite ažuriranje prisutnosti na Discordu."
+  },
+  "settings": {
+    "title": "Postavke", "subtitle": "Konfigurirajte postavke Discord RPC",
+    "appearance": "Izgled", "darkMode": "Tamni način", "darkModeDesc": "Prebacivanje između svijetlog i tamnog",
+    "language": "Jezik", "languageLabel": "Jezik prikaza", "languageDesc": "Odaberite željeni jezik",
+    "polling": "Provjera", "pollInterval": "Interval provjere",
+    "defaultPresence": "Zadana prisutnost",
+    "defaultPresenceDesc": "Koristi se za aplikacije bez prilagođene konfiguracije. Koristite {app_name} kao zamjenu.",
+    "defaultPresenceDesc2": "Ovo vide ljudi na Discordu kada koristite aplikaciju bez prilagođene konfiguracije.",
+    "detailsLabel": "Glavni tekst",
+    "detailsPlaceholder": "Npr. Koristim {app_name}",
+    "detailsHint": "Koristite {app_name} za automatsko umetanje naziva aplikacije",
+    "stateLabel": "Sekundarni tekst",
+    "statePlaceholder": "Npr. Odmaranje...",
+    "imageLabel": "Slika",
+    "imagePlaceholder": "URL slike ili ostavite zadano",
+    "previewAppName": "Moja aplikacija",
+    "previewDetails": "Koristim {app_name}",
+    "presenceStyle": "Što vide drugi?",
+    "styleUsing": "Koristi...",
+    "stylePlaying": "Igra...",
+    "styleOn": "Na...",
+    "styleWatching": "Gleda...",
+    "styleListening": "Sluša...",
+    "presenceStatus": "Status (neobavezno)",
+    "statusNone": "Ništa",
+    "statusChilling": "Odmara se",
+    "statusWorking": "Radi",
+    "statusStreaming": "Streama",
+    "statusAFK": "AFK",
+    "details": "Detalji", "state": "Stanje", "largeImageKey": "Ključ velike slike",
+    "steamgriddb": "SteamGridDB — Automatske ikone",
+    "apiKey": "API ključ", "apiKeyPlaceholder": "Unesite SteamGridDB API ključ", "apiKeyDesc": "Nabavite besplatno na steamgriddb.com",
+    "startOnBoot": "Automatsko pokretanje", "startOnBootDesc": "Pokretanje minimizirano pri pokretanju Windowsa",
+    "saveSettings": "Spremi postavke", "saved": "Spremljeno!"
+  },
+  "apps": {
+    "title": "Aplikacije", "subtitle": "Upravljajte konfiguracijama aplikacija",
+    "detected": "Otkrivene", "database": "Baza podataka", "custom": "Prilagođene",
+    "noAppsDetected": "Nema otkrivenih aplikacija", "noAppsDetectedDesc": "Pokrenite uslugu i prebacujte se između aplikacija.",
+    "searchApps": "Traži aplikacije...", "noCustomOverrides": "Nema prilagodbi",
+    "noCustomOverridesDesc": "Kliknite \"Uredi\" na otkrivenoj aplikaciji za prilagodbu.",
+    "edit": "Uredi", "delete": "Obriši", "changeIcon": "Promijeni ikonu", "noDetails": "Nema detalja", "loading": "Učitavanje..."
+  },
+  "appConfigForm": {
+    "editTitle": "Uredi konfiguraciju", "addTitle": "Dodaj konfiguraciju",
+    "executableName": "Naziv izvršne datoteke", "displayName": "Prikazni naziv",
+    "details": "Detalji", "detailsPlaceholder": "Što radite...", "state": "Stanje", "statePlaceholder": "Trenutno stanje...",
+    "images": "Slike", "largeImage": "Velika slika (URL ili ključ)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Pregled", "largeImageTooltip": "Opis velike slike", "hoverText": "Tekst pri prijelazu",
+    "smallImage": "Mala slika", "smallTooltip": "Mali opis", "showElapsedTime": "Prikaži proteklo vrijeme",
+    "buttons": "Gumbi", "add": "Dodaj", "buttonText": "Tekst gumba",
+    "buttonLinkDesc": "Dodajte gumbe s poveznicama (maks. 2)", "cancel": "Odustani", "save": "Spremi"
+  },
+  "iconPicker": {
+    "title": "Odaberi ikonu", "pickFor": "Odaberi ikonu za",
+    "searchPlaceholder": "Traži ikone...", "search": "Traži",
+    "noIcons": "Ikone nisu pronađene.", "customUrl": "Prilagođeni URL...",
+    "cancel": "Odustani", "enterUrl": "Unesite izravni URL slike (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Dobrodošli!", "welcomeDesc": "Postavimo vaš Discord RPC Manager",
+    "chooseLanguage": "Odaberite jezik", "chooseTheme": "Odaberite temu",
+    "light": "Svijetla", "dark": "Tamna",
+    "autoStart": "Automatsko pokretanje", "autoStartDesc": "Pokretanje minimizirano pri pokretanju",
+    "getStarted": "Započni", "next": "Dalje", "back": "Natrag", "step": "Korak {{current}} od {{total}}"
+  },
+  "categories": {
+    "gaming": "Igre", "dev": "Razvoj", "browser": "Preglednici", "social": "Društveno",
+    "media": "Mediji", "creative": "Kreativno", "productivity": "Produktivnost",
+    "system": "Sustav", "discovered": "Otkrivene", "other": "Ostalo"
+  }
+}

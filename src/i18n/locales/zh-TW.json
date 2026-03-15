@@ -1,0 +1,89 @@
+{
+  "nav": { "dashboard": "儀表板", "apps": "應用程式", "settings": "設定" },
+  "sidebar": { "connected": "已連線", "disconnected": "已斷線" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "儀表板", "subtitle": "監控和管理您的 Discord 狀態",
+    "serviceRunning": "服務運行中", "serviceStopped": "服務已停止",
+    "connectedToDiscord": "已連線至 Discord", "notConnected": "未連線",
+    "stop": "停止", "start": "啟動", "currentActivity": "目前活動",
+    "waitingForFocus": "等待視窗焦點...",
+    "startServicePrompt": "啟動服務以開始追蹤",
+    "elapsed": "已過",
+    "footer1": "應用程式從超過 80 個應用的內建資料庫中自動偵測。",
+    "footer2": "在視窗之間切換，觀察您的 Discord 狀態即時更新。"
+  },
+  "settings": {
+    "title": "設定", "subtitle": "配置您的 Discord RPC 偏好設定",
+    "appearance": "外觀", "darkMode": "深色模式", "darkModeDesc": "在淺色和深色之間切換",
+    "language": "語言", "languageLabel": "顯示語言", "languageDesc": "選擇您偏好的語言",
+    "polling": "輪詢", "pollInterval": "輪詢間隔",
+    "defaultPresence": "預設狀態",
+    "defaultPresenceDesc": "用於沒有自訂配置的應用程式。使用 {app_name} 作為佔位符。",
+    "defaultPresenceDesc2": "這是您使用沒有自訂配置的應用程式時，別人在 Discord 上看到的內容。",
+    "detailsLabel": "主要文字",
+    "detailsPlaceholder": "例如：正在使用 {app_name}",
+    "detailsHint": "使用 {app_name} 自動插入應用程式名稱",
+    "stateLabel": "次要文字",
+    "statePlaceholder": "例如：休閒中...",
+    "imageLabel": "圖片",
+    "imagePlaceholder": "圖片 URL 或保持預設",
+    "previewAppName": "我的應用程式",
+    "previewDetails": "正在使用 {app_name}",
+    "presenceStyle": "別人看到什麼？",
+    "styleUsing": "正在使用...",
+    "stylePlaying": "正在玩...",
+    "styleOn": "正在用...",
+    "styleWatching": "正在看...",
+    "styleListening": "正在聽...",
+    "presenceStatus": "狀態（可選）",
+    "statusNone": "無",
+    "statusChilling": "休閒中",
+    "statusWorking": "工作中",
+    "statusStreaming": "直播中",
+    "statusAFK": "離開",
+    "details": "詳細資訊", "state": "狀態", "largeImageKey": "大圖片金鑰",
+    "steamgriddb": "SteamGridDB — 自動圖示",
+    "apiKey": "API 金鑰", "apiKeyPlaceholder": "輸入您的 SteamGridDB API 金鑰",
+    "apiKeyDesc": "在 steamgriddb.com 免費取得",
+    "startOnBoot": "開機啟動", "startOnBootDesc": "Windows 啟動時最小化啟動",
+    "saveSettings": "儲存設定", "saved": "已儲存！"
+  },
+  "apps": {
+    "title": "應用程式", "subtitle": "管理應用程式配置和自訂設定",
+    "detected": "已偵測", "database": "資料庫", "custom": "自訂",
+    "noAppsDetected": "未偵測到應用程式", "noAppsDetectedDesc": "啟動服務並在應用程式之間切換。",
+    "searchApps": "搜尋應用程式...", "noCustomOverrides": "無自訂設定",
+    "noCustomOverridesDesc": "點擊已偵測應用程式上的「編輯」來自訂其 Discord 狀態。",
+    "edit": "編輯", "delete": "刪除", "changeIcon": "更換圖示", "noDetails": "無詳細資訊", "loading": "載入中..."
+  },
+  "appConfigForm": {
+    "editTitle": "編輯配置", "addTitle": "新增配置",
+    "executableName": "執行檔名稱", "displayName": "顯示名稱",
+    "details": "詳細資訊", "detailsPlaceholder": "您正在做什麼...",
+    "state": "狀態", "statePlaceholder": "目前狀態...",
+    "images": "圖片", "largeImage": "大圖片（URL 或金鑰）", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "預覽", "largeImageTooltip": "大圖片提示", "hoverText": "懸停文字",
+    "smallImage": "小圖片", "smallTooltip": "小提示", "showElapsedTime": "顯示經過時間",
+    "buttons": "按鈕", "add": "新增", "buttonText": "按鈕文字",
+    "buttonLinkDesc": "為您的狀態添加可點擊的連結按鈕（最多 2 個）", "cancel": "取消", "save": "儲存"
+  },
+  "iconPicker": {
+    "title": "選擇圖示", "pickFor": "為以下選擇圖示",
+    "searchPlaceholder": "搜尋圖示...", "search": "搜尋",
+    "noIcons": "未找到圖示。請嘗試其他搜尋詞。", "customUrl": "自訂 URL...",
+    "cancel": "取消", "enterUrl": "輸入圖片直連 URL（PNG/JPG）："
+  },
+  "setup": {
+    "welcome": "歡迎！", "welcomeDesc": "讓我們設定您的 Discord RPC Manager",
+    "chooseLanguage": "選擇您的語言", "chooseTheme": "選擇您的主題",
+    "light": "淺色", "dark": "深色",
+    "autoStart": "開機啟動", "autoStartDesc": "Windows 啟動時最小化啟動",
+    "getStarted": "開始使用", "next": "下一步", "back": "上一步", "step": "步驟 {{current}} / {{total}}"
+  },
+  "categories": {
+    "gaming": "遊戲", "dev": "開發", "browser": "瀏覽器", "social": "社交",
+    "media": "媒體", "creative": "創意", "productivity": "生產力",
+    "system": "系統", "discovered": "已發現", "other": "其他"
+  }
+}

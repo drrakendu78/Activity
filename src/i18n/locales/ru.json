@@ -1,0 +1,89 @@
+{
+  "nav": { "dashboard": "Панель", "apps": "Приложения", "settings": "Настройки" },
+  "sidebar": { "connected": "Подключено", "disconnected": "Отключено" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Панель", "subtitle": "Следите за своим присутствием в Discord и управляйте им",
+    "serviceRunning": "Сервис активен", "serviceStopped": "Сервис остановлен",
+    "connectedToDiscord": "Подключено к Discord", "notConnected": "Не подключено",
+    "stop": "Остановить", "start": "Запустить", "currentActivity": "Текущая активность",
+    "waitingForFocus": "Ожидание фокуса окна...",
+    "startServicePrompt": "Запустите сервис для начала отслеживания",
+    "elapsed": "прошло",
+    "footer1": "Приложения определяются автоматически из базы данных более 80 приложений.",
+    "footer2": "Переключайтесь между окнами и наблюдайте, как обновляется ваше присутствие в Discord."
+  },
+  "settings": {
+    "title": "Настройки", "subtitle": "Настройте параметры Discord RPC",
+    "appearance": "Внешний вид", "darkMode": "Тёмный режим", "darkModeDesc": "Переключение между светлой и тёмной темой",
+    "language": "Язык", "languageLabel": "Язык интерфейса", "languageDesc": "Выберите предпочтительный язык",
+    "polling": "Опрос", "pollInterval": "Интервал опроса",
+    "defaultPresence": "Присутствие по умолчанию",
+    "defaultPresenceDesc": "Используется для приложений без пользовательских настроек. Используйте {app_name} как заполнитель.",
+    "defaultPresenceDesc2": "Это видят люди в Discord, когда вы используете приложение без собственной настройки.",
+    "detailsLabel": "Основной текст",
+    "detailsPlaceholder": "Напр. Использую {app_name}",
+    "detailsHint": "Используйте {app_name} для автоматической вставки названия приложения",
+    "stateLabel": "Дополнительный текст",
+    "statePlaceholder": "Напр. Отдыхаю...",
+    "imageLabel": "Изображение",
+    "imagePlaceholder": "URL изображения или оставить по умолчанию",
+    "previewAppName": "Моё приложение",
+    "previewDetails": "Использую {app_name}",
+    "presenceStyle": "Что видят другие?",
+    "styleUsing": "Использую...",
+    "stylePlaying": "Играю...",
+    "styleOn": "В...",
+    "styleWatching": "Смотрю...",
+    "styleListening": "Слушаю...",
+    "presenceStatus": "Статус (необязательно)",
+    "statusNone": "Нет",
+    "statusChilling": "Отдыхаю",
+    "statusWorking": "Работаю",
+    "statusStreaming": "Стримлю",
+    "statusAFK": "AFK",
+    "details": "Подробности", "state": "Состояние", "largeImageKey": "Ключ большого изображения",
+    "steamgriddb": "SteamGridDB — Автоиконки",
+    "apiKey": "API ключ", "apiKeyPlaceholder": "Введите ваш API ключ SteamGridDB",
+    "apiKeyDesc": "Получите бесплатно на steamgriddb.com",
+    "startOnBoot": "Автозапуск", "startOnBootDesc": "Запускать свёрнутым при старте Windows",
+    "saveSettings": "Сохранить настройки", "saved": "Сохранено!"
+  },
+  "apps": {
+    "title": "Приложения", "subtitle": "Управляйте настройками и персонализацией приложений",
+    "detected": "Обнаруженные", "database": "База данных", "custom": "Пользовательские",
+    "noAppsDetected": "Приложения не обнаружены", "noAppsDetectedDesc": "Запустите сервис и переключайтесь между приложениями.",
+    "searchApps": "Поиск приложений...", "noCustomOverrides": "Нет пользовательских настроек",
+    "noCustomOverridesDesc": "Нажмите \"Изменить\" на обнаруженном приложении для персонализации.",
+    "edit": "Изменить", "delete": "Удалить", "changeIcon": "Сменить иконку", "noDetails": "Нет деталей", "loading": "Загрузка..."
+  },
+  "appConfigForm": {
+    "editTitle": "Редактировать конфигурацию", "addTitle": "Добавить конфигурацию",
+    "executableName": "Имя исполняемого файла", "displayName": "Отображаемое имя",
+    "details": "Подробности", "detailsPlaceholder": "Чем вы занимаетесь...",
+    "state": "Состояние", "statePlaceholder": "Текущее состояние...",
+    "images": "Изображения", "largeImage": "Большое изображение (URL или ключ)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Предпросмотр", "largeImageTooltip": "Подсказка большого изображения", "hoverText": "Текст при наведении",
+    "smallImage": "Маленькое изображение", "smallTooltip": "Малая подсказка", "showElapsedTime": "Показывать прошедшее время",
+    "buttons": "Кнопки", "add": "Добавить", "buttonText": "Текст кнопки",
+    "buttonLinkDesc": "Добавьте кнопки со ссылками в ваше присутствие (макс. 2)", "cancel": "Отмена", "save": "Сохранить"
+  },
+  "iconPicker": {
+    "title": "Выбрать иконку", "pickFor": "Выбрать иконку для",
+    "searchPlaceholder": "Поиск иконок...", "search": "Поиск",
+    "noIcons": "Иконки не найдены. Попробуйте другой запрос.", "customUrl": "Свой URL...",
+    "cancel": "Отмена", "enterUrl": "Введите прямой URL изображения (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Добро пожаловать!", "welcomeDesc": "Давайте настроим ваш Discord RPC Manager",
+    "chooseLanguage": "Выберите язык", "chooseTheme": "Выберите тему",
+    "light": "Светлая", "dark": "Тёмная",
+    "autoStart": "Автозапуск", "autoStartDesc": "Запускать свёрнутым при старте Windows",
+    "getStarted": "Начать", "next": "Далее", "back": "Назад", "step": "Шаг {{current}} из {{total}}"
+  },
+  "categories": {
+    "gaming": "Игры", "dev": "Разработка", "browser": "Браузеры", "social": "Социальные",
+    "media": "Медиа", "creative": "Творчество", "productivity": "Продуктивность",
+    "system": "Система", "discovered": "Обнаруженные", "other": "Другое"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "nav": { "dashboard": "Översikt", "apps": "Appar", "settings": "Inställningar" },
+  "sidebar": { "connected": "Ansluten", "disconnected": "Frånkopplad" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Översikt", "subtitle": "Övervaka och kontrollera din Discord-närvaro",
+    "serviceRunning": "Tjänsten körs", "serviceStopped": "Tjänsten stoppad",
+    "connectedToDiscord": "Ansluten till Discord", "notConnected": "Inte ansluten",
+    "stop": "Stoppa", "start": "Starta", "currentActivity": "Aktuell aktivitet",
+    "waitingForFocus": "Väntar på fönsterfokus...",
+    "startServicePrompt": "Starta tjänsten för att börja spåra",
+    "elapsed": "förflutit",
+    "footer1": "Appar upptäcks automatiskt från en databas med över 80 appar.",
+    "footer2": "Växla mellan fönster och se din Discord-närvaro uppdateras i realtid."
+  },
+  "settings": {
+    "title": "Inställningar", "subtitle": "Konfigurera dina Discord RPC-inställningar",
+    "appearance": "Utseende", "darkMode": "Mörkt läge", "darkModeDesc": "Växla mellan ljust och mörkt",
+    "language": "Språk", "languageLabel": "Visningsspråk", "languageDesc": "Välj ditt föredragna språk",
+    "polling": "Polling", "pollInterval": "Pollingsintervall",
+    "defaultPresence": "Standardnärvaro",
+    "defaultPresenceDesc": "Används för appar utan anpassad konfiguration. Använd {app_name} som platshållare.",
+    "defaultPresenceDesc2": "Det här är vad folk ser på Discord när du använder en app utan anpassad konfiguration.",
+    "detailsLabel": "Huvudtext",
+    "detailsPlaceholder": "T.ex. Använder {app_name}",
+    "detailsHint": "Använd {app_name} för att automatiskt infoga appnamnet",
+    "stateLabel": "Sekundär text",
+    "statePlaceholder": "T.ex. Kopplar av...",
+    "imageLabel": "Bild",
+    "imagePlaceholder": "Bild-URL eller behåll standard",
+    "previewAppName": "Min App",
+    "previewDetails": "Använder {app_name}",
+    "presenceStyle": "Vad ser andra?",
+    "styleUsing": "Använder...",
+    "stylePlaying": "Spelar...",
+    "styleOn": "På...",
+    "styleWatching": "Tittar på...",
+    "styleListening": "Lyssnar på...",
+    "presenceStatus": "Status (valfritt)",
+    "statusNone": "Ingen",
+    "statusChilling": "Chillar",
+    "statusWorking": "Jobbar",
+    "statusStreaming": "Streamar",
+    "statusAFK": "AFK",
+    "details": "Detaljer", "state": "Status", "largeImageKey": "Stor bildnyckel",
+    "steamgriddb": "SteamGridDB — Automatiska ikoner",
+    "apiKey": "API-nyckel", "apiKeyPlaceholder": "Ange din SteamGridDB API-nyckel",
+    "apiKeyDesc": "Hämta en gratis på steamgriddb.com",
+    "startOnBoot": "Autostart", "startOnBootDesc": "Starta minimerad vid Windows-start",
+    "saveSettings": "Spara inställningar", "saved": "Sparat!"
+  },
+  "apps": {
+    "title": "Appar", "subtitle": "Hantera appkonfigurationer och anpassningar",
+    "detected": "Upptäckta", "database": "Databas", "custom": "Anpassade",
+    "noAppsDetected": "Inga appar upptäckta", "noAppsDetectedDesc": "Starta tjänsten och växla mellan appar för att se dem här.",
+    "searchApps": "Sök appar...", "noCustomOverrides": "Inga anpassningar",
+    "noCustomOverridesDesc": "Klicka på \"Redigera\" på en upptäckt app för att anpassa dess närvaro.",
+    "edit": "Redigera", "delete": "Ta bort", "changeIcon": "Ändra ikon", "noDetails": "Inga detaljer", "loading": "Laddar..."
+  },
+  "appConfigForm": {
+    "editTitle": "Redigera konfiguration", "addTitle": "Lägg till konfiguration",
+    "executableName": "Körbart filnamn", "displayName": "Visningsnamn",
+    "details": "Detaljer", "detailsPlaceholder": "Vad du gör...",
+    "state": "Status", "statePlaceholder": "Aktuell status...",
+    "images": "Bilder", "largeImage": "Stor bild (URL eller nyckel)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Förhandsvisning", "largeImageTooltip": "Stor bild tooltip", "hoverText": "Hovringstext",
+    "smallImage": "Liten bild", "smallTooltip": "Liten tooltip", "showElapsedTime": "Visa förfluten tid",
+    "buttons": "Knappar", "add": "Lägg till", "buttonText": "Knapptext",
+    "buttonLinkDesc": "Lägg till klickbara länkknappar (max 2)", "cancel": "Avbryt", "save": "Spara"
+  },
+  "iconPicker": {
+    "title": "Välj ikon", "pickFor": "Välj ikon för",
+    "searchPlaceholder": "Sök ikoner...", "search": "Sök",
+    "noIcons": "Inga ikoner hittade. Prova ett annat sökord.", "customUrl": "Anpassad URL...",
+    "cancel": "Avbryt", "enterUrl": "Ange en direkt bild-URL (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Välkommen!", "welcomeDesc": "Låt oss konfigurera din Discord RPC Manager",
+    "chooseLanguage": "Välj ditt språk", "chooseTheme": "Välj ditt tema",
+    "light": "Ljust", "dark": "Mörkt",
+    "autoStart": "Autostart", "autoStartDesc": "Starta minimerad vid Windows-start",
+    "getStarted": "Kom igång", "next": "Nästa", "back": "Tillbaka", "step": "Steg {{current}} av {{total}}"
+  },
+  "categories": {
+    "gaming": "Spel", "dev": "Utveckling", "browser": "Webbläsare", "social": "Socialt",
+    "media": "Media", "creative": "Kreativt", "productivity": "Produktivitet",
+    "system": "System", "discovered": "Upptäckta", "other": "Övrigt"
+  }
+}

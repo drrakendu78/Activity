@@ -1,0 +1,89 @@
+{
+  "nav": { "dashboard": "Панель", "apps": "Додатки", "settings": "Налаштування" },
+  "sidebar": { "connected": "Підключено", "disconnected": "Відключено" },
+  "titlebar": { "title": "Discord RPC Manager" },
+  "dashboard": {
+    "title": "Панель", "subtitle": "Відстежуйте та контролюйте свою присутність у Discord",
+    "serviceRunning": "Сервіс активний", "serviceStopped": "Сервіс зупинено",
+    "connectedToDiscord": "Підключено до Discord", "notConnected": "Не підключено",
+    "stop": "Зупинити", "start": "Запустити", "currentActivity": "Поточна активність",
+    "waitingForFocus": "Очікування фокусу вікна...",
+    "startServicePrompt": "Запустіть сервіс для початку відстеження",
+    "elapsed": "минуло",
+    "footer1": "Додатки визначаються автоматично з бази даних понад 80 додатків.",
+    "footer2": "Перемикайтеся між вікнами та спостерігайте за оновленням присутності у Discord."
+  },
+  "settings": {
+    "title": "Налаштування", "subtitle": "Налаштуйте параметри Discord RPC",
+    "appearance": "Зовнішній вигляд", "darkMode": "Темний режим", "darkModeDesc": "Перемикання між світлою та темною темою",
+    "language": "Мова", "languageLabel": "Мова інтерфейсу", "languageDesc": "Оберіть бажану мову",
+    "polling": "Опитування", "pollInterval": "Інтервал опитування",
+    "defaultPresence": "Присутність за замовчуванням",
+    "defaultPresenceDesc": "Використовується для додатків без налаштувань. Використовуйте {app_name} як заповнювач.",
+    "defaultPresenceDesc2": "Це те, що люди бачать у Discord, коли ви використовуєте додаток без власної конфігурації.",
+    "detailsLabel": "Основний текст",
+    "detailsPlaceholder": "Напр. Використовую {app_name}",
+    "detailsHint": "Використовуйте {app_name} для автоматичної вставки назви додатку",
+    "stateLabel": "Додатковий текст",
+    "statePlaceholder": "Напр. Відпочиваю...",
+    "imageLabel": "Зображення",
+    "imagePlaceholder": "URL зображення або залишити за замовчуванням",
+    "previewAppName": "Мій додаток",
+    "previewDetails": "Використовую {app_name}",
+    "presenceStyle": "Що бачать інші?",
+    "styleUsing": "Використовую...",
+    "stylePlaying": "Граю...",
+    "styleOn": "В...",
+    "styleWatching": "Дивлюся...",
+    "styleListening": "Слухаю...",
+    "presenceStatus": "Статус (необов'язково)",
+    "statusNone": "Немає",
+    "statusChilling": "Відпочиваю",
+    "statusWorking": "Працюю",
+    "statusStreaming": "Стримлю",
+    "statusAFK": "AFK",
+    "details": "Деталі", "state": "Стан", "largeImageKey": "Ключ великого зображення",
+    "steamgriddb": "SteamGridDB — Автоіконки",
+    "apiKey": "API ключ", "apiKeyPlaceholder": "Введіть API ключ SteamGridDB",
+    "apiKeyDesc": "Отримайте безкоштовно на steamgriddb.com",
+    "startOnBoot": "Автозапуск", "startOnBootDesc": "Запускати згорнутим при старті Windows",
+    "saveSettings": "Зберегти налаштування", "saved": "Збережено!"
+  },
+  "apps": {
+    "title": "Додатки", "subtitle": "Керуйте налаштуваннями та персоналізацією додатків",
+    "detected": "Виявлені", "database": "База даних", "custom": "Користувацькі",
+    "noAppsDetected": "Додатки не виявлено", "noAppsDetectedDesc": "Запустіть сервіс та перемикайтеся між додатками.",
+    "searchApps": "Пошук додатків...", "noCustomOverrides": "Немає персоналізацій",
+    "noCustomOverridesDesc": "Натисніть \"Редагувати\" на виявленому додатку для персоналізації.",
+    "edit": "Редагувати", "delete": "Видалити", "changeIcon": "Змінити іконку", "noDetails": "Немає деталей", "loading": "Завантаження..."
+  },
+  "appConfigForm": {
+    "editTitle": "Редагувати конфігурацію", "addTitle": "Додати конфігурацію",
+    "executableName": "Ім'я виконуваного файлу", "displayName": "Відображуване ім'я",
+    "details": "Деталі", "detailsPlaceholder": "Чим ви займаєтесь...",
+    "state": "Стан", "statePlaceholder": "Поточний стан...",
+    "images": "Зображення", "largeImage": "Велике зображення (URL або ключ)", "largeImagePlaceholder": "https://example.com/icon.png",
+    "preview": "Попередній перегляд", "largeImageTooltip": "Підказка великого зображення", "hoverText": "Текст при наведенні",
+    "smallImage": "Мале зображення", "smallTooltip": "Мала підказка", "showElapsedTime": "Показувати час",
+    "buttons": "Кнопки", "add": "Додати", "buttonText": "Текст кнопки",
+    "buttonLinkDesc": "Додайте кнопки з посиланнями (макс. 2)", "cancel": "Скасувати", "save": "Зберегти"
+  },
+  "iconPicker": {
+    "title": "Обрати іконку", "pickFor": "Обрати іконку для",
+    "searchPlaceholder": "Пошук іконок...", "search": "Пошук",
+    "noIcons": "Іконки не знайдено. Спробуйте інший запит.", "customUrl": "Власний URL...",
+    "cancel": "Скасувати", "enterUrl": "Введіть прямий URL зображення (PNG/JPG):"
+  },
+  "setup": {
+    "welcome": "Ласкаво просимо!", "welcomeDesc": "Налаштуймо ваш Discord RPC Manager",
+    "chooseLanguage": "Оберіть мову", "chooseTheme": "Оберіть тему",
+    "light": "Світла", "dark": "Темна",
+    "autoStart": "Автозапуск", "autoStartDesc": "Запускати згорнутим при старті Windows",
+    "getStarted": "Почати", "next": "Далі", "back": "Назад", "step": "Крок {{current}} з {{total}}"
+  },
+  "categories": {
+    "gaming": "Ігри", "dev": "Розробка", "browser": "Браузери", "social": "Соціальні",
+    "media": "Медіа", "creative": "Творчість", "productivity": "Продуктивність",
+    "system": "Система", "discovered": "Виявлені", "other": "Інше"
+  }
+}
