@@ -1,11 +1,8 @@
 import { getCurrentWindow } from "@tauri-apps/api/window";
-import { useTranslation } from "react-i18next";
 
 const isTauri = "__TAURI_INTERNALS__" in window;
 
 export default function Titlebar() {
-  const { t } = useTranslation();
-
   const handleMinimize = () => {
     if (isTauri) getCurrentWindow().minimize();
   };
@@ -16,9 +13,6 @@ export default function Titlebar() {
 
   return (
     <div data-tauri-drag-region className="titlebar">
-      <span data-tauri-drag-region className="titlebar-title">
-        {t("titlebar.title")}
-      </span>
       <div className="titlebar-btns">
         <button onClick={handleMinimize} className="titlebar-btn">
           <svg width="10" height="2" viewBox="0 0 10 2">

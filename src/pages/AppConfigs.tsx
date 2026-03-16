@@ -91,12 +91,13 @@ export default function AppConfigs() {
         <p style={{ fontSize: 13, color: "var(--text-2)", marginTop: 2 }}>{t("apps.subtitle")}</p>
       </div>
 
-      {/* Segmented Control */}
-      <div className="segmented">
+      {/* Underline Tabs */}
+      <div className="underline-tabs" style={{ marginTop: -4 }}>
         {views.map((v) => (
           <button key={v.id} onClick={() => setViewMode(v.id)}
-            className={`segmented-btn ${viewMode === v.id ? "active" : ""}`}>
-            {t(v.labelKey)} <span style={{ opacity: 0.5, marginLeft: 3 }}>{v.count}</span>
+            className={`underline-tab ${viewMode === v.id ? "active" : ""}`}>
+            {t(v.labelKey)}
+            <span className="underline-tab-count">{v.count}</span>
           </button>
         ))}
       </div>

@@ -45,9 +45,6 @@
   --shadow-lg: 0 8px 32px rgba(0,0,0,0.1), 0 0 1px rgba(0,0,0,0.06);
   --shadow-btn: 0 0.5px 1px rgba(0,0,0,0.1);
 
-  /* Sidebar active */
-  --sidebar-active-bg: var(--accent);
-  --sidebar-active-text: #ffffff;
 }
 
 .dark {
@@ -120,30 +117,69 @@ body {
   border: 1px solid var(--border);
 }
 
-.app-body {
-  display: flex;
-  flex: 1;
-  min-height: 0;
-}
-
 /* ═══════════════════════════════════════════
-   TITLEBAR
+   UNIFIED BAR (titlebar + tabs)
    ═══════════════════════════════════════════ */
-.titlebar {
-  height: 38px;
+.unified-bar {
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
+  padding: 0 12px 0 16px;
   background: var(--bg-titlebar);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
+  gap: 12px;
 }
-.titlebar-title {
-  font-size: 13px;
-  font-weight: 600;
+.unified-bar-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg-input);
+  border-radius: 8px;
+  padding: 2px;
+}
+.unified-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.tab-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
   color: var(--text-2);
-  letter-spacing: -0.01em;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: inherit;
+  white-space: nowrap;
+}
+.tab-bar-item:hover {
+  color: var(--text-1);
+}
+.tab-bar-item.active {
+  background: var(--bg-elevated);
+  color: var(--text-1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0.5px 1px rgba(0,0,0,0.04);
+}
+.tab-bar-item:active {
+  transform: scale(0.95);
+}
+.tab-bar-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab-bar-status-text {
+  font-size: 11px;
+  color: var(--text-3);
+  font-weight: 500;
 }
 .titlebar-btns {
   display: flex;
@@ -172,73 +208,13 @@ body {
 }
 
 /* ═══════════════════════════════════════════
-   SIDEBAR
-   ═══════════════════════════════════════════ */
-.sidebar {
-  width: 180px;
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-sidebar);
-  border-right: 1px solid var(--border);
-  padding: 10px 8px 12px;
-  flex-shrink: 0;
-}
-.sidebar-nav {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.sidebar-item {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  width: 100%;
-  padding: 7px 10px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-2);
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: inherit;
-  text-align: left;
-}
-.sidebar-item:hover {
-  background: var(--bg-input);
-  color: var(--text-1);
-}
-.sidebar-item.active {
-  background: var(--accent);
-  color: white;
-  box-shadow: var(--shadow-btn);
-}
-.sidebar-item.active svg {
-  color: white;
-}
-.sidebar-footer {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 10px 10px 0;
-  border-top: 1px solid var(--border-light);
-  margin-top: auto;
-}
-.sidebar-status-text {
-  font-size: 11px;
-  color: var(--text-3);
-  font-weight: 500;
-}
-
-/* ═══════════════════════════════════════════
    MAIN CONTENT
    ═══════════════════════════════════════════ */
 .main-content {
   flex: 1;
   overflow-y: auto;
   background: var(--bg-content);
+  min-height: 0;
 }
 
 /* ═══════════════════════════════════════════
@@ -397,6 +373,64 @@ body {
 .toggle-apple.active .thumb { transform: translateX(17px); }
 
 /* ═══════════════════════════════════════════
+   UNDERLINE TABS (sub-navigation within pages)
+   ═══════════════════════════════════════════ */
+.underline-tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.underline-tab {
+  position: relative;
+  padding: 6px 14px 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-3);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+}
+.underline-tab:hover {
+  color: var(--text-2);
+}
+.underline-tab.active {
+  color: var(--text-1);
+}
+.underline-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px 2px 0 0;
+}
+.underline-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 16px;
+  padding: 0 5px;
+  margin-left: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 10px;
+  background: var(--bg-input);
+  color: var(--text-3);
+  transition: background 0.15s, color 0.15s;
+}
+.underline-tab.active .underline-tab-count {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════
    SEGMENTED CONTROL
    ═══════════════════════════════════════════ */
 .segmented {
@@ -506,10 +540,6 @@ body {
   0%, 100% { box-shadow: 0 0 0 0px rgba(255, 59, 48, 0), 0 0 0 0 rgba(255, 59, 48, 0); }
   50% { box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.15), 0 0 12px rgba(255, 59, 48, 0.1); }
 }
-@keyframes badgeBounce {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
 .icon-editable {
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: iconBreatheGreen 3s ease-in-out infinite;
@@ -530,7 +560,7 @@ body {
 .icon-editable:active {
   transform: scale(0.95);
 }
-/* Small pencil badge always visible in corner */
+/* Pencil badge — hidden by default, revealed on hover */
 .icon-edit-badge {
   position: absolute;
   bottom: -3px;
@@ -544,8 +574,10 @@ body {
   justify-content: center;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   z-index: 2;
-  animation: badgeBounce 3s ease-in-out infinite;
   border: 2px solid var(--bg-content);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 /* Full overlay on hover */
 .icon-edit-overlay {
@@ -564,8 +596,8 @@ body {
   opacity: 1;
 }
 .icon-editable:hover .icon-edit-badge {
-  animation: none;
-  transform: scale(1.1);
+  opacity: 1;
+  transform: scale(1);
 }
 
 @keyframes pulse-dot {
@@ -641,21 +673,17 @@ input[type="range"]::-webkit-slider-thumb {
   transform: scale(0.97);
 }
 
-/* Card hover lift animation */
+/* Card — subtle shadow on hover without lift (cards aren't navigable) */
 .card {
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: box-shadow 0.2s ease, background 0.2s ease;
 }
 .card:hover {
-  transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
-/* Sidebar item spring */
-.sidebar-item {
+/* Tab bar item spring */
+.tab-bar-item {
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.sidebar-item:active {
-  transform: scale(0.96);
 }
 
 /* Button press spring */

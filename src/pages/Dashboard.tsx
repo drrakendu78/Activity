@@ -127,7 +127,11 @@ export default function Dashboard() {
                 {running ? t("dashboard.serviceRunning") : t("dashboard.serviceStopped")}
               </div>
               <div style={{ fontSize: 12, color: "var(--text-2)", marginTop: 1 }}>
-                {connected ? t("dashboard.connectedToDiscord") : t("dashboard.notConnected")}
+                {running
+                  ? connected
+                    ? t("dashboard.connectedToDiscord")
+                    : t("dashboard.notConnected")
+                  : t("dashboard.startServicePrompt")}
               </div>
             </div>
           </div>

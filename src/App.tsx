@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Titlebar from "./components/Titlebar";
 import Dashboard from "./pages/Dashboard";
 import AppConfigs from "./pages/AppConfigs";
 import Settings from "./pages/Settings";
@@ -9,6 +8,15 @@ import SetupWizard from "./components/SetupWizard";
 import { useTheme } from "./lib/theme";
 import { listen } from "@tauri-apps/api/event";
 import { getRpcStatus, type RpcStatusEvent } from "./lib/commands";
+
+const isTauri = "__TAURI_INTERNALS__" in window;
+
+const tauriMinimize = () => {
+  if (isTauri) import("@tauri-apps/api/window").then(m => m.getCurrentWindow().minimize());
+};
+const tauriHide = () => {
+  if (isTauri) import("@tauri-apps/api/window").then(m => m.getCurrentWindow().hide());
+};
 
 type Tab = "dashboard" | "apps" | "settings";
 
@@ -65,39 +73,51 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Titlebar />
-      <div className="app-body">
-        {/* Sidebar */}
-        <aside className="sidebar">
-          <nav className="sidebar-nav">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setTab(item.id)}
-                className={`sidebar-item ${tab === item.id ? "active" : ""}`}
-              >
-                {item.icon}
-                {t(item.labelKey)}
-              </button>
-            ))}
-          </nav>
-          <div className="sidebar-footer">
+      {/* Unified titlebar + tabs */}
+      <header data-tauri-drag-region className="unified-bar">
+        <div className="unified-bar-tabs">
+          {NAV_ITEMS.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setTab(item.id)}
+              className={`tab-bar-item ${tab === item.id ? "active" : ""}`}
+            >
+              {item.icon}
+              {t(item.labelKey)}
+            </button>
+          ))}
+        </div>
+        <div className="unified-bar-right">
+          <div className="tab-bar-status">
             <StatusIndicator connected={connected} />
-            <span className="sidebar-status-text">
+            <span className="tab-bar-status-text">
               {connected ? t("sidebar.connected") : t("sidebar.disconnected")}
             </span>
           </div>
-        </aside>
-
-        {/* Content */}
-        <main className="main-content">
-          <div className="page-enter" key={tab}>
-            {tab === "dashboard" && <Dashboard />}
-            {tab === "apps" && <AppConfigs />}
-            {tab === "settings" && <Settings />}
+          <div className="titlebar-btns">
+            <button onClick={tauriMinimize} className="titlebar-btn">
+              <svg width="10" height="2" viewBox="0 0 10 2">
+                <rect width="10" height="1.5" rx="0.75" fill="currentColor" />
+              </svg>
+            </button>
+            <button onClick={tauriHide} className="titlebar-btn titlebar-btn-close">
+              <svg width="10" height="10" viewBox="0 0 10 10">
+                <line x1="1.5" y1="1.5" x2="8.5" y2="8.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                <line x1="8.5" y1="1.5" x2="1.5" y2="8.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+              </svg>
+            </button>
           </div>
-        </main>
-      </div>
+        </div>
+      </header>
+
+      {/* Content */}
+      <main className="main-content">
+        <div className="page-enter" key={tab}>
+          {tab === "dashboard" && <Dashboard />}
+          {tab === "apps" && <AppConfigs />}
+          {tab === "settings" && <Settings />}
+        </div>
+      </main>
 
       {/* First-launch setup wizard */}
       {!setupDone && (
