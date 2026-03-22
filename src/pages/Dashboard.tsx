@@ -75,7 +75,7 @@ export default function Dashboard({ waitingForDiscord }: { waitingForDiscord?: b
   detailsRef.current = details;
 
   // Debounce for media control buttons (prevent double-clicks)
-  const skipCooldown = useRef(false);
+
 
   useEffect(() => {
     isPollerRunning().then(setRunning);
