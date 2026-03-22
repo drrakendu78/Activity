@@ -28,7 +28,7 @@ pub struct UpdateInfo {
     pub download_url: Option<String>,
     pub file_name: Option<String>,
     pub file_size: Option<u64>,
-    pub install_type: String, // "exe" or "msi"
+    pub install_type: String,
 }
 
 /// Detect how the app was installed (exe portable vs msi)
@@ -36,12 +36,10 @@ fn detect_install_type() -> String {
     let exe_path = std::env::current_exe().unwrap_or_default();
     let exe_str = exe_path.to_string_lossy().to_lowercase();
 
-    // MSI installs go to Program Files
     if exe_str.contains("program files") || exe_str.contains("programfiles") {
         return "msi".to_string();
     }
 
-    // Check Windows registry for MSI install
     #[cfg(target_os = "windows")]
     {
         use winreg::enums::*;
@@ -85,6 +83,26 @@ fn is_newer(current: &str, latest: &str) -> bool {
     false
 }
 
+/// Sanitize file name: strip dangerous chars, prevent path traversal
+fn safe_file_name(name: &str) -> String {
+    let basename = std::path::Path::new(name)
+        .file_name()
+        .map(|f| f.to_string_lossy().to_string())
+        .unwrap_or_else(|| "update.exe".to_string());
+    let sanitized: String = basename
+        .chars()
+        .map(|ch| match ch {
+            '/' | '\\' | ':' | '*' | '?' | '"' | '<' | '>' | '|' | '\0' => '_',
+            _ => ch,
+        })
+        .collect();
+    if sanitized.is_empty() || sanitized.starts_with('.') || sanitized.contains("..") {
+        "update.exe".to_string()
+    } else {
+        sanitized
+    }
+}
+
 #[command]
 pub async fn check_for_updates() -> Result<UpdateInfo, String> {
     let current_version = env!("CARGO_PKG_VERSION").to_string();
@@ -116,7 +134,6 @@ pub async fn check_for_updates() -> Result<UpdateInfo, String> {
     let latest_version = release.tag_name.trim_start_matches('v').to_string();
     let has_update = is_newer(&current_version, &latest_version);
 
-    // Find the right asset based on install type
     let ext = if install_type == "msi" { ".msi" } else { ".exe" };
     let asset = release.assets.iter().find(|a| {
         let name = a.name.to_lowercase();
@@ -136,79 +153,72 @@ pub async fn check_for_updates() -> Result<UpdateInfo, String> {
     })
 }
 
+/// Spawn the Activity-Updater.exe with download args, then exit
 #[command]
-pub async fn download_and_install_update(download_url: String, file_name: String, expected_size: u64) -> Result<(), String> {
+pub async fn start_silent_update(download_url: String, file_name: Option<String>) -> Result<(), String> {
+    let url = download_url.trim();
+    if url.is_empty() {
+        return Err("Missing update download URL".to_string());
+    }
+    if !url.starts_with("https://") {
+        return Err("Update URL must use https://".to_string());
+    }
+
     // SECURITY: Only allow downloads from our GitHub repo
-    if !download_url.starts_with(&format!("https://github.com/{}/releases/", GITHUB_REPO))
-        && !download_url.starts_with("https://objects.githubusercontent.com/")
+    if !url.starts_with(&format!("https://github.com/{}/releases/", GITHUB_REPO))
+        && !url.starts_with("https://objects.githubusercontent.com/")
     {
         return Err("URL de téléchargement non autorisée".to_string());
     }
 
-    // SECURITY: Only allow .exe and .msi files
-    let name_lower = file_name.to_lowercase();
-    if !name_lower.ends_with(".exe") && !name_lower.ends_with(".msi") {
-        return Err("Type de fichier non autorisé".to_string());
+    let preferred_name = file_name
+        .as_deref()
+        .map(str::trim)
+        .filter(|name| !name.is_empty())
+        .map(safe_file_name)
+        .unwrap_or_else(|| {
+            safe_file_name(url.split('/').last().unwrap_or("update.exe"))
+        });
+
+    if preferred_name.is_empty() || preferred_name.len() > 255
+        || preferred_name.starts_with('-') || preferred_name.contains('\0')
+    {
+        return Err("Invalid update file name".to_string());
     }
 
-    // SECURITY: Sanitize file name (no path traversal)
-    if file_name.contains("..") || file_name.contains('/') || file_name.contains('\\') {
-        return Err("Nom de fichier invalide".to_string());
+    let current_exe = std::env::current_exe()
+        .map_err(|e| format!("Cannot locate app executable: {}", e))?;
+    let current_pid = std::process::id();
+
+    // Look for Activity-Updater.exe next to the main executable
+    let exe_dir = current_exe.parent().ok_or("Cannot determine app directory")?;
+    let updater_exe = exe_dir.join("Activity-Updater.exe");
+
+    if !updater_exe.exists() {
+        return Err("Updater not found. Please reinstall the application.".to_string());
     }
 
-    let client = reqwest::Client::builder()
-        .user_agent("Activity-Updater")
-        .build()
-        .map_err(|e| e.to_string())?;
-
-    // Download to temp dir
-    let temp_dir = std::env::temp_dir();
-    let file_path = temp_dir.join(&file_name);
-
-    let resp = client.get(&download_url).send().await.map_err(|e| e.to_string())?;
-
-    if !resp.status().is_success() {
-        return Err(format!("Erreur de téléchargement: {}", resp.status()));
-    }
-
-    let bytes = resp.bytes().await.map_err(|e| e.to_string())?;
-
-    // SECURITY: Verify file size matches expected (prevents truncated/tampered downloads)
-    if expected_size > 0 && bytes.len() as u64 != expected_size {
-        return Err(format!(
-            "Taille du fichier incorrecte: attendu {} octets, reçu {}",
-            expected_size,
-            bytes.len()
-        ));
-    }
-
-    // SECURITY: Max 500MB to prevent disk fill attacks
-    if bytes.len() > 500 * 1024 * 1024 {
-        return Err("Fichier trop volumineux".to_string());
-    }
-
-    std::fs::write(&file_path, &bytes).map_err(|e| e.to_string())?;
-
-    // Launch the installer and exit the app
     #[cfg(target_os = "windows")]
     {
         use std::os::windows::process::CommandExt;
-        use std::process::Command;
         const CREATE_NO_WINDOW: u32 = 0x08000000;
-        if name_lower.ends_with(".msi") {
-            Command::new("msiexec")
-                .args(["/i", &file_path.to_string_lossy(), "/passive"])
-                .creation_flags(CREATE_NO_WINDOW)
-                .spawn()
-                .map_err(|e| e.to_string())?;
-        } else {
-            Command::new(&file_path)
-                .creation_flags(CREATE_NO_WINDOW)
-                .spawn()
-                .map_err(|e| e.to_string())?;
-        }
+        std::process::Command::new(&updater_exe)
+            .args([
+                "--url", url,
+                "--name", &preferred_name,
+                "--app", &current_exe.to_string_lossy(),
+                "--pid", &current_pid.to_string(),
+            ])
+            .creation_flags(CREATE_NO_WINDOW)
+            .spawn()
+            .map_err(|e| format!("Cannot start updater: {}", e))?;
     }
 
-    // Exit app so installer can replace files
+    #[cfg(not(target_os = "windows"))]
+    {
+        return Err("Silent update is currently supported on Windows only".to_string());
+    }
+
+    // Exit app so updater can proceed
     std::process::exit(0);
 }

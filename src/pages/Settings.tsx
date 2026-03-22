@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import {
   loadConfig, saveConfig, isAutoStartupEnabled,
   enableAutoStartup, disableAutoStartup, type RpcConfig,
-  checkForUpdates, downloadAndInstallUpdate, type UpdateInfo,
+  checkForUpdates, startSilentUpdate, type UpdateInfo,
 } from "../lib/commands";
 import { useTheme } from "../lib/theme";
 import { LANGUAGES, getFlagUrl } from "../i18n";
@@ -525,10 +525,9 @@ export default function Settings() {
                   setUpdateDownloading(true);
                   setUpdateError(null);
                   try {
-                    await downloadAndInstallUpdate(
+                    await startSilentUpdate(
                       updateInfo.download_url,
-                      updateInfo.file_name,
-                      updateInfo.file_size || 0
+                      updateInfo.file_name
                     );
                   } catch (e) {
                     setUpdateError(String(e));

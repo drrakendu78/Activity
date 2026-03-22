@@ -201,5 +201,5 @@ export interface UpdateInfo {
 export const checkForUpdates = () =>
   invoke<UpdateInfo>("check_for_updates");
 
-export const downloadAndInstallUpdate = (downloadUrl: string, fileName: string, expectedSize: number) =>
-  invoke<void>("download_and_install_update", { downloadUrl, fileName, expectedSize });
+export const startSilentUpdate = (downloadUrl: string, fileName?: string) =>
+  invoke<void>("start_silent_update", { downloadUrl, fileName });

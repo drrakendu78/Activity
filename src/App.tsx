@@ -9,7 +9,7 @@ import { useTheme } from "./lib/theme";
 import { listen } from "@tauri-apps/api/event";
 import {
   getRpcStatus, startPoller, stopPoller, isPollerRunning,
-  loadConfig, checkForUpdates, downloadAndInstallUpdate,
+  loadConfig, checkForUpdates, startSilentUpdate,
   type RpcStatusEvent, type UpdateInfo,
 } from "./lib/commands";
 
@@ -312,10 +312,9 @@ export default function App() {
                     setUpdateDownloading(true);
                     setUpdateError(null);
                     try {
-                      await downloadAndInstallUpdate(
+                      await startSilentUpdate(
                         updateInfo.download_url,
-                        updateInfo.file_name,
-                        updateInfo.file_size || 0
+                        updateInfo.file_name
                       );
                     } catch (e) {
                       setUpdateError(String(e));

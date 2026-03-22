@@ -331,16 +331,7 @@ pub async fn start_poller(
                             (None, Some(media.player_name.clone()))
                         };
 
-                        // Append foreground app to state text so Discord re-renders
-                        let final_state = if let Some(ref label) = fg_app_label {
-                            if state_text.is_empty() {
-                                format!("Sur {}", label)
-                            } else {
-                                format!("{} · sur {}", state_text, label)
-                            }
-                        } else {
-                            state_text.clone()
-                        };
+                        let final_state = state_text.clone();
 
                         let music_config = AppConfig {
                             name: display_name.clone(),

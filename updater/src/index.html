@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activity Updater</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #101014;
+      color: #e4e4e7;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 32px;
+      -webkit-app-region: drag;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 0 40px;
+      width: 100%;
+    }
+
+    .logo-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: conic-gradient(from 0deg, #5865f2, #7289da, #5865f2);
+      border-radius: 16px;
+      opacity: 0;
+      animation: glow 3s ease-in-out infinite;
+      filter: blur(8px);
+      z-index: 0;
+    }
+
+    @keyframes glow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .text-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fafafa;
+      letter-spacing: -0.02em;
+    }
+
+    .status {
+      font-size: 11px;
+      color: #71717a;
+      text-align: center;
+      min-height: 14px;
+      transition: color 0.3s;
+    }
+
+    .progress-wrap {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 2px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #5865f2, #818cf8);
+      border-radius: 2px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .progress-bar.indeterminate {
+      width: 35%;
+      animation: slide 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(380%); }
+    }
+
+    .error {
+      color: #ef4444;
+      font-size: 11px;
+      text-align: center;
+      display: none;
+      line-height: 1.4;
+      max-width: 100%;
+      word-break: break-word;
+    }
+
+    .percent {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fafafa;
+      letter-spacing: -0.04em;
+      display: none;
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-wrap">
+      <img class="logo" src="logo.png" alt="Activity" />
+    </div>
+
+    <div class="text-group">
+      <div class="title" id="titleText">Mise à jour d'Activity</div>
+      <div class="status" id="statusText">Préparation...</div>
+    </div>
+
+    <div class="percent" id="percentText">0%</div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar indeterminate" id="progressBar"></div>
+    </div>
+
+    <div class="error" id="errorText"></div>
+  </div>
+
+  <script>
+    const { invoke } = window.__TAURI__.core;
+    const { listen } = window.__TAURI__.event;
+
+    const progressBar = document.getElementById('progressBar');
+    const statusText = document.getElementById('statusText');
+    const errorText = document.getElementById('errorText');
+    const titleEl = document.getElementById('titleText');
+    const percentEl = document.getElementById('percentText');
+
+    listen('update-progress', (event) => {
+      const { phase, percent, detail } = event.payload;
+
+      if (phase === 'downloading' && percent > 0) {
+        progressBar.classList.remove('indeterminate');
+        progressBar.style.width = percent + '%';
+        percentEl.style.display = 'block';
+        percentEl.textContent = percent + '%';
+        titleEl.textContent = 'Téléchargement';
+        statusText.textContent = detail;
+      } else if (phase === 'installing') {
+        percentEl.style.display = 'none';
+        progressBar.classList.add('indeterminate');
+        progressBar.style.background = 'linear-gradient(90deg, #22c55e, #4ade80)';
+        titleEl.textContent = 'Installation';
+        statusText.textContent = 'Veuillez patienter...';
+      } else if (phase === 'relaunching') {
+        progressBar.classList.remove('indeterminate');
+        progressBar.style.width = '100%';
+        progressBar.style.background = 'linear-gradient(90deg, #22c55e, #4ade80)';
+        titleEl.textContent = 'Presque terminé';
+        statusText.textContent = 'Redémarrage...';
+      } else if (phase === 'waiting') {
+        progressBar.classList.add('indeterminate');
+        statusText.textContent = 'Fermeture d\'Activity...';
+      }
+    });
+
+    async function run() {
+      try {
+        await invoke('get_update_args');
+      } catch (e) {
+        statusText.textContent = '';
+        errorText.style.display = 'block';
+        errorText.textContent = 'Aucun argument de mise à jour. Fermeture...';
+        setTimeout(() => window.close(), 2000);
+        return;
+      }
+
+      try {
+        await invoke('start_update');
+      } catch (e) {
+        progressBar.classList.remove('indeterminate');
+        progressBar.style.width = '0%';
+        titleEl.textContent = 'Échec de la mise à jour';
+        statusText.textContent = '';
+        errorText.style.display = 'block';
+        errorText.textContent = String(e);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', run);
+  </script>
+</body>
+</html>

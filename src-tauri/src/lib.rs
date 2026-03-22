@@ -7,7 +7,7 @@ use scripts::album_art::{validate_spotify, get_album_tracks_cmd};
 use scripts::media_session::{get_current_media_cmd, media_play_pause, media_next, media_previous, media_seek, get_system_volume, set_system_volume, toggle_mute};
 use scripts::poller::{is_poller_running, start_poller, stop_poller, get_detected_apps, PollerState};
 use scripts::startup::{disable_auto_startup, enable_auto_startup, is_auto_startup_enabled};
-use scripts::updater::{check_for_updates, download_and_install_update};
+use scripts::updater::{check_for_updates, start_silent_update};
 use scripts::system_tray::setup_system_tray;
 use scripts::window_detect::get_active_window;
 use tauri::Manager;
@@ -98,7 +98,7 @@ pub fn run() {
             get_album_tracks_cmd,
             open_url,
             check_for_updates,
-            download_and_install_update,
+            start_silent_update,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
