@@ -25,6 +25,11 @@ export default function SetupWizard({ onComplete }: Props) {
   const stepHeights = [700, 520, 520, 520, 520, 560];
 
   useEffect(() => {
+    // Small delay on first mount to let the window fully initialize
+    if (step === 0) {
+      const t = setTimeout(() => resizeWindow(stepHeights[0]), 200);
+      return () => clearTimeout(t);
+    }
     resizeWindow(stepHeights[step]);
   }, [step]);
 

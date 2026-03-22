@@ -25,28 +25,37 @@ const tauriHide = () => {
 const NORMAL_HEIGHT = 520;
 const SETTINGS_HEIGHT = 780;
 
-export const resizeWindow = async (targetHeight: number) => {
+let resizeLock: Promise<void> = Promise.resolve();
+
+export const resizeWindow = (targetHeight: number) => {
+  resizeLock = resizeLock.then(() => doResize(targetHeight)).catch(() => {});
+};
+
+const doResize = async (targetHeight: number) => {
   if (!isTauri) return;
   const { getCurrentWindow, LogicalSize, LogicalPosition } = await import("@tauri-apps/api/window");
   const win = getCurrentWindow();
+  const scale = await win.scaleFactor();
   const startPos = await win.outerPosition();
   const startSize = await win.outerSize();
-  const startH = startSize.height;
+  // Convert physical pixels to logical pixels
+  const startH = Math.round(startSize.height / scale);
+  const startY = Math.round(startPos.y / scale);
+  const startX = Math.round(startPos.x / scale);
   const deltaH = targetHeight - startH;
-  if (deltaH === 0) return;
+  if (Math.abs(deltaH) < 2) return;
 
   const duration = 150;
   const steps = 10;
   const stepMs = duration / steps;
 
   for (let i = 1; i <= steps; i++) {
-    // ease-out cubic
     const t = i / steps;
     const ease = 1 - Math.pow(1 - t, 3);
     const h = Math.round(startH + deltaH * ease);
-    const y = Math.max(0, startPos.y - Math.round((deltaH * ease) / 2));
+    const y = Math.max(0, startY - Math.round((deltaH * ease) / 2));
     await win.setSize(new LogicalSize(750, h));
-    await win.setPosition(new LogicalPosition(startPos.x, y));
+    await win.setPosition(new LogicalPosition(startX, y));
     if (i < steps) await new Promise(r => setTimeout(r, stepMs));
   }
 };
@@ -81,8 +90,6 @@ export default function App() {
   useTheme();
 
   useEffect(() => {
-    // Ensure window is at normal size on startup
-    resizeWindow(NORMAL_HEIGHT);
     getRpcStatus().then((s) => setConnected(s.connected));
     // Auto-check for updates
     checkForUpdates().then((info) => {
