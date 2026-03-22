@@ -192,14 +192,18 @@ pub async fn download_and_install_update(download_url: String, file_name: String
     // Launch the installer and exit the app
     #[cfg(target_os = "windows")]
     {
+        use std::os::windows::process::CommandExt;
         use std::process::Command;
+        const CREATE_NO_WINDOW: u32 = 0x08000000;
         if name_lower.ends_with(".msi") {
             Command::new("msiexec")
                 .args(["/i", &file_path.to_string_lossy(), "/passive"])
+                .creation_flags(CREATE_NO_WINDOW)
                 .spawn()
                 .map_err(|e| e.to_string())?;
         } else {
             Command::new(&file_path)
+                .creation_flags(CREATE_NO_WINDOW)
                 .spawn()
                 .map_err(|e| e.to_string())?;
         }

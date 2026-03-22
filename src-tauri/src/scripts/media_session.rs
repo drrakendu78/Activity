@@ -245,11 +245,15 @@ fn is_hex_hash(s: &str) -> bool {
 /// Uses a simple approach: check if known browser exes exist in common paths.
 #[cfg(target_os = "windows")]
 fn detect_browser_from_processes() -> Option<String> {
+    use std::os::windows::process::CommandExt;
     use std::process::Command;
+
+    const CREATE_NO_WINDOW: u32 = 0x08000000;
 
     // Use tasklist to check for running browsers (most reliable cross-version approach)
     let output = Command::new("tasklist")
         .args(["/FO", "CSV", "/NH"])
+        .creation_flags(CREATE_NO_WINDOW)
         .output()
         .ok()?;
 
