@@ -3,11 +3,11 @@
 </p>
 
 <p align="center">
-  <strong>Discord Rich Presence Manager</strong>
+  <strong>Discord Rich Presence, automated.</strong>
 </p>
 
 <p align="center">
-  Automatically display what you're doing on Discord.<br/>
+  Detect your active app, show your music, and control everything from one place.<br/>
   No config files. No scripts. Just launch and go.
 </p>
 
@@ -21,28 +21,44 @@
 
 ## Features
 
+### App Detection
 - **Auto Detection** — Detects running apps and games in real time and updates your Discord presence automatically.
+- **Browser Site Detection** — Shows which website you're on (GitHub, YouTube, Claude...) instead of just "Firefox".
 - **Custom App Configs** — Create personalized presence configs for any application with custom details, state, and icons.
-- **Auto Icon Fetching** — Automatically fetches app icons from SteamGridDB. No manual setup needed.
+- **Auto Icon Fetching** — Fetches app icons from SteamGridDB and Iconify automatically. No manual setup needed.
 - **Icon Picker** — Browse and choose from multiple icon variants for each app.
-- **30 Languages** — Full i18n support with 30 languages, from English to Vietnamese.
+
+### Music Player
+- **Full Album Page** — Beautiful album layout with cover art, artist, album name, year, and track count.
+- **Album Tracklist** — View all tracks from the current album (powered by Deezer API) and click to skip to any track.
+- **Per-App Volume** — Control the music app's volume independently from the system volume (WASAPI).
+- **Media Controls** — Play/pause, next/prev, seek bar, and volume slider right in the app.
+- **Foreground App Toast** — See which app or website you're using while music plays, displayed as a subtle overlay.
+- **Discord Integration** — Album art as large image, foreground app in state text, with "On Firefox" or "On VS Code" context.
+
+### General
+- **32 Languages** — Full i18n support with 32 languages, from English to Vietnamese.
 - **First-Launch Wizard** — Setup wizard on first run to pick your language, theme, and preferences.
-- **Light & Dark Theme** — Apple-style UI with smooth animations and spring physics.
+- **Light & Dark Theme** — Apple-style UI with acrylic transparency and smooth animations.
+- **Auto-Updater** — Checks GitHub for new releases on launch, detects EXE vs MSI install, and updates in one click.
 - **System Tray** — Runs quietly in the background with a tray icon and quick controls.
 - **Auto Start** — Optionally launch Activity on system startup.
-- **Default Presence Presets** — Choose from visual presets for your default status — no code, just click.
+- **Default Presence Presets** — Choose from visual presets for your default status.
 
 ## Installation
 
-### Manual Download
-
 Download the latest installer from the [Releases](https://github.com/drrakendu78/Activity/releases/latest) page.
+
+| Format | Description |
+|--------|-------------|
+| `.exe` | NSIS installer (recommended) |
+| `.msi` | Windows Installer (for managed deployments) |
 
 ## Quick Start
 
 1. **Launch Activity** — The setup wizard guides you through language, theme, and auto-start.
-2. **Open any app or game** — Activity detects it automatically.
-3. **Your Discord status updates** — Your friends see what you're using in real time.
+2. **Open any app or game** — Activity detects it automatically and updates your Discord status.
+3. **Play some music** — Spotify, Apple Music, or any media player — the album page appears with full controls.
 4. **Customize** — Add custom configs for specific apps with your own details and icons.
 
 ## Tech Stack
@@ -53,8 +69,10 @@ Download the latest installer from the [Releases](https://github.com/drrakendu78
 | Frontend | React 18 + TypeScript |
 | Styling | Custom CSS + Apple Design |
 | Backend | Rust |
-| i18n | i18next (30 languages) |
-| Icons | SteamGridDB API |
+| Media | Windows GSMTC + WASAPI |
+| Music Data | Deezer API (tracklist) + Spotify API (album art) |
+| Icons | SteamGridDB + Iconify |
+| i18n | i18next (32 languages) |
 
 ## Building from Source
 
