@@ -69,7 +69,6 @@ export default function Dashboard({ waitingForDiscord }: { waitingForDiscord?: b
 
   const isMedia = category === "media" && !isMusic;
   const hasIcon = largeImageKey && largeImageKey.startsWith("http");
-  const hasSmallIcon = smallImageKey && smallImageKey.startsWith("http");
 
   // Ref to always have the latest "details" value inside async closures
   const detailsRef = useRef(details);
@@ -77,12 +76,6 @@ export default function Dashboard({ waitingForDiscord }: { waitingForDiscord?: b
 
   // Debounce for media control buttons (prevent double-clicks)
   const skipCooldown = useRef(false);
-  const safeSkip = async (fn: () => Promise<void>) => {
-    if (skipCooldown.current) return;
-    skipCooldown.current = true;
-    try { await fn(); } catch {}
-    setTimeout(() => { skipCooldown.current = false; }, 300);
-  };
 
   useEffect(() => {
     isPollerRunning().then(setRunning);
@@ -201,7 +194,6 @@ export default function Dashboard({ waitingForDiscord }: { waitingForDiscord?: b
     setSkipping(true);
     const fn = diff > 0 ? mediaNext : mediaPrevious;
     const count = Math.abs(diff);
-    const targetName = albumInfo.tracks.find((t) => t.track_number === targetNum)?.name.toLowerCase();
 
     // Send each skip and wait for the track to actually change before the next one
     for (let i = 0; i < count; i++) {
