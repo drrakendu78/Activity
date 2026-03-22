@@ -3,3 +3,4 @@ dist/
 target/
 .claude/
 *.log
+src-tauri/les captures/
