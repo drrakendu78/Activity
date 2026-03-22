@@ -1,6 +1,6 @@
 [package]
 name = "activity"
-version = "0.3.0"
+version = "0.3.1"
 description = "Activity - Discord Rich Presence, automated"
 edition = "2021"
 

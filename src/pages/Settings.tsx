@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import {
   loadConfig, saveConfig, isAutoStartupEnabled,
@@ -130,23 +131,37 @@ export default function Settings() {
             options: { value: string; label: string }[];
           }) => {
             const [open, setOpen] = useState(false);
-            const ref = useRef<HTMLDivElement>(null);
+            const btnRef = useRef<HTMLButtonElement>(null);
+            const dropRef = useRef<HTMLDivElement>(null);
+            const [dropPos, setDropPos] = useState({ top: 0, left: 0, width: 0 });
             const selected = options.find((o) => o.value === value);
 
             useEffect(() => {
+              if (!open) return;
               const handler = (e: MouseEvent) => {
-                if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+                if (btnRef.current?.contains(e.target as Node)) return;
+                if (dropRef.current?.contains(e.target as Node)) return;
+                setOpen(false);
               };
               document.addEventListener("mousedown", handler);
               return () => document.removeEventListener("mousedown", handler);
-            }, []);
+            }, [open]);
+
+            const handleOpen = () => {
+              if (!open && btnRef.current) {
+                const rect = btnRef.current.getBoundingClientRect();
+                setDropPos({ top: rect.bottom + 4, left: rect.left, width: rect.width });
+              }
+              setOpen(!open);
+            };
 
             return (
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 0" }}>
                 <span style={{ fontSize: 12, color: "var(--text-1)" }}>{label}</span>
-                <div ref={ref} style={{ position: "relative", minWidth: 170 }}>
+                <div style={{ position: "relative", minWidth: 170 }}>
                   <button
-                    onClick={() => setOpen(!open)}
+                    ref={btnRef}
+                    onClick={handleOpen}
                     style={{
                       width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
                       padding: "5px 10px", fontSize: 11, fontFamily: "inherit",
@@ -157,9 +172,9 @@ export default function Settings() {
                     <span>{selected?.label || value}</span>
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" strokeWidth="2.5"><path d="M6 9l6 6 6-6" /></svg>
                   </button>
-                  {open && (
-                    <div style={{
-                      position: "absolute", top: "100%", left: 0, right: 0, marginTop: 4, zIndex: 50,
+                  {open && createPortal(
+                    <div ref={dropRef} style={{
+                      position: "fixed", top: dropPos.top, left: dropPos.left, width: dropPos.width, zIndex: 9999,
                       background: "var(--bg-elevated)", border: "1px solid var(--border)",
                       borderRadius: 8, overflow: "hidden", boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
                     }}>
@@ -179,7 +194,8 @@ export default function Settings() {
                           {opt.label}
                         </div>
                       ))}
-                    </div>
+                    </div>,
+                    document.body
                   )}
                 </div>
               </div>
