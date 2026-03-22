@@ -466,13 +466,59 @@ fn with_media_session<F>(f: F) -> Result<(), String>
 where
     F: FnOnce(&windows::Media::Control::GlobalSystemMediaTransportControlsSession) -> windows::core::Result<()>,
 {
-    use windows::Media::Control::GlobalSystemMediaTransportControlsSessionManager;
+    use windows::Media::Control::{
+        GlobalSystemMediaTransportControlsSessionManager,
+        GlobalSystemMediaTransportControlsSessionPlaybackStatus,
+    };
 
     let manager = GlobalSystemMediaTransportControlsSessionManager::RequestAsync()
         .map_err(|e| e.to_string())?
         .get()
         .map_err(|e| e.to_string())?;
-    let session = manager.GetCurrentSession().map_err(|e| e.to_string())?;
+
+    // For controls: prefer non-browser apps (playing or paused) over browser sessions
+    let session = {
+        let mut app_playing = None;
+        let mut app_paused = None;
+        let mut browser_playing = None;
+        let mut fallback = None;
+        if let Ok(sessions) = manager.GetSessions() {
+            for i in 0..sessions.Size().unwrap_or(0) {
+                if let Ok(s) = sessions.GetAt(i) {
+                    if let Ok(info) = s.GetPlaybackInfo() {
+                        if let Ok(status) = info.PlaybackStatus() {
+                            let source_id = s.SourceAppUserModelId().map(|s| s.to_string()).unwrap_or_default();
+                            let name = friendly_player_name(&source_id).to_lowercase();
+                            let is_browser = BROWSER_NAMES.iter().any(|b| name.contains(b));
+
+                            match status {
+                                GlobalSystemMediaTransportControlsSessionPlaybackStatus::Playing => {
+                                    if !is_browser && app_playing.is_none() {
+                                        app_playing = Some(s);
+                                    } else if is_browser && browser_playing.is_none() {
+                                        browser_playing = Some(s);
+                                    }
+                                }
+                                GlobalSystemMediaTransportControlsSessionPlaybackStatus::Paused => {
+                                    if !is_browser && app_paused.is_none() {
+                                        app_paused = Some(s);
+                                    } else if fallback.is_none() {
+                                        fallback = Some(s);
+                                    }
+                                }
+                                _ => {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // Priority: app playing > app paused > browser playing > any fallback > system default
+        app_playing.or(app_paused).or(browser_playing).or(fallback)
+            .or_else(|| manager.GetCurrentSession().ok())
+            .ok_or_else(|| "No media session found".to_string())?
+    };
+
     f(&session).map_err(|e| e.to_string())
 }
 

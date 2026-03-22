@@ -317,8 +317,6 @@ pub async fn fetch_album_tracks(artist: &str, title: &str) -> Option<AlbumInfo> 
         .build()
         .ok()?;
 
-    println!("[AlbumTracks] Deezer search: artist='{}' title='{}'", clean_a, clean_t);
-
     // Search for the track on Deezer
     let queries = vec![
         format!("artist:\"{}\" track:\"{}\"", clean_a, clean_t),
@@ -330,12 +328,9 @@ pub async fn fetch_album_tracks(artist: &str, title: &str) -> Option<AlbumInfo> 
 
     for query in &queries {
         let url = format!("https://api.deezer.com/search?q={}&limit=5", urlencoded(query));
-        println!("[AlbumTracks] Trying: {}", query);
-
         if let Ok(resp) = client.get(&url).send().await {
             if let Ok(json) = resp.json::<serde_json::Value>().await {
                 if let Some(data) = json.get("data").and_then(|d| d.as_array()) {
-                    println!("[AlbumTracks] Got {} results", data.len());
                     // Find best match
                     let artist_lower = clean_a.to_lowercase();
                     let title_lower = clean_t.to_lowercase();
@@ -349,7 +344,6 @@ pub async fn fetch_album_tracks(artist: &str, title: &str) -> Option<AlbumInfo> 
 
                         if t_match || a_match {
                             if let Some(id) = item.get("album").and_then(|a| a.get("id")).and_then(|v| v.as_u64()) {
-                                println!("[AlbumTracks] Matched: '{}' by '{}' -> album_id={}", t_name, a_name, id);
                                 album_id = Some(id);
                                 break;
                             }
@@ -358,9 +352,6 @@ pub async fn fetch_album_tracks(artist: &str, title: &str) -> Option<AlbumInfo> 
                     // Fallback: take first result
                     if album_id.is_none() && !data.is_empty() {
                         album_id = data[0].get("album").and_then(|a| a.get("id")).and_then(|v| v.as_u64());
-                        if let Some(id) = album_id {
-                            println!("[AlbumTracks] Fallback to first result: album_id={}", id);
-                        }
                     }
                     if album_id.is_some() { break; }
                 }
@@ -406,8 +397,6 @@ pub async fn fetch_album_tracks(artist: &str, title: &str) -> Option<AlbumInfo> 
             is_explicit,
         })
     }).collect();
-
-    println!("[AlbumTracks] Found album '{}' by '{}' with {} tracks", album_name, artist_name, tracks.len());
 
     let total_duration: f64 = tracks.iter().map(|t| t.duration_secs).sum();
 

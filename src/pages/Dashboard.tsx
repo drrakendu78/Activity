@@ -151,11 +151,21 @@ export default function Dashboard({ waitingForDiscord }: { waitingForDiscord?: b
   // Fetch album tracks when song changes
   useEffect(() => {
     if (!isMusic || !rpcState || !details) {
-      setAlbumInfo(null);
+      // Don't clear albumInfo if we just temporarily lost music state
+      if (!isMusic) {
+        setAlbumInfo(null);
+        setAlbumFetchKey(""); // Reset so we re-fetch when music comes back
+      }
       return;
     }
     // rpcState may contain "Artist — Album", extract just the artist
     const artist = rpcState.split(" — ")[0].split(" - ")[0].trim();
+    // Skip placeholder/loading states from music players
+    const skipArtists = ["apple music", "spotify", "deezer", "tidal", "music"];
+    const skipTitles = ["connexion", "connecting", "loading", "chargement"];
+    if (skipArtists.includes(artist.toLowerCase()) || skipTitles.some(s => details.toLowerCase().includes(s))) {
+      return;
+    }
     const key = `${artist}|${details}`;
     if (key === albumFetchKey) return;
     setAlbumFetchKey(key);
@@ -330,13 +340,6 @@ export default function Dashboard({ waitingForDiscord }: { waitingForDiscord?: b
             )}
           </div>
 
-          {/* Show basic info if no tracklist */}
-          {(!albumInfo || albumInfo.tracks.length === 0) && !isMedia && (
-            <div className="album-page-now">
-              <div className="player-title">{details || currentApp}</div>
-              {rpcState && <div className="player-artist">{rpcState}</div>}
-            </div>
-          )}
         </div>
 
         {/* Bottom bar — controls + progress + volume */}

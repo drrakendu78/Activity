@@ -127,7 +127,33 @@ export default function App() {
         setAlbumBg(null);
       }
     });
-    return () => { unlisten.then((fn) => fn()); };
+    // Listen for tray events
+    const unlistenNav = listen<string>("navigate", (event) => {
+      if (event.payload === "settings") {
+        openSettings();
+      }
+    });
+    const unlistenUpdate = listen("check-update", () => {
+      checkForUpdates().then((info) => {
+        setUpdateInfo(info);
+        if (info.has_update) {
+          setShowUpdatePopup(true);
+          resizeWindow(SETTINGS_HEIGHT);
+        }
+      }).catch(() => {});
+    });
+    const unlistenService = listen<boolean>("service-changed", (event) => {
+      setRunning(event.payload);
+      if (!event.payload) {
+        setConnected(false);
+      }
+    });
+    return () => {
+      unlisten.then((fn) => fn());
+      unlistenNav.then((fn) => fn());
+      unlistenUpdate.then((fn) => fn());
+      unlistenService.then((fn) => fn());
+    };
   }, []);
 
   const handleToggle = async () => {

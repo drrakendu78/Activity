@@ -277,12 +277,16 @@ async fn download_installer(
         .map_err(|e| format!("Cannot create temp dir: {}", e))?;
     let dest = temp_dir.join(&file_name);
 
-    // Verify dest stays within temp_dir
+    // Verify dest stays within temp_dir (use dunce to avoid UNC prefix issues on Windows)
     let canonical_dir = temp_dir
         .canonicalize()
         .map_err(|e| format!("Path error: {}", e))?;
-    let canonical_dest = dest.canonicalize().unwrap_or_else(|_| dest.clone());
-    if !canonical_dest.starts_with(&canonical_dir) {
+    // File doesn't exist yet, so canonicalize parent + file_name
+    let canonical_parent = dest.parent()
+        .ok_or("Invalid dest path")?
+        .canonicalize()
+        .map_err(|e| format!("Path error: {}", e))?;
+    if !canonical_parent.starts_with(&canonical_dir) {
         return Err("Path traversal detected".to_string());
     }
 

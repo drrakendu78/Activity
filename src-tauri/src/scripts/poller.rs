@@ -91,6 +91,7 @@ pub async fn start_poller(
 
     connect_rpc_internal(&rpc, APP_ID)?;
     poller.running.store(true, Ordering::Relaxed);
+    super::system_tray::update_tray_service(true);
 
     let running = poller.running.clone();
     let poll_interval = config.poll_interval_ms;
@@ -370,6 +371,7 @@ pub async fn start_poller(
 
                         let connected = *rpc_state.connected.lock().unwrap_or_else(|e| e.into_inner());
 
+                        let tray_display_name = display_name.clone();
                         let _ = app_handle_clone.emit(
                             "rpc-status-changed",
                             RpcStatusEvent {
@@ -390,6 +392,16 @@ pub async fn start_poller(
                                 position_secs: media.position_secs,
                                 duration_secs: media.duration_secs,
                             },
+                        );
+
+                        // Update tray with music info
+                        let tray_now_playing = format!("{} — {}", media.title, media.artist);
+                        let connected_for_tray = *rpc_state.connected.lock().unwrap_or_else(|e| e.into_inner());
+                        super::system_tray::update_tray_status(
+                            &app_handle_clone,
+                            connected_for_tray,
+                            Some(&tray_display_name),
+                            Some(&tray_now_playing),
                         );
 
                         let now = std::time::SystemTime::now()
@@ -585,7 +597,7 @@ pub async fn start_poller(
                     let shown_details = details_override.unwrap_or_else(|| app_config.details.clone());
                     let shown_state = state_override.unwrap_or_else(|| app_config.state.clone());
 
-                    // println!("[Poller] Emitting event: connected={} current_app={:?}", connected, current_app);
+                    let tray_app_name = current_app.clone();
                     let _ = app_handle_clone.emit(
                         "rpc-status-changed",
                         RpcStatusEvent {
@@ -606,6 +618,15 @@ pub async fn start_poller(
                             position_secs: None,
                             duration_secs: None,
                         },
+                    );
+
+                    // Update tray with app info
+                    let connected_for_tray = *rpc_state.connected.lock().unwrap_or_else(|e| e.into_inner());
+                    super::system_tray::update_tray_status(
+                        &app_handle_clone,
+                        connected_for_tray,
+                        tray_app_name.as_deref(),
+                        None,
                     );
 
                     last_activity_sent = now;
@@ -654,6 +675,7 @@ pub async fn stop_poller(
     poller: State<'_, PollerState>,
 ) -> Result<(), String> {
     poller.running.store(false, Ordering::Relaxed);
+    super::system_tray::update_tray_service(false);
 
     let mut handle_lock = poller.handle.lock().await;
     if let Some(handle) = handle_lock.take() {
