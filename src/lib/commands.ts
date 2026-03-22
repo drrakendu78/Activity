@@ -195,11 +195,12 @@ export interface UpdateInfo {
   download_url: string | null;
   file_name: string | null;
   file_size: number | null;
+  file_sha256: string | null;
   install_type: string;
 }
 
 export const checkForUpdates = () =>
   invoke<UpdateInfo>("check_for_updates");
 
-export const startSilentUpdate = (downloadUrl: string, fileName?: string) =>
-  invoke<void>("start_silent_update", { downloadUrl, fileName });
+export const startSilentUpdate = (downloadUrl: string, fileName?: string, fileSha256?: string) =>
+  invoke<void>("start_silent_update", { downloadUrl, fileName, fileSha256 });

@@ -28,7 +28,26 @@ pub struct UpdateInfo {
     pub download_url: Option<String>,
     pub file_name: Option<String>,
     pub file_size: Option<u64>,
+    pub file_sha256: Option<String>,
     pub install_type: String,
+}
+
+/// Parse SHA-256 hash from release notes markdown table
+/// Expects format: | `filename` | `hash` |
+fn extract_sha256_from_notes(notes: &str, file_name: &str) -> Option<String> {
+    for line in notes.lines() {
+        if line.contains(file_name) {
+            // Find the hash: 64 hex chars between backticks
+            let parts: Vec<&str> = line.split('`').collect();
+            for part in &parts {
+                let trimmed = part.trim();
+                if trimmed.len() == 64 && trimmed.chars().all(|c| c.is_ascii_hexdigit()) {
+                    return Some(trimmed.to_lowercase());
+                }
+            }
+        }
+    }
+    None
 }
 
 /// Detect how the app was installed (exe portable vs msi)
@@ -126,6 +145,7 @@ pub async fn check_for_updates() -> Result<UpdateInfo, String> {
             download_url: None,
             file_name: None,
             file_size: None,
+            file_sha256: None,
             install_type,
         });
     }
@@ -140,6 +160,11 @@ pub async fn check_for_updates() -> Result<UpdateInfo, String> {
         name.ends_with(ext) && !name.contains("uninstall")
     });
 
+    // Extract SHA-256 hash from release notes
+    let file_sha256 = asset.as_ref().and_then(|a| {
+        release.body.as_ref().and_then(|notes| extract_sha256_from_notes(notes, &a.name))
+    });
+
     Ok(UpdateInfo {
         current_version,
         latest_version,
@@ -149,13 +174,14 @@ pub async fn check_for_updates() -> Result<UpdateInfo, String> {
         download_url: asset.map(|a| a.browser_download_url.clone()),
         file_name: asset.map(|a| a.name.clone()),
         file_size: asset.map(|a| a.size),
+        file_sha256,
         install_type,
     })
 }
 
 /// Spawn the Activity-Updater.exe with download args, then exit
 #[command]
-pub async fn start_silent_update(download_url: String, file_name: Option<String>) -> Result<(), String> {
+pub async fn start_silent_update(download_url: String, file_name: Option<String>, file_sha256: Option<String>) -> Result<(), String> {
     let url = download_url.trim();
     if url.is_empty() {
         return Err("Missing update download URL".to_string());
@@ -202,14 +228,17 @@ pub async fn start_silent_update(download_url: String, file_name: Option<String>
     {
         use std::os::windows::process::CommandExt;
         const CREATE_NO_WINDOW: u32 = 0x08000000;
-        std::process::Command::new(&updater_exe)
-            .args([
-                "--url", url,
-                "--name", &preferred_name,
-                "--app", &current_exe.to_string_lossy(),
-                "--pid", &current_pid.to_string(),
-            ])
-            .creation_flags(CREATE_NO_WINDOW)
+        let mut cmd = std::process::Command::new(&updater_exe);
+        cmd.args([
+            "--url", url,
+            "--name", &preferred_name,
+            "--app", &current_exe.to_string_lossy().as_ref(),
+            "--pid", &current_pid.to_string(),
+        ]);
+        if let Some(ref sha) = file_sha256 {
+            cmd.args(["--sha256", sha]);
+        }
+        cmd.creation_flags(CREATE_NO_WINDOW)
             .spawn()
             .map_err(|e| format!("Cannot start updater: {}", e))?;
     }

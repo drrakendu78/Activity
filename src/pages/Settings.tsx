@@ -543,7 +543,8 @@ export default function Settings() {
                   try {
                     await startSilentUpdate(
                       updateInfo.download_url,
-                      updateInfo.file_name
+                      updateInfo.file_name,
+                      updateInfo.file_sha256 ?? undefined
                     );
                   } catch (e) {
                     setUpdateError(String(e));

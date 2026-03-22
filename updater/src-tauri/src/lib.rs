@@ -1,12 +1,13 @@
 use serde::Serialize;
+use sha2::{Sha256, Digest};
 use std::path::{Path, PathBuf};
 use std::sync::OnceLock;
 use tauri::{AppHandle, Emitter};
 
 static UPDATE_ARGS: OnceLock<UpdateArgs> = OnceLock::new();
 
-/// Max download size: 2 GB
-const MAX_DOWNLOAD_SIZE: u64 = 2 * 1024 * 1024 * 1024;
+/// Max download size: 50 MB
+const MAX_DOWNLOAD_SIZE: u64 = 50 * 1024 * 1024;
 
 #[derive(Debug, Clone, Serialize)]
 struct UpdateArgs {
@@ -14,6 +15,7 @@ struct UpdateArgs {
     name: String,
     app: String,
     pid: u32,
+    expected_sha256: Option<String>,
 }
 
 #[derive(Clone, Serialize)]
@@ -78,12 +80,18 @@ fn validate_app_path(app: &str) -> Result<(), String> {
     Ok(())
 }
 
+/// Validate SHA-256 hex string format
+fn validate_sha256_format(hash: &str) -> bool {
+    hash.len() == 64 && hash.chars().all(|c| c.is_ascii_hexdigit())
+}
+
 fn parse_args() -> Option<UpdateArgs> {
     let args: Vec<String> = std::env::args().collect();
     let mut url = None;
     let mut name = None;
     let mut app = None;
     let mut pid = None;
+    let mut sha256 = None;
 
     let mut i = 1;
     while i < args.len() {
@@ -102,6 +110,13 @@ fn parse_args() -> Option<UpdateArgs> {
             }
             "--pid" if i + 1 < args.len() => {
                 pid = args[i + 1].parse().ok();
+                i += 2;
+            }
+            "--sha256" if i + 1 < args.len() => {
+                let h = args[i + 1].trim().to_lowercase();
+                if validate_sha256_format(&h) {
+                    sha256 = Some(h);
+                }
                 i += 2;
             }
             _ => i += 1,
@@ -124,6 +139,7 @@ fn parse_args() -> Option<UpdateArgs> {
         name: sanitize_file_name(&name.unwrap_or_default()),
         app: raw_app,
         pid: raw_pid,
+        expected_sha256: sha256,
     })
 }
 
@@ -149,7 +165,7 @@ async fn start_update(app: AppHandle) -> Result<(), String> {
 
     // Phase 2: Download
     emit_progress(&app, "downloading", 0, "Début du téléchargement...");
-    let installer_path = download_installer(&app, &args.url, &args.name).await?;
+    let installer_path = download_installer(&app, &args.url, &args.name, args.expected_sha256.as_deref()).await?;
 
     // Phase 3: Install
     emit_progress(&app, "installing", 0, "Installation en cours...");
@@ -225,6 +241,7 @@ async fn download_installer(
     app: &AppHandle,
     url: &str,
     name: &str,
+    expected_sha256: Option<&str>,
 ) -> Result<PathBuf, String> {
     use futures_util::StreamExt;
     use tokio::io::AsyncWriteExt;
@@ -277,11 +294,10 @@ async fn download_installer(
         .map_err(|e| format!("Cannot create temp dir: {}", e))?;
     let dest = temp_dir.join(&file_name);
 
-    // Verify dest stays within temp_dir (use dunce to avoid UNC prefix issues on Windows)
+    // Verify dest stays within temp_dir
     let canonical_dir = temp_dir
         .canonicalize()
         .map_err(|e| format!("Path error: {}", e))?;
-    // File doesn't exist yet, so canonicalize parent + file_name
     let canonical_parent = dest.parent()
         .ok_or("Invalid dest path")?
         .canonicalize()
@@ -297,6 +313,7 @@ async fn download_installer(
     let mut stream = response.bytes_stream();
     let mut downloaded: u64 = 0;
     let mut last_percent: u32 = 0;
+    let mut hasher = Sha256::new();
 
     while let Some(chunk) = stream.next().await {
         let chunk = chunk.map_err(|e| format!("Download stream error: {}", e))?;
@@ -304,8 +321,12 @@ async fn download_installer(
         if downloaded > MAX_DOWNLOAD_SIZE {
             drop(file);
             let _ = tokio::fs::remove_file(&dest).await;
-            return Err("Download too large (max 2 GB)".to_string());
+            return Err("Download too large (max 50 MB)".to_string());
         }
+
+        // Hash the chunk as we download
+        hasher.update(&chunk);
+
         file.write_all(&chunk)
             .await
             .map_err(|e| format!("Write error: {}", e))?;
@@ -330,6 +351,19 @@ async fn download_installer(
     file.flush()
         .await
         .map_err(|e| format!("Flush error: {}", e))?;
+
+    // Verify SHA-256 integrity
+    if let Some(expected) = expected_sha256 {
+        let computed = format!("{:x}", hasher.finalize());
+        if computed != expected {
+            let _ = tokio::fs::remove_file(&dest).await;
+            return Err(format!(
+                "Intégrité du fichier invalide!\nAttendu: {}\nObtenu: {}",
+                expected, computed
+            ));
+        }
+        emit_progress(app, "downloading", 100, "Intégrité vérifiée ✓");
+    }
 
     emit_progress(app, "downloading", 100, "Téléchargement terminé.");
     Ok(dest)
