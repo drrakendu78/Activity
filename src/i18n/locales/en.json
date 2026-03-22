@@ -24,8 +24,15 @@
     "waitingForFocus": "Waiting for window focus...",
     "startServicePrompt": "Start the service to begin tracking",
     "elapsed": "elapsed",
-    "footer1": "Apps are auto-detected from a built-in database of 80+ apps.",
-    "footer2": "Switch between windows and watch your Discord presence update live."
+    "footer1": "Your active app is automatically detected and matched via online APIs.",
+    "footer2": "Switch windows and your Discord presence updates in real time.",
+    "nowPlaying": "Now Playing",
+    "watching": "Watching",
+    "listeningTo": "Listening to music",
+    "listenOn": "Listen",
+    "watchOn": "Watch",
+    "waitingForDiscord": "Waiting for Discord...",
+    "waitingForDiscordHint": "The service will start automatically when Discord is detected."
   },
   "settings": {
     "title": "Settings",
@@ -73,7 +80,10 @@
     "startOnBoot": "Start on boot",
     "startOnBootDesc": "Launch minimized when Windows starts",
     "saveSettings": "Save Settings",
-    "saved": "Saved!"
+    "saved": "Saved!",
+    "musicDetection": "Music Detection",
+    "musicEnabled": "Show music presence",
+    "musicEnabledDesc": "Show song info on Discord when music is playing"
   },
   "apps": {
     "title": "Apps",
@@ -136,6 +146,28 @@
     "dark": "Dark",
     "autoStart": "Start on boot",
     "autoStartDesc": "Launch the app minimized when Windows starts",
+    "autoStartEnabled": "The app will launch when Windows starts",
+    "autoStartDisabled": "The app will not launch automatically",
+    "serviceTitle": "Detection service",
+    "serviceDesc": "Automatically start detecting applications",
+    "serviceEnabled": "The service will start automatically on launch",
+    "serviceDisabled": "You will need to start the service manually",
+    "musicTitle": "Music detection",
+    "musicDesc": "Show current song info on Discord",
+    "musicEnabled": "Music will be shown on Discord",
+    "musicDisabled": "Music will not be shown on Discord",
+    "spotifyTitle": "Spotify API",
+    "spotifyDesc": "Get precise album covers via the Spotify API",
+    "spotifyValidate": "Verify",
+    "spotifyChecking": "Checking...",
+    "spotifyValid": "Credentials valid!",
+    "spotifyInvalid": "Invalid credentials — check your Client ID and Secret",
+    "spotifyOptional": "Optional — Create a free app at developer.spotify.com to get precise album covers.",
+    "steamgridTitle": "SteamGridDB",
+    "steamgridDesc": "Automatically fetch icons for games and applications",
+    "steamgridPlaceholder": "SteamGridDB API key...",
+    "steamgridValid": "API key saved!",
+    "steamgridOptional": "Optional — Get a free key at steamgriddb.com for beautiful automatic icons.",
     "getStarted": "Get Started",
     "next": "Next",
     "back": "Back",
@@ -151,6 +183,23 @@
     "productivity": "Productivity",
     "system": "System",
     "discovered": "Discovered",
-    "other": "Other"
+    "other": "Other",
+    "music": "Music"
+  },
+  "update": {
+    "title": "Update",
+    "available": "Update available",
+    "currentVersion": "Current version",
+    "latestAvailable": "available!",
+    "upToDate": "You're up to date",
+    "installType": "Install type",
+    "check": "Check",
+    "checking": "...",
+    "install": "Install",
+    "downloading": "Downloading...",
+    "later": "Later",
+    "updateNow": "Update now",
+    "checkError": "Check failed",
+    "onPrefix": "On"
   }
 }

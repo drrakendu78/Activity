@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { searchIcons, setAppIcon, type IconCandidate } from "../lib/commands";
 
 interface IconPickerProps {
@@ -9,11 +10,18 @@ interface IconPickerProps {
 }
 
 export default function IconPicker({ exeName, appName, onClose, onPicked }: IconPickerProps) {
+  const { t } = useTranslation();
   const [candidates, setCandidates] = useState<IconCandidate[]>([]);
   const [loading, setLoading] = useState(true);
   const [customQuery, setCustomQuery] = useState(appName);
   const [saving, setSaving] = useState<string | null>(null);
   const [picked, setPicked] = useState<string | null>(null);
+  const [closing, setClosing] = useState(false);
+
+  const animateClose = () => {
+    setClosing(true);
+    setTimeout(() => onClose(), 200);
+  };
 
   const doSearch = async (query: string) => {
     setLoading(true);
@@ -46,7 +54,7 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
   };
 
   const handleCustomUrl = async () => {
-    const url = prompt("Enter a direct image URL (PNG/JPG):");
+    const url = prompt(t("iconPicker.enterUrl"));
     if (url && url.startsWith("http")) {
       setSaving("custom");
       try {
@@ -62,30 +70,32 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
 
   return (
     <div
-      className="popup-backdrop"
+      className={closing ? "" : "popup-backdrop"}
       style={{
         position: "fixed", inset: 0, zIndex: 1000,
         background: "rgba(0,0,0,0.4)", backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         display: "flex", alignItems: "center", justifyContent: "center",
+        animation: closing ? "backdropOut 0.2s ease forwards" : undefined,
       }}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      onClick={(e) => { if (e.target === e.currentTarget) animateClose(); }}
     >
       <div
-        className="card popup-card"
+        className={`card ${closing ? "" : "popup-card"}`}
         style={{
           width: 440, maxHeight: "80vh", padding: 24,
           display: "flex", flexDirection: "column", gap: 16,
           boxShadow: "0 24px 80px rgba(0,0,0,0.25), 0 0 1px rgba(0,0,0,0.1)",
+          animation: closing ? "popOut 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards" : undefined,
         }}
       >
         {/* Header */}
         <div>
           <div style={{ fontSize: 17, fontWeight: 600, color: "var(--text-1)", letterSpacing: "-0.02em" }}>
-            Choose Icon
+            {t("iconPicker.title")}
           </div>
           <div style={{ fontSize: 12, color: "var(--text-3)", marginTop: 3 }}>
-            Pick an icon for <strong style={{ color: "var(--text-2)" }}>{appName}</strong>
+            {t("iconPicker.pickFor")} <strong style={{ color: "var(--text-2)" }}>{appName}</strong>
           </div>
         </div>
 
@@ -96,7 +106,7 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
             value={customQuery}
             onChange={(e) => setCustomQuery(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter") doSearch(customQuery); }}
-            placeholder="Search icons..."
+            placeholder={t("iconPicker.searchPlaceholder")}
             style={{ flex: 1 }}
             autoFocus
           />
@@ -105,7 +115,7 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
             onClick={() => doSearch(customQuery)}
             style={{ padding: "7px 16px", fontSize: 12, borderRadius: 8 }}
           >
-            Search
+            {t("iconPicker.search")}
           </button>
         </div>
 
@@ -127,7 +137,7 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
             }}>
               <span style={{ fontSize: 32, opacity: 0.6 }}>🔍</span>
               <span style={{ fontSize: 13, color: "var(--text-3)" }}>
-                No icons found. Try a different search term.
+                {t("iconPicker.noIcons")}
               </span>
             </div>
           ) : (
@@ -204,14 +214,14 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
             onClick={handleCustomUrl}
             style={{ padding: "7px 14px", fontSize: 11, borderRadius: 8 }}
           >
-            Custom URL...
+            {t("iconPicker.customUrl")}
           </button>
           <button
             className="btn-secondary"
-            onClick={onClose}
+            onClick={animateClose}
             style={{ padding: "7px 16px", fontSize: 12, borderRadius: 8 }}
           >
-            Cancel
+            {t("iconPicker.cancel")}
           </button>
         </div>
       </div>

@@ -30,9 +30,52 @@ struct SearchResponse {
 /// Search Iconify for an icon matching the app name, return a proxied PNG URL.
 /// Uses smart search: tries full name, then individual keywords, then simplified name.
 /// Prioritizes COLORFUL icon sets, ICON-ONLY variants (no text), avoids monochrome.
+/// Known music/media player icons (hardcoded PNG URLs for accuracy)
+fn known_player_icon(name: &str) -> Option<String> {
+    let lower = name.to_lowercase();
+    // Use weserv proxy to convert SVGs to PNGs that Discord can display
+    let url = match lower.as_str() {
+        "apple music" | "itunes" | "music" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Fsimple-icons%2Fapplemusic.svg%3Fcolor%3D%2523fa243c%26width%3D512&w=512&h=512&output=png",
+        "spotify" | "spotify music" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Fsimple-icons%2Fspotify.svg%3Fcolor%3D%25231db954%26width%3D512&w=512&h=512&output=png",
+        "youtube" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Flogos%2Fyoutube-icon.svg%3Fwidth%3D512%26height%3D512&w=512&h=512&output=png",
+        "youtube music" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Fsimple-icons%2Fyoutubemusic.svg%3Fcolor%3D%2523ff0000%26width%3D512&w=512&h=512&output=png",
+        "twitch" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Flogos%2Ftwitch.svg%3Fwidth%3D512%26height%3D512&w=512&h=512&output=png",
+        "soundcloud" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Fsimple-icons%2Fsoundcloud.svg%3Fcolor%3D%2523ff5500%26width%3D512&w=512&h=512&output=png",
+        "deezer" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Fsimple-icons%2Fdeezer.svg%3Fcolor%3D%2523feaa2d%26width%3D512&w=512&h=512&output=png",
+        "tidal" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Fsimple-icons%2Ftidal.svg%3Fcolor%3D%252300ffff%26width%3D512&w=512&h=512&output=png",
+        "vlc" | "vlc media player" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Fsimple-icons%2Fvlcmediaplayer.svg%3Fcolor%3D%2523ff8800%26width%3D512&w=512&h=512&output=png",
+        "firefox" | "mozilla firefox" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Flogos%2Ffirefox.svg%3Fwidth%3D512%26height%3D512&w=512&h=512&output=png",
+        "chrome" | "google chrome" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Flogos%2Fchrome.svg%3Fwidth%3D512%26height%3D512&w=512&h=512&output=png",
+        "edge" | "microsoft edge" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Flogos%2Fmicrosoft-edge.svg%3Fwidth%3D512%26height%3D512&w=512&h=512&output=png",
+        "brave" | "brave browser" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Flogos%2Fbrave.svg%3Fwidth%3D512%26height%3D512&w=512&h=512&output=png",
+        "opera" | "opera gx" =>
+            "https://images.weserv.nl/?url=https%3A%2F%2Fapi.iconify.design%2Flogos%2Fopera.svg%3Fwidth%3D512%26height%3D512&w=512&h=512&output=png",
+        _ => return None,
+    };
+    Some(url.to_string())
+}
+
 pub async fn fetch_icon(app_name: &str) -> Option<String> {
     if app_name.is_empty() {
         return None;
+    }
+
+    // Check known players first
+    if let Some(url) = known_player_icon(app_name) {
+        return Some(url);
     }
 
     let client = reqwest::Client::new();

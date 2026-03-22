@@ -24,8 +24,13 @@
     "waitingForFocus": "Waiting for window focus...",
     "startServicePrompt": "Start the service to begin tracking",
     "elapsed": "elapsed",
-    "footer1": "Apps are auto-detected from a built-in database of 80+ apps.",
-    "footer2": "Switch between windows and watch your Discord presence update live."
+    "footer1": "Your active app is automatically detected and matched via online APIs.",
+    "footer2": "Switch windows and your Discord presence updates in real time.",
+    "nowPlaying": "Now Playing",
+    "listeningTo": "Listening to music",
+    "listenOn": "Listen",
+    "watching": "Watching",
+    "watchOn": "Watch"
   },
   "settings": {
     "title": "Settings",
@@ -72,7 +77,10 @@
     "startOnBoot": "Start on boot",
     "startOnBootDesc": "Launch minimised when Windows starts",
     "saveSettings": "Save Settings",
-    "saved": "Saved!"
+    "saved": "Saved!",
+    "musicDetection": "Music Detection",
+    "musicEnabled": "Show music presence",
+    "musicEnabledDesc": "Show song info on Discord when music is playing"
   },
   "apps": {
     "title": "Apps",
@@ -150,6 +158,23 @@
     "productivity": "Productivity",
     "system": "System",
     "discovered": "Discovered",
-    "other": "Other"
+    "other": "Other",
+    "music": "Music"
+  },
+  "update": {
+    "title": "Update",
+    "available": "Update available",
+    "currentVersion": "Current version",
+    "latestAvailable": "available!",
+    "upToDate": "You're up to date",
+    "installType": "Install type",
+    "check": "Check",
+    "checking": "...",
+    "install": "Install",
+    "downloading": "Downloading...",
+    "later": "Later",
+    "updateNow": "Update now",
+    "checkError": "Check failed",
+    "onPrefix": "On"
   }
 }

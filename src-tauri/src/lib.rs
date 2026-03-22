@@ -1,13 +1,25 @@
 mod scripts;
 
-use scripts::config::{load_config, save_config, get_builtin_apps_list};
+use scripts::config::{load_config, load_config_internal, save_config, get_builtin_apps_list};
 use scripts::discord_rpc::{disconnect_rpc, get_rpc_status, DiscordRpcState};
 use scripts::iconify::{search_icons, set_app_icon};
+use scripts::album_art::{validate_spotify, get_album_tracks_cmd};
+use scripts::media_session::{get_current_media_cmd, media_play_pause, media_next, media_previous, media_seek, get_system_volume, set_system_volume, toggle_mute};
 use scripts::poller::{is_poller_running, start_poller, stop_poller, get_detected_apps, PollerState};
 use scripts::startup::{disable_auto_startup, enable_auto_startup, is_auto_startup_enabled};
+use scripts::updater::{check_for_updates, download_and_install_update};
 use scripts::system_tray::setup_system_tray;
 use scripts::window_detect::get_active_window;
 use tauri::Manager;
+
+#[tauri::command]
+fn open_url(url: String) -> Result<(), String> {
+    std::process::Command::new("cmd")
+        .args(["/C", "start", "", &url])
+        .spawn()
+        .map_err(|e| e.to_string())?;
+    Ok(())
+}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -17,14 +29,28 @@ pub fn run() {
             app.manage(DiscordRpcState::default());
             app.manage(PollerState::default());
 
-            // Setup system tray
-            if let Err(e) = setup_system_tray(&app.handle()) {
-                eprintln!("Failed to setup system tray: {}", e);
+            let config = load_config_internal();
+
+            // Setup system tray (unless hidden by config)
+            if !config.hide_tray_icon {
+                if let Err(e) = setup_system_tray(&app.handle()) {
+                    eprintln!("Failed to setup system tray: {}", e);
+                }
             }
 
-            // If launched with --minimized flag, hide the window
-            if std::env::args().any(|arg| arg == "--minimized") {
-                if let Some(window) = app.get_webview_window("main") {
+            // Apply acrylic/mica effect
+            if let Some(window) = app.get_webview_window("main") {
+                #[cfg(target_os = "windows")]
+                {
+                    use window_vibrancy::apply_acrylic;
+                    if let Err(e) = apply_acrylic(&window, Some((18, 18, 20, 100))) {
+                        eprintln!("Acrylic failed: {:?}, trying blur...", e);
+                        let _ = window_vibrancy::apply_blur(&window, Some((18, 18, 20, 100)));
+                    }
+                }
+
+                // If launched with --minimized flag, hide the window
+                if std::env::args().any(|arg| arg == "--minimized") {
                     let _ = window.hide();
                 }
             }
@@ -53,6 +79,19 @@ pub fn run() {
             get_detected_apps,
             search_icons,
             set_app_icon,
+            get_current_media_cmd,
+            media_play_pause,
+            media_next,
+            media_previous,
+            media_seek,
+            get_system_volume,
+            set_system_volume,
+            toggle_mute,
+            validate_spotify,
+            get_album_tracks_cmd,
+            open_url,
+            check_for_updates,
+            download_and_install_update,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

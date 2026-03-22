@@ -24,8 +24,13 @@
     "waitingForFocus": "창 포커스 대기 중...",
     "startServicePrompt": "서비스를 시작하여 추적을 시작하세요",
     "elapsed": "경과",
-    "footer1": "80개 이상의 앱이 내장 데이터베이스에서 자동으로 감지됩니다.",
-    "footer2": "창을 전환하면 Discord 상태가 실시간으로 업데이트됩니다."
+    "footer1": "활성 앱이 온라인 API를 통해 자동으로 감지되고 매칭됩니다.",
+    "footer2": "창을 전환하면 Discord 상태가 실시간으로 업데이트됩니다.",
+    "nowPlaying": "현재 재생 중",
+    "listeningTo": "음악 감상 중",
+    "listenOn": "듣기",
+    "watching": "시청 중",
+    "watchOn": "시청"
   },
   "settings": {
     "title": "설정",
@@ -72,7 +77,10 @@
     "startOnBoot": "부팅 시 시작",
     "startOnBootDesc": "Windows 시작 시 최소화하여 실행",
     "saveSettings": "설정 저장",
-    "saved": "저장됨!"
+    "saved": "저장됨!",
+    "musicDetection": "음악 감지",
+    "musicEnabled": "음악 상태 표시",
+    "musicEnabledDesc": "음악 재생 시 Discord에 곡 정보 표시"
   },
   "apps": {
     "title": "앱",
@@ -150,6 +158,23 @@
     "productivity": "생산성",
     "system": "시스템",
     "discovered": "발견됨",
-    "other": "기타"
+    "other": "기타",
+    "music": "음악"
+  },
+  "update": {
+    "title": "업데이트",
+    "available": "업데이트 사용 가능",
+    "currentVersion": "현재 버전",
+    "latestAvailable": "사용 가능!",
+    "upToDate": "최신 상태입니다",
+    "installType": "설치 유형",
+    "check": "확인",
+    "checking": "...",
+    "install": "설치",
+    "downloading": "다운로드 중...",
+    "later": "나중에",
+    "updateNow": "지금 업데이트",
+    "checkError": "확인 실패",
+    "onPrefix": "사용 중"
   }
 }

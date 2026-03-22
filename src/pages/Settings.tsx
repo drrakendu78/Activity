@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import {
   loadConfig, saveConfig, isAutoStartupEnabled,
   enableAutoStartup, disableAutoStartup, type RpcConfig,
+  checkForUpdates, downloadAndInstallUpdate, type UpdateInfo,
 } from "../lib/commands";
 import { useTheme } from "../lib/theme";
 import { LANGUAGES, getFlagUrl } from "../i18n";
@@ -12,11 +13,17 @@ export default function Settings() {
   const [config, setConfig] = useState<RpcConfig | null>(null);
   const [autoStart, setAutoStart] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [updateInfo, setUpdateInfo] = useState<UpdateInfo | null>(null);
+  const [updateChecking, setUpdateChecking] = useState(false);
+  const [updateDownloading, setUpdateDownloading] = useState(false);
+  const [updateError, setUpdateError] = useState<string | null>(null);
   const { theme, toggle: toggleTheme } = useTheme();
 
   useEffect(() => {
     loadConfig().then(setConfig);
     isAutoStartupEnabled().then(setAutoStart).catch(() => {});
+    // Auto-check for updates on load
+    checkForUpdates().then(setUpdateInfo).catch(() => {});
   }, []);
 
   const handleSave = async () => {
@@ -41,12 +48,7 @@ export default function Settings() {
   if (!config) return <div style={{ padding: 24, color: "var(--text-3)" }}>{t("apps.loading")}</div>;
 
   return (
-    <div style={{ padding: 24, display: "flex", flexDirection: "column", gap: 16 }}>
-      <div>
-        <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em", color: "var(--text-1)" }}>{t("settings.title")}</h1>
-        <p style={{ fontSize: 13, color: "var(--text-2)", marginTop: 2 }}>{t("settings.subtitle")}</p>
-      </div>
-
+    <div style={{ padding: 20, display: "flex", flexDirection: "column", gap: 14 }}>
       {/* Appearance */}
       <div className="card" style={{ padding: 16 }}>
         <div className="section-label" style={{ marginBottom: 12 }}>{t("settings.appearance")}</div>
@@ -93,6 +95,199 @@ export default function Settings() {
         </div>
       </div>
 
+
+      {/* Music Detection */}
+      <div className="card" style={{ padding: 16 }}>
+        <div className="section-label" style={{ marginBottom: 12 }}>{t("settings.musicDetection")}</div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: config.music_enabled ? 16 : 0 }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)" }}>{t("settings.musicEnabled")}</div>
+            <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 1 }}>{t("settings.musicEnabledDesc")}</div>
+          </div>
+          <button
+            onClick={() => setConfig({ ...config, music_enabled: !config.music_enabled })}
+            className={`toggle-apple ${config.music_enabled ? "active" : ""}`}
+          >
+            <span className="thumb" />
+          </button>
+        </div>
+
+        {config.music_enabled && (() => {
+          const mc = config.music_config;
+          const setMc = (patch: Partial<typeof mc>) =>
+            setConfig({ ...config, music_config: { ...mc, ...patch } });
+
+          const CheckRow = ({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) => (
+            <label style={{ display: "flex", alignItems: "center", gap: 8, padding: "5px 0", fontSize: 12, color: "var(--text-1)", cursor: "pointer" }}>
+              <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)}
+                style={{ accentColor: "var(--accent)", width: 15, height: 15 }} />
+              {label}
+            </label>
+          );
+
+          const CustomSelect = ({ label, value, onChange, options }: {
+            label: string; value: string; onChange: (v: string) => void;
+            options: { value: string; label: string }[];
+          }) => {
+            const [open, setOpen] = useState(false);
+            const ref = useRef<HTMLDivElement>(null);
+            const selected = options.find((o) => o.value === value);
+
+            useEffect(() => {
+              const handler = (e: MouseEvent) => {
+                if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+              };
+              document.addEventListener("mousedown", handler);
+              return () => document.removeEventListener("mousedown", handler);
+            }, []);
+
+            return (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 0" }}>
+                <span style={{ fontSize: 12, color: "var(--text-1)" }}>{label}</span>
+                <div ref={ref} style={{ position: "relative", minWidth: 170 }}>
+                  <button
+                    onClick={() => setOpen(!open)}
+                    style={{
+                      width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
+                      padding: "5px 10px", fontSize: 11, fontFamily: "inherit",
+                      background: "var(--bg-input)", border: "1px solid var(--border)",
+                      borderRadius: 7, color: "var(--text-1)", cursor: "pointer",
+                    }}
+                  >
+                    <span>{selected?.label || value}</span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" strokeWidth="2.5"><path d="M6 9l6 6 6-6" /></svg>
+                  </button>
+                  {open && (
+                    <div style={{
+                      position: "absolute", top: "100%", left: 0, right: 0, marginTop: 4, zIndex: 50,
+                      background: "var(--bg-elevated)", border: "1px solid var(--border)",
+                      borderRadius: 8, overflow: "hidden", boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                    }}>
+                      {options.map((opt) => (
+                        <div
+                          key={opt.value}
+                          onClick={() => { onChange(opt.value); setOpen(false); }}
+                          style={{
+                            padding: "7px 12px", fontSize: 11, cursor: "pointer",
+                            color: opt.value === value ? "var(--accent)" : "var(--text-1)",
+                            background: opt.value === value ? "var(--accent-bg)" : "transparent",
+                            fontWeight: opt.value === value ? 600 : 400,
+                          }}
+                          onMouseEnter={(e) => { if (opt.value !== value) e.currentTarget.style.background = "var(--bg-content)"; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.background = opt.value === value ? "var(--accent-bg)" : "transparent"; }}
+                        >
+                          {opt.label}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          };
+
+          return (
+            <>
+              {/* Présence */}
+              <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: 8 }}>
+                {t("settings.musicPresence")}
+              </div>
+
+              <CustomSelect label={t("settings.musicActivityType")} value={mc.activity_type} onChange={(v) => setMc({ activity_type: v })}
+                options={[
+                  { value: "listening", label: t("settings.musicActivityListening") },
+                  { value: "watching", label: t("settings.musicActivityWatching") },
+                  { value: "playing", label: t("settings.musicActivityPlaying") },
+                ]} />
+
+              <CustomSelect label={t("settings.musicDisplayText")} value={mc.display_text} onChange={(v) => setMc({ display_text: v })}
+                options={[
+                  { value: "player", label: t("settings.musicDisplayPlayer") },
+                  { value: "artist", label: t("settings.musicDisplayArtist") },
+                  { value: "title", label: t("settings.musicDisplayTitle") },
+                  { value: "media_type", label: t("settings.musicDisplayMediaType") },
+                  { value: "custom", label: t("settings.musicDisplayCustom") },
+                ]} />
+              {mc.display_text === "custom" && (
+                <input className="input-apple" value={mc.display_text_custom}
+                  onChange={(e) => setMc({ display_text_custom: e.target.value })}
+                  placeholder={t("settings.musicDisplayCustom")}
+                  style={{ fontSize: 11, padding: "4px 8px", marginBottom: 4, width: "100%" }} />
+              )}
+
+              <CustomSelect label={t("settings.musicProfileText")} value={mc.profile_text} onChange={(v) => setMc({ profile_text: v })}
+                options={[
+                  { value: "player", label: t("settings.musicDisplayPlayer") },
+                  { value: "media_type", label: t("settings.musicDisplayMediaType") },
+                  { value: "custom", label: t("settings.musicDisplayCustom") },
+                ]} />
+              {mc.profile_text === "custom" && (
+                <input className="input-apple" value={mc.profile_text_custom}
+                  onChange={(e) => setMc({ profile_text_custom: e.target.value })}
+                  placeholder={t("settings.musicDisplayCustom")}
+                  style={{ fontSize: 11, padding: "4px 8px", marginBottom: 4, width: "100%" }} />
+              )}
+
+              {/* Informations sur la musique */}
+              <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.04em", margin: "14px 0 8px" }}>
+                {t("settings.musicInfo")}
+              </div>
+
+              <CheckRow label={t("settings.musicTitleArtistOneLine")} checked={mc.title_artist_one_line} onChange={(v) => setMc({ title_artist_one_line: v })} />
+              <CheckRow label={t("settings.musicArtistAlbumOneLine")} checked={mc.artist_album_one_line} onChange={(v) => setMc({ artist_album_one_line: v })} />
+              <CheckRow label={t("settings.musicReverseOrder")} checked={mc.reverse_title_artist} onChange={(v) => setMc({ reverse_title_artist: v })} />
+              <CheckRow label={t("settings.musicPrefixBy")} checked={mc.prefix_artist_by} onChange={(v) => setMc({ prefix_artist_by: v })} />
+              <CheckRow label={t("settings.musicPrefixOn")} checked={mc.prefix_album_on} onChange={(v) => setMc({ prefix_album_on: v })} />
+              <CheckRow label={t("settings.musicShowAlbum")} checked={mc.show_album} onChange={(v) => setMc({ show_album: v })} />
+              <CheckRow label={t("settings.musicShowAlbumNoArtist")} checked={mc.show_album_when_no_artist} onChange={(v) => setMc({ show_album_when_no_artist: v })} />
+              <CheckRow label={t("settings.musicShowPlayback")} checked={mc.show_playback_info} onChange={(v) => setMc({ show_playback_info: v })} />
+              <CheckRow label={t("settings.musicHideInfo")} checked={mc.hide_music_info} onChange={(v) => setMc({ hide_music_info: v })} />
+
+              {/* Média en pause */}
+              <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.04em", margin: "14px 0 8px" }}>
+                {t("settings.musicPaused")}
+              </div>
+
+              <CheckRow label={t("settings.musicShowPaused")} checked={mc.show_paused} onChange={(v) => setMc({ show_paused: v })} />
+              <CheckRow label={t("settings.musicShowPauseIcon")} checked={mc.show_pause_icon} onChange={(v) => setMc({ show_pause_icon: v })} />
+              <CheckRow label={t("settings.musicFreezeProgress")} checked={mc.freeze_progress_when_paused} onChange={(v) => setMc({ freeze_progress_when_paused: v })} />
+              <CheckRow label={t("settings.musicShowPausedDuration")} checked={mc.show_paused_duration} onChange={(v) => setMc({ show_paused_duration: v })} />
+
+              {/* Lecteurs hors-ligne */}
+              <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.04em", margin: "14px 0 8px" }}>
+                {t("settings.musicOffline")}
+              </div>
+              <CheckRow label={t("settings.musicShowPlayIcon")} checked={mc.show_play_icon} onChange={(v) => setMc({ show_play_icon: v })} />
+              <CheckRow label={t("settings.musicShowPlayerLogo")} checked={mc.show_player_logo} onChange={(v) => setMc({ show_player_logo: v })} />
+              <div style={{ fontSize: 10, color: "var(--text-3)", marginTop: 2, fontStyle: "italic" }}>
+                {t("settings.musicOfflineNote")}
+              </div>
+
+              {/* Boutons */}
+              <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.04em", margin: "14px 0 8px" }}>
+                {t("settings.musicButtons")}
+              </div>
+
+              <CheckRow label={t("settings.musicShowGetStatusButton")} checked={mc.show_get_status_button} onChange={(v) => setMc({ show_get_status_button: v })} />
+              <CheckRow label={t("settings.musicShowListenButton")} checked={mc.show_listen_button} onChange={(v) => setMc({ show_listen_button: v })} />
+
+              {/* Divers */}
+              <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text-2)", textTransform: "uppercase", letterSpacing: "0.04em", margin: "14px 0 8px" }}>
+                {t("settings.musicMisc")}
+              </div>
+
+              <CustomSelect label={t("settings.musicFallbackCover")} value={mc.fallback_cover} onChange={(v) => setMc({ fallback_cover: v })}
+                options={[
+                  { value: "player", label: t("settings.musicFallbackPlayer") },
+                  { value: "note", label: t("settings.musicFallbackNote") },
+                  { value: "playback", label: t("settings.musicFallbackPlayback") },
+                  { value: "cd", label: t("settings.musicFallbackCd") },
+                  { value: "app", label: t("settings.musicFallbackApp") },
+                ]} />
+            </>
+          );
+        })()}
+      </div>
 
       {/* Polling */}
       <div className="card" style={{ padding: 16 }}>
@@ -196,7 +391,6 @@ export default function Settings() {
               { label: t("settings.statusStreaming"), value: "Streaming" },
               { label: t("settings.statusAFK"), value: "AFK" },
             ].map((opt) => {
-              const presets = ["", "Chilling", "Working", "Streaming", "AFK"];
               const isSelected = config.default.state === opt.value;
               return (
                 <button
@@ -241,9 +435,11 @@ export default function Settings() {
         </div>
       </div>
 
-      {/* Auto Start */}
+      {/* Behavior */}
       <div className="card" style={{ padding: 16 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div className="section-label" style={{ marginBottom: 12 }}>{t("settings.behavior")}</div>
+
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)" }}>{t("settings.startOnBoot")}</div>
             <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 1 }}>{t("settings.startOnBootDesc")}</div>
@@ -252,6 +448,114 @@ export default function Settings() {
             <span className="thumb" />
           </button>
         </div>
+
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)" }}>{t("settings.autoStartService")}</div>
+            <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 1 }}>{t("settings.autoStartServiceDesc")}</div>
+          </div>
+          <button
+            onClick={() => setConfig({ ...config, auto_start_service: !config.auto_start_service })}
+            className={`toggle-apple ${config.auto_start_service ? "active" : ""}`}
+          >
+            <span className="thumb" />
+          </button>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)" }}>{t("settings.hideTrayIcon")}</div>
+            <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 1 }}>{t("settings.hideTrayIconDesc")}</div>
+          </div>
+          <button
+            onClick={() => setConfig({ ...config, hide_tray_icon: !config.hide_tray_icon })}
+            className={`toggle-apple ${config.hide_tray_icon ? "active" : ""}`}
+          >
+            <span className="thumb" />
+          </button>
+        </div>
+      </div>
+
+      {/* Updates */}
+      <div className="card" style={{ padding: 16 }}>
+        <div className="section-label" style={{ marginBottom: 12 }}>{t("update.title")}</div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)" }}>
+              {t("update.currentVersion")} : {updateInfo?.current_version || "..."}
+            </div>
+            {updateInfo?.has_update ? (
+              <div style={{ fontSize: 11, color: "var(--green)", marginTop: 2, fontWeight: 600 }}>
+                v{updateInfo.latest_version} {t("update.latestAvailable")}
+              </div>
+            ) : updateInfo ? (
+              <div style={{ fontSize: 11, color: "var(--text-2)", marginTop: 2 }}>
+                {t("update.upToDate")}
+              </div>
+            ) : null}
+            {updateInfo?.has_update && updateInfo.install_type && (
+              <div style={{ fontSize: 10, color: "var(--text-3)", marginTop: 2 }}>
+                {t("update.installType")} : {updateInfo.install_type.toUpperCase()}
+              </div>
+            )}
+          </div>
+          <div style={{ display: "flex", gap: 6 }}>
+            <button
+              onClick={async () => {
+                setUpdateChecking(true);
+                setUpdateError(null);
+                try {
+                  const info = await checkForUpdates();
+                  setUpdateInfo(info);
+                } catch (e) {
+                  setUpdateError(t("update.checkError"));
+                }
+                setUpdateChecking(false);
+              }}
+              className="btn-secondary"
+              style={{ fontSize: 11, padding: "6px 12px", borderRadius: 8, opacity: updateChecking ? 0.6 : 1 }}
+              disabled={updateChecking}
+            >
+              {updateChecking ? t("update.checking") : t("update.check")}
+            </button>
+            {updateInfo?.has_update && updateInfo.download_url && updateInfo.file_name && (
+              <button
+                onClick={async () => {
+                  if (!updateInfo.download_url || !updateInfo.file_name) return;
+                  setUpdateDownloading(true);
+                  setUpdateError(null);
+                  try {
+                    await downloadAndInstallUpdate(
+                      updateInfo.download_url,
+                      updateInfo.file_name,
+                      updateInfo.file_size || 0
+                    );
+                  } catch (e) {
+                    setUpdateError(String(e));
+                    setUpdateDownloading(false);
+                  }
+                }}
+                className="btn-primary"
+                style={{ fontSize: 11, padding: "6px 12px", borderRadius: 8, opacity: updateDownloading ? 0.6 : 1 }}
+                disabled={updateDownloading}
+              >
+                {updateDownloading ? t("update.downloading") : t("update.install")}
+              </button>
+            )}
+          </div>
+        </div>
+        {updateError && (
+          <div style={{ fontSize: 11, color: "#ef4444", marginTop: 8 }}>{updateError}</div>
+        )}
+        {updateInfo?.has_update && updateInfo.release_notes && (
+          <div style={{
+            marginTop: 10, padding: 10, borderRadius: 8,
+            background: "var(--bg-content)", fontSize: 11, color: "var(--text-2)",
+            maxHeight: 100, overflowY: "auto", whiteSpace: "pre-wrap", lineHeight: 1.5,
+          }}>
+            {updateInfo.release_notes}
+          </div>
+        )}
       </div>
 
       {/* Save */}

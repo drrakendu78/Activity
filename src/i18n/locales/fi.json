@@ -24,8 +24,13 @@
     "waitingForFocus": "Odotetaan ikkunan kohdistusta...",
     "startServicePrompt": "Käynnistä palvelu aloittaaksesi seurannan",
     "elapsed": "kulunut",
-    "footer1": "Sovellukset tunnistetaan automaattisesti yli 80 sovelluksen tietokannasta.",
-    "footer2": "Vaihda ikkunoiden välillä ja katso Discord-tilasi päivittyvän reaaliajassa."
+    "footer1": "Aktiivinen sovelluksesi tunnistetaan ja yhdistetään automaattisesti verkko-API:en avulla.",
+    "footer2": "Vaihda ikkunaa ja Discord-tilasi päivittyy reaaliajassa.",
+    "nowPlaying": "Nyt Soi",
+    "listeningTo": "Kuuntelee musiikkia",
+    "listenOn": "Kuuntele",
+    "watching": "Katsoo",
+    "watchOn": "Katso"
   },
   "settings": {
     "title": "Asetukset",
@@ -72,7 +77,10 @@
     "startOnBoot": "Käynnistä automaattisesti",
     "startOnBootDesc": "Käynnistä pienennettynä Windowsin käynnistyessä",
     "saveSettings": "Tallenna asetukset",
-    "saved": "Tallennettu!"
+    "saved": "Tallennettu!",
+    "musicDetection": "Musiikin tunnistus",
+    "musicEnabled": "Näytä musiikkitila",
+    "musicEnabledDesc": "Näytä kappaletiedot Discordissa musiikin soidessa"
   },
   "apps": {
     "title": "Sovellukset",
@@ -150,6 +158,23 @@
     "productivity": "Tuottavuus",
     "system": "Järjestelmä",
     "discovered": "Löydetty",
-    "other": "Muu"
+    "other": "Muu",
+    "music": "Musiikki"
+  },
+  "update": {
+    "title": "Päivitys",
+    "available": "Päivitys saatavilla",
+    "currentVersion": "Nykyinen versio",
+    "latestAvailable": "saatavilla!",
+    "upToDate": "Olet ajan tasalla",
+    "installType": "Asennustyyppi",
+    "check": "Tarkista",
+    "checking": "...",
+    "install": "Asenna",
+    "downloading": "Ladataan...",
+    "later": "Myöhemmin",
+    "updateNow": "Päivitä nyt",
+    "checkError": "Tarkistus epäonnistui",
+    "onPrefix": "Käytössä"
   }
 }

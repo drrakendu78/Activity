@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES, getFlagUrl } from "../i18n";
 import { useTheme } from "../lib/theme";
-import { enableAutoStartup } from "../lib/commands";
+import { enableAutoStartup, loadConfig, saveConfig, startPoller } from "../lib/commands";
+import { resizeWindow } from "../App";
 
 interface Props {
-  onComplete: () => void;
+  onComplete: (serviceStarted: boolean) => void;
 }
 
 export default function SetupWizard({ onComplete }: Props) {
@@ -13,17 +14,66 @@ export default function SetupWizard({ onComplete }: Props) {
   const { theme, toggle: toggleTheme } = useTheme();
   const [step, setStep] = useState(0);
   const [autoStart, setAutoStart] = useState(false);
+  const [autoService, setAutoService] = useState(true);
+  const [musicEnabled, setMusicEnabled] = useState(true);
+  const [steamGridKey, setSteamGridKey] = useState("");
   const [closing, setClosing] = useState(false);
 
-  const totalSteps = 3;
+  const totalSteps = 6;
+
+  // Step 0 (languages) needs more height, other steps are smaller
+  const stepHeights = [700, 520, 520, 520, 520, 560];
+
+  useEffect(() => {
+    resizeWindow(stepHeights[step]);
+  }, [step]);
+
+  // Restore normal height on unmount
+  useEffect(() => {
+    return () => { resizeWindow(520); };
+  }, []);
 
   const handleFinish = async () => {
     if (autoStart) {
       try { await enableAutoStartup(); } catch (_) {}
     }
+    // Save config options set in the wizard
+    try {
+      const cfg = await loadConfig();
+      cfg.auto_start_service = autoService;
+      cfg.music_enabled = musicEnabled;
+      if (steamGridKey.trim()) cfg.steamgriddb_api_key = steamGridKey.trim();
+      await saveConfig(cfg);
+    } catch (_) {}
+    // Start the service directly if user enabled it
+    let serviceStarted = false;
+    if (autoService) {
+      try {
+        await startPoller();
+        serviceStarted = true;
+      } catch (_) {}
+    }
     setClosing(true);
-    setTimeout(() => onComplete(), 300);
+    setTimeout(() => onComplete(serviceStarted), 300);
   };
+
+  const stepIcons = ["\uD83C\uDF10", "\uD83C\uDFA8", "\u26A1", "\uD83D\uDD27", "\uD83C\uDFB5", "\uD83C\uDFAE"];
+  const stepTitles = [
+    t("setup.welcome"),
+    t("setup.chooseTheme"),
+    t("setup.autoStart"),
+    t("setup.serviceTitle"),
+    t("setup.musicTitle"),
+    t("setup.steamgridTitle"),
+  ];
+  const stepDescs = [
+    t("setup.chooseLanguage"),
+    t("setup.welcomeDesc"),
+    t("setup.autoStartDesc"),
+    t("setup.serviceDesc"),
+    t("setup.musicDesc"),
+    t("setup.steamgridDesc"),
+  ];
 
   return (
     <div
@@ -41,7 +91,7 @@ export default function SetupWizard({ onComplete }: Props) {
         style={{
           background: "var(--bg-elevated)", borderRadius: 16,
           border: "1px solid var(--border)", boxShadow: "var(--shadow-lg)",
-          width: 420, maxHeight: "80vh", overflow: "hidden",
+          width: 460, overflow: "hidden",
           display: "flex", flexDirection: "column",
           transform: closing ? "scale(0.95)" : undefined,
           transition: "transform 0.3s ease",
@@ -50,13 +100,13 @@ export default function SetupWizard({ onComplete }: Props) {
         {/* Header */}
         <div style={{ padding: "24px 24px 0", textAlign: "center" }}>
           <div style={{ fontSize: 32, marginBottom: 8 }}>
-            {step === 0 ? "\uD83C\uDF10" : step === 1 ? "\uD83C\uDFA8" : "\u26A1"}
+            {stepIcons[step]}
           </div>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--text-1)", marginBottom: 4 }}>
-            {step === 0 ? t("setup.welcome") : step === 1 ? t("setup.chooseTheme") : t("setup.autoStart")}
+            {stepTitles[step]}
           </h2>
           <p style={{ fontSize: 13, color: "var(--text-2)", marginBottom: 4 }}>
-            {step === 0 ? t("setup.chooseLanguage") : step === 1 ? t("setup.welcomeDesc") : t("setup.autoStartDesc")}
+            {stepDescs[step]}
           </p>
           <div style={{ fontSize: 11, color: "var(--text-3)" }}>
             {t("setup.step", { current: step + 1, total: totalSteps })}
@@ -64,12 +114,12 @@ export default function SetupWizard({ onComplete }: Props) {
         </div>
 
         {/* Content */}
-        <div className="wizard-step-content" key={step} style={{ padding: 20, flex: 1, overflowY: "auto" }}>
+        <div className="wizard-step-content" key={step} style={{ padding: 20, flex: 1 }}>
           {/* Step 0: Language */}
           {step === 0 && (
             <div style={{
               display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6,
-              maxHeight: 300, overflowY: "auto", overflowX: "hidden",
+              maxHeight: 420, overflowY: "auto", paddingRight: 4,
             }}>
               {LANGUAGES.map((lang, idx) => (
                 <button
@@ -137,7 +187,7 @@ export default function SetupWizard({ onComplete }: Props) {
             </div>
           )}
 
-          {/* Step 2: Auto start */}
+          {/* Step 2: Auto start on boot */}
           {step === 2 && (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: "12px 0" }}>
               <div style={{
@@ -156,7 +206,106 @@ export default function SetupWizard({ onComplete }: Props) {
                 <span className="thumb" />
               </button>
               <p style={{ fontSize: 13, color: "var(--text-2)", textAlign: "center" }}>
-                {autoStart ? t("setup.autoStart") : t("setup.autoStartDesc")}
+                {autoStart ? t("setup.autoStartEnabled") : t("setup.autoStartDisabled")}
+              </p>
+            </div>
+          )}
+
+          {/* Step 3: Auto start service */}
+          {step === 3 && (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: "12px 0" }}>
+              <div style={{
+                width: 72, height: 72, borderRadius: "50%",
+                background: autoService ? "var(--green-bg)" : "var(--bg-input)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "all 0.3s ease",
+              }}>
+                <span style={{ fontSize: 36 }}>{autoService ? "\uD83D\uDE80" : "\u23F8\uFE0F"}</span>
+              </div>
+              <button
+                onClick={() => setAutoService(!autoService)}
+                className={`toggle-apple ${autoService ? "active" : ""}`}
+                style={{ transform: "scale(1.3)" }}
+              >
+                <span className="thumb" />
+              </button>
+              <p style={{ fontSize: 13, color: "var(--text-2)", textAlign: "center" }}>
+                {autoService ? t("setup.serviceEnabled") : t("setup.serviceDisabled")}
+              </p>
+            </div>
+          )}
+
+          {/* Step 4: Music detection */}
+          {step === 4 && (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: "12px 0" }}>
+              <div style={{
+                width: 72, height: 72, borderRadius: "50%",
+                background: musicEnabled ? "var(--accent-bg)" : "var(--bg-input)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "all 0.3s ease",
+              }}>
+                <span style={{ fontSize: 36 }}>{musicEnabled ? "\uD83C\uDFB6" : "\uD83D\uDD07"}</span>
+              </div>
+              <button
+                onClick={() => setMusicEnabled(!musicEnabled)}
+                className={`toggle-apple ${musicEnabled ? "active" : ""}`}
+                style={{ transform: "scale(1.3)" }}
+              >
+                <span className="thumb" />
+              </button>
+              <p style={{ fontSize: 13, color: "var(--text-2)", textAlign: "center" }}>
+                {musicEnabled ? t("setup.musicEnabled") : t("setup.musicDisabled")}
+              </p>
+            </div>
+          )}
+
+          {/* Step 5: SteamGridDB API key (optional) */}
+          {step === 5 && (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: "12px 0" }}>
+              <div style={{
+                width: 72, height: 72, borderRadius: "50%",
+                background: steamGridKey.trim() ? "var(--green-bg)" : "var(--bg-input)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "all 0.3s ease",
+              }}>
+                <span style={{ fontSize: 36, width: 72, height: 72, lineHeight: "72px", textAlign: "center", display: "block" }}>{steamGridKey.trim() ? "\uD83C\uDFAE" : "\uD83D\uDD11"}</span>
+              </div>
+              <div style={{ position: "relative", width: "100%", maxWidth: 320 }}>
+                <input
+                  type="text"
+                  value={steamGridKey}
+                  onChange={(e) => setSteamGridKey(e.target.value)}
+                  placeholder={t("setup.steamgridPlaceholder")}
+                  style={{
+                    width: "100%", padding: "10px 14px",
+                    paddingRight: steamGridKey.trim() ? 38 : 14,
+                    borderRadius: 10,
+                    border: steamGridKey.trim()
+                      ? "2px solid var(--accent)"
+                      : "1px solid var(--border)",
+                    background: "var(--bg-input)", color: "var(--text-1)",
+                    fontSize: 13, fontFamily: "inherit", outline: "none",
+                    textAlign: "center",
+                    transition: "border 0.2s ease",
+                    boxSizing: "border-box",
+                  }}
+                />
+                {steamGridKey.trim() && (
+                  <div style={{
+                    position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)",
+                    color: "var(--accent)", fontSize: 18, lineHeight: 1,
+                  }}>
+                    {"\u2713"}
+                  </div>
+                )}
+              </div>
+              {steamGridKey.trim() && (
+                <p style={{ fontSize: 12, color: "var(--accent)", textAlign: "center", fontWeight: 600 }}>
+                  {t("setup.steamgridValid")}
+                </p>
+              )}
+              <p style={{ fontSize: 12, color: "var(--text-3)", textAlign: "center", lineHeight: 1.5 }}>
+                {t("setup.steamgridOptional")}
               </p>
             </div>
           )}

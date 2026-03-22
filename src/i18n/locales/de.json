@@ -24,8 +24,13 @@
     "waitingForFocus": "Warte auf Fensterfokus...",
     "startServicePrompt": "Starte den Dienst, um die Erkennung zu beginnen",
     "elapsed": "vergangen",
-    "footer1": "Apps werden automatisch aus einer integrierten Datenbank mit über 80 Apps erkannt.",
-    "footer2": "Wechsle zwischen Fenstern und sieh deine Discord-Präsenz live aktualisiert."
+    "footer1": "Deine aktive App wird automatisch erkannt und über Online-APIs zugeordnet.",
+    "footer2": "Wechsle das Fenster und deine Discord-Präsenz aktualisiert sich in Echtzeit.",
+    "nowPlaying": "Wird gerade gespielt",
+    "listeningTo": "Hört Musik",
+    "listenOn": "Anhören",
+    "watching": "Schaut",
+    "watchOn": "Ansehen"
   },
   "settings": {
     "title": "Einstellungen",
@@ -72,7 +77,10 @@
     "startOnBoot": "Beim Start ausführen",
     "startOnBootDesc": "Minimiert starten, wenn Windows hochfährt",
     "saveSettings": "Einstellungen speichern",
-    "saved": "Gespeichert!"
+    "saved": "Gespeichert!",
+    "musicDetection": "Musikerkennung",
+    "musicEnabled": "Musikpräsenz anzeigen",
+    "musicEnabledDesc": "Zeigt Songinformationen auf Discord an, wenn Musik abgespielt wird"
   },
   "apps": {
     "title": "Apps",
@@ -84,7 +92,7 @@
     "noAppsDetectedDesc": "Starte den Dienst und wechsle zwischen Apps, um sie hier zu sehen.",
     "searchApps": "Apps suchen...",
     "noCustomOverrides": "Keine benutzerdefinierten Anpassungen",
-    "noCustomOverridesDesc": "Klicke auf 'Bearbeiten' bei einer erkannten App, um ihre Discord-Pr\u00e4senz anzupassen.",
+    "noCustomOverridesDesc": "Klicke auf 'Bearbeiten' bei einer erkannten App, um ihre Discord-Präsenz anzupassen.",
     "edit": "Bearbeiten",
     "delete": "Löschen",
     "changeIcon": "Symbol ändern",
@@ -150,6 +158,23 @@
     "productivity": "Produktivität",
     "system": "System",
     "discovered": "Entdeckt",
-    "other": "Sonstiges"
+    "other": "Sonstiges",
+    "music": "Musik"
+  },
+  "update": {
+    "title": "Aktualisierung",
+    "available": "Aktualisierung verfügbar",
+    "currentVersion": "Aktuelle Version",
+    "latestAvailable": "verfügbar!",
+    "upToDate": "Sie sind auf dem neuesten Stand",
+    "installType": "Installationstyp",
+    "check": "Prüfen",
+    "checking": "...",
+    "install": "Installieren",
+    "downloading": "Herunterladen...",
+    "later": "Später",
+    "updateNow": "Jetzt aktualisieren",
+    "checkError": "Prüfung fehlgeschlagen",
+    "onPrefix": "Auf"
   }
 }

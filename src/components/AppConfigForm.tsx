@@ -21,17 +21,30 @@ export default function AppConfigForm({ exeName: initialExe, config, onSave, onC
   const [smallImageText, setSmallImageText] = useState(config?.small_image_text || "");
   const [showTimestamp, setShowTimestamp] = useState(config?.show_timestamp ?? true);
   const [buttons, setButtons] = useState<ButtonConfig[]>(config?.buttons || []);
+  const [closing, setClosing] = useState(false);
+
+  const animateClose = () => {
+    setClosing(true);
+    setTimeout(() => onCancel(), 180);
+  };
+
+  const animateSave = () => {
+    setClosing(true);
+    setTimeout(() => {
+      if (!exeName.trim() || !name.trim()) return;
+      onSave(exeName.toLowerCase().trim(), {
+        name: name.trim(), details: details.trim(), state: state.trim(),
+        large_image_key: largeImageKey.trim() || null, large_image_text: largeImageText.trim() || null,
+        small_image_key: smallImageKey.trim() || null, small_image_text: smallImageText.trim() || null,
+        category: config?.category || "other", show_timestamp: showTimestamp,
+        buttons: buttons.filter((b) => b.label.trim() && b.url.trim()),
+      });
+    }, 180);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!exeName.trim() || !name.trim()) return;
-    onSave(exeName.toLowerCase().trim(), {
-      name: name.trim(), details: details.trim(), state: state.trim(),
-      large_image_key: largeImageKey.trim() || null, large_image_text: largeImageText.trim() || null,
-      small_image_key: smallImageKey.trim() || null, small_image_text: smallImageText.trim() || null,
-      category: config?.category || "other", show_timestamp: showTimestamp,
-      buttons: buttons.filter((b) => b.label.trim() && b.url.trim()),
-    });
+    animateSave();
   };
 
   const addButton = () => { if (buttons.length < 2) setButtons([...buttons, { label: "", url: "" }]); };
@@ -47,16 +60,22 @@ export default function AppConfigForm({ exeName: initialExe, config, onSave, onC
       position: "fixed", inset: 0, background: "var(--bg-overlay)",
       display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50,
       backdropFilter: "blur(4px)",
-    }}>
-      <form onSubmit={handleSubmit} className="modal-enter" style={{
-        background: "var(--bg-elevated)", borderRadius: 14, padding: 24,
-        width: 440, maxHeight: "85vh", overflowY: "auto",
+      animation: closing ? "backdropOut 0.18s ease forwards" : "backdropIn 0.2s ease",
+    }} onClick={(e) => { if (e.target === e.currentTarget) animateClose(); }}>
+      <form onSubmit={handleSubmit} style={{
+        background: "var(--bg-elevated)", borderRadius: 14,
+        width: 440, maxHeight: "85vh", display: "flex", flexDirection: "column",
         boxShadow: "var(--shadow-lg)", border: "1px solid var(--border)",
+        animation: closing ? "scaleOut 0.18s cubic-bezier(0.4, 0, 0.2, 1) forwards" : "scaleIn 0.18s cubic-bezier(0.4, 0, 0.2, 1)",
+        overflow: "hidden",
       }}>
-        <h3 style={{ fontSize: 17, fontWeight: 600, color: "var(--text-1)", marginBottom: 20 }}>
-          {initialExe ? t("appConfigForm.editTitle") : t("appConfigForm.addTitle")}
-        </h3>
+        <div style={{ padding: "20px 24px 0" }}>
+          <h3 style={{ fontSize: 17, fontWeight: 600, color: "var(--text-1)", marginBottom: 0 }}>
+            {initialExe ? t("appConfigForm.editTitle") : t("appConfigForm.addTitle")}
+          </h3>
+        </div>
 
+        <div style={{ flex: 1, overflowY: "auto", padding: "16px 24px" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <div>
             <label style={labelStyle}>{t("appConfigForm.executableName")}</label>
@@ -148,8 +167,14 @@ export default function AppConfigForm({ exeName: initialExe, config, onSave, onC
           </div>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 20 }}>
-          <button type="button" onClick={onCancel} className="btn-secondary">{t("appConfigForm.cancel")}</button>
+        </div>
+
+        <div style={{
+          display: "flex", justifyContent: "flex-end", gap: 8,
+          padding: "14px 24px", borderTop: "1px solid var(--border-light)",
+          background: "var(--bg-elevated)", flexShrink: 0,
+        }}>
+          <button type="button" onClick={animateClose} className="btn-secondary">{t("appConfigForm.cancel")}</button>
           <button type="submit" className="btn-primary">{t("appConfigForm.save")}</button>
         </div>
       </form>

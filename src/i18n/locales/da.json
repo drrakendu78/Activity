@@ -24,8 +24,13 @@
     "waitingForFocus": "Venter på vinduesfokus...",
     "startServicePrompt": "Start tjenesten for at begynde sporing",
     "elapsed": "forløbet",
-    "footer1": "Apps registreres automatisk fra en indbygget database med 80+ apps.",
-    "footer2": "Skift mellem vinduer og se din Discord-tilstedeværelse opdatere live."
+    "footer1": "Din aktive app registreres og matches automatisk via online API'er.",
+    "footer2": "Skift vindue, og din Discord-tilstedeværelse opdateres i realtid.",
+    "nowPlaying": "Spiller nu",
+    "listeningTo": "Lytter til musik",
+    "listenOn": "Lyt",
+    "watching": "Ser",
+    "watchOn": "Se"
   },
   "settings": {
     "title": "Indstillinger",
@@ -72,7 +77,10 @@
     "startOnBoot": "Start ved opstart",
     "startOnBootDesc": "Start minimeret når Windows starter",
     "saveSettings": "Gem indstillinger",
-    "saved": "Gemt!"
+    "saved": "Gemt!",
+    "musicDetection": "Musikregistrering",
+    "musicEnabled": "Vis musiktilstedeværelse",
+    "musicEnabledDesc": "Vis sanginfo på Discord, når der afspilles musik"
   },
   "apps": {
     "title": "Apps",
@@ -150,6 +158,23 @@
     "productivity": "Produktivitet",
     "system": "System",
     "discovered": "Opdaget",
-    "other": "Andet"
+    "other": "Andet",
+    "music": "Musik"
+  },
+  "update": {
+    "title": "Opdatering",
+    "available": "Opdatering tilgængelig",
+    "currentVersion": "Aktuel version",
+    "latestAvailable": "tilgængelig!",
+    "upToDate": "Du er opdateret",
+    "installType": "Installationstype",
+    "check": "Tjek",
+    "checking": "...",
+    "install": "Installer",
+    "downloading": "Downloader...",
+    "later": "Senere",
+    "updateNow": "Opdater nu",
+    "checkError": "Tjek mislykkedes",
+    "onPrefix": "På"
   }
 }

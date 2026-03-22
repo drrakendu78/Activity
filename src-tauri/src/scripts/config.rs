@@ -33,6 +33,109 @@ fn default_true() -> bool {
     true
 }
 
+fn default_listening() -> String {
+    "listening".to_string()
+}
+
+fn default_player() -> String {
+    "player".to_string()
+}
+
+fn default_player_logo() -> String {
+    "player".to_string()
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct MusicConfig {
+    // Présence
+    #[serde(default = "default_listening")]
+    pub activity_type: String,
+    #[serde(default = "default_player")]
+    pub display_text: String,
+    #[serde(default)]
+    pub display_text_custom: String,
+    #[serde(default = "default_player")]
+    pub profile_text: String,
+    #[serde(default)]
+    pub profile_text_custom: String,
+
+    // Infos musique
+    #[serde(default)]
+    pub title_artist_one_line: bool,
+    #[serde(default)]
+    pub artist_album_one_line: bool,
+    #[serde(default)]
+    pub reverse_title_artist: bool,
+    #[serde(default)]
+    pub prefix_artist_by: bool,
+    #[serde(default)]
+    pub prefix_album_on: bool,
+    #[serde(default = "default_true")]
+    pub show_album: bool,
+    #[serde(default = "default_true")]
+    pub show_album_when_no_artist: bool,
+    #[serde(default = "default_true")]
+    pub show_playback_info: bool,
+    #[serde(default)]
+    pub hide_music_info: bool,
+
+    // Média en pause
+    #[serde(default = "default_true")]
+    pub show_paused: bool,
+    #[serde(default = "default_true")]
+    pub show_pause_icon: bool,
+    #[serde(default = "default_true")]
+    pub freeze_progress_when_paused: bool,
+    #[serde(default)]
+    pub show_paused_duration: bool,
+
+    // Lecteurs hors-ligne
+    #[serde(default)]
+    pub show_play_icon: bool,
+    #[serde(default = "default_true")]
+    pub show_player_logo: bool,
+
+    // Boutons
+    #[serde(default = "default_true")]
+    pub show_get_status_button: bool,
+    #[serde(default = "default_true")]
+    pub show_listen_button: bool,
+
+    // Divers
+    #[serde(default = "default_player_logo")]
+    pub fallback_cover: String,
+}
+
+impl Default for MusicConfig {
+    fn default() -> Self {
+        Self {
+            activity_type: default_listening(),
+            display_text: default_player(),
+            display_text_custom: String::new(),
+            profile_text: default_player(),
+            profile_text_custom: String::new(),
+            title_artist_one_line: false,
+            artist_album_one_line: false,
+            reverse_title_artist: false,
+            prefix_artist_by: false,
+            prefix_album_on: false,
+            show_album: true,
+            show_album_when_no_artist: true,
+            show_playback_info: true,
+            hide_music_info: false,
+            show_paused: true,
+            show_pause_icon: true,
+            freeze_progress_when_paused: true,
+            show_paused_duration: false,
+            show_play_icon: false,
+            show_player_logo: true,
+            show_get_status_button: true,
+            show_listen_button: true,
+            fallback_cover: default_player_logo(),
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct DefaultConfig {
     pub details: String,
@@ -58,6 +161,14 @@ pub struct RpcConfig {
     pub poll_interval_ms: u64,
     #[serde(default)]
     pub steamgriddb_api_key: String,
+    #[serde(default = "default_true")]
+    pub music_enabled: bool,
+    #[serde(default)]
+    pub music_config: MusicConfig,
+    #[serde(default = "default_true")]
+    pub auto_start_service: bool,
+    #[serde(default)]
+    pub hide_tray_icon: bool,
 }
 
 fn default_poll_interval() -> u64 {
@@ -80,6 +191,10 @@ impl Default for RpcConfig {
             discord_app_id: String::new(),
             poll_interval_ms: 3000,
             steamgriddb_api_key: String::new(),
+            music_enabled: true,
+            music_config: MusicConfig::default(),
+            auto_start_service: true,
+            hide_tray_icon: false,
         }
     }
 }
@@ -323,6 +438,7 @@ pub fn is_ignored_app(exe_name: &str) -> bool {
         "msedgewebview2.exe",
         "webviewhost.exe",
         "discord.exe",
+        "activity.exe",
     ];
     IGNORED.contains(&exe_name)
 }

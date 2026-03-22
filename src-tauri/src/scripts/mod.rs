@@ -1,6 +1,9 @@
+pub mod album_art;
+pub mod updater;
 pub mod config;
 pub mod discord_rpc;
 pub mod iconify;
+pub mod media_session;
 pub mod poller;
 pub mod startup;
 pub mod steamgriddb;

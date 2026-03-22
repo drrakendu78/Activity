@@ -24,8 +24,13 @@
     "waitingForFocus": "等待窗口获得焦点...",
     "startServicePrompt": "启动服务以开始追踪",
     "elapsed": "已过",
-    "footer1": "通过内置数据库自动检测 80 多个应用。",
-    "footer2": "在窗口之间切换，即可实时更新你的 Discord 状态。"
+    "footer1": "你的活跃应用会通过在线 API 自动检测和匹配。",
+    "footer2": "切换窗口，你的 Discord 状态会实时更新。",
+    "nowPlaying": "正在播放",
+    "listeningTo": "正在听音乐",
+    "listenOn": "收听",
+    "watching": "正在观看",
+    "watchOn": "观看"
   },
   "settings": {
     "title": "设置",
@@ -72,7 +77,10 @@
     "startOnBoot": "开机启动",
     "startOnBootDesc": "Windows 启动时最小化运行",
     "saveSettings": "保存设置",
-    "saved": "已保存！"
+    "saved": "已保存！",
+    "musicDetection": "音乐检测",
+    "musicEnabled": "显示音乐状态",
+    "musicEnabledDesc": "播放音乐时在Discord上显示歌曲信息"
   },
   "apps": {
     "title": "应用",
@@ -150,6 +158,23 @@
     "productivity": "生产力",
     "system": "系统",
     "discovered": "已发现",
-    "other": "其他"
+    "other": "其他",
+    "music": "音乐"
+  },
+  "update": {
+    "title": "更新",
+    "available": "有可用更新",
+    "currentVersion": "当前版本",
+    "latestAvailable": "可用！",
+    "upToDate": "已是最新版本",
+    "installType": "安装类型",
+    "check": "检查",
+    "checking": "...",
+    "install": "安装",
+    "downloading": "下载中...",
+    "later": "稍后",
+    "updateNow": "立即更新",
+    "checkError": "检查失败",
+    "onPrefix": "在"
   }
 }

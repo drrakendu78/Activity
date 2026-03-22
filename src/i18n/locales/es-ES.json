@@ -8,7 +8,9 @@
     "connected": "Conectado",
     "disconnected": "Desconectado"
   },
-  "titlebar": { "title": "Discord RPC Manager" },
+  "titlebar": {
+    "title": "Discord RPC Manager"
+  },
   "dashboard": {
     "title": "Panel",
     "subtitle": "Supervisa y controla tu presencia en Discord",
@@ -22,8 +24,13 @@
     "waitingForFocus": "Esperando foco de ventana...",
     "startServicePrompt": "Inicia el servicio para comenzar el seguimiento",
     "elapsed": "transcurrido",
-    "footer1": "Las apps se detectan automáticamente de una base de datos de más de 80 apps.",
-    "footer2": "Cambia entre ventanas y observa cómo se actualiza tu presencia en Discord."
+    "footer1": "Tu aplicación activa se detecta y empareja automáticamente mediante APIs en línea.",
+    "footer2": "Cambia de ventana y tu presencia en Discord se actualiza en tiempo real.",
+    "nowPlaying": "Reproduciendo",
+    "listeningTo": "Escuchando música",
+    "listenOn": "Escuchar",
+    "watching": "Viendo",
+    "watchOn": "Ver"
   },
   "settings": {
     "title": "Ajustes",
@@ -70,7 +77,10 @@
     "startOnBoot": "Iniciar con Windows",
     "startOnBootDesc": "Lanzar minimizado al iniciar Windows",
     "saveSettings": "Guardar ajustes",
-    "saved": "¡Guardado!"
+    "saved": "¡Guardado!",
+    "musicDetection": "Detección de música",
+    "musicEnabled": "Mostrar presencia musical",
+    "musicEnabledDesc": "Mostrar info de la canción en Discord cuando se reproduce música"
   },
   "apps": {
     "title": "Apps",
@@ -148,6 +158,23 @@
     "productivity": "Productividad",
     "system": "Sistema",
     "discovered": "Descubiertas",
-    "other": "Otros"
+    "other": "Otros",
+    "music": "Música"
+  },
+  "update": {
+    "title": "Actualización",
+    "available": "Actualización disponible",
+    "currentVersion": "Versión actual",
+    "latestAvailable": "¡disponible!",
+    "upToDate": "Estás actualizado",
+    "installType": "Tipo de instalación",
+    "check": "Comprobar",
+    "checking": "...",
+    "install": "Instalar",
+    "downloading": "Descargando...",
+    "later": "Más tarde",
+    "updateNow": "Actualizar ahora",
+    "checkError": "Error de comprobación",
+    "onPrefix": "En"
   }
 }
