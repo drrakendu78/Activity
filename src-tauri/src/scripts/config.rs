@@ -42,7 +42,7 @@ fn default_player() -> String {
 }
 
 fn default_player_logo() -> String {
-    "player".to_string()
+    default_player()
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -414,15 +414,7 @@ pub fn load_config() -> Result<RpcConfig, String> {
 
 #[command]
 pub fn save_config(config: RpcConfig) -> Result<(), String> {
-    let dir = get_config_dir();
-    fs::create_dir_all(&dir).map_err(|e| format!("Failed to create config directory: {}", e))?;
-
-    let path = dir.join("config.json");
-    let json =
-        serde_json::to_string_pretty(&config).map_err(|e| format!("Serialization error: {}", e))?;
-
-    fs::write(&path, json).map_err(|e| format!("Failed to write config: {}", e))?;
-    Ok(())
+    save_config_internal(&config)
 }
 
 /// Returns the full built-in apps database so the frontend can display it

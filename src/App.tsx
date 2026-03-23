@@ -89,9 +89,14 @@ export default function App() {
   const { t } = useTranslation();
   useTheme();
 
+  const retryPoller = () => {
+    startPoller()
+      .then(() => { setRunning(true); setWaitingForDiscord(false); })
+      .catch(() => setTimeout(retryPoller, 5000));
+  };
+
   useEffect(() => {
     getRpcStatus().then((s) => setConnected(s.connected));
-    // Auto-check for updates
     checkForUpdates().then((info) => {
       setUpdateInfo(info);
       if (info.has_update) {
@@ -101,59 +106,42 @@ export default function App() {
     }).catch(() => {});
     isPollerRunning().then((isRunning) => {
       setRunning(isRunning);
-      // Auto-start service if configured, not already running, and setup is done
       if (!isRunning && localStorage.getItem("setup_done") === "true") {
         loadConfig().then((cfg) => {
           if (cfg.auto_start_service) {
             setWaitingForDiscord(true);
-            const tryStart = () => {
-              startPoller()
-                .then(() => { setRunning(true); setWaitingForDiscord(false); })
-                .catch(() => {
-                  setTimeout(() => tryStart(), 5000);
-                });
-            };
-            tryStart();
+            retryPoller();
           }
         }).catch(() => {});
       }
     });
-    const unlisten = listen<RpcStatusEvent>("rpc-status-changed", (event) => {
-      setConnected(event.payload.connected);
-      // Album art as background when music is playing
-      if (event.payload.is_music && event.payload.large_image_key) {
-        setAlbumBg(event.payload.large_image_key);
-      } else if (!event.payload.is_music) {
-        setAlbumBg(null);
-      }
-    });
-    // Listen for tray events
-    const unlistenNav = listen<string>("navigate", (event) => {
-      if (event.payload === "settings") {
-        openSettings();
-      }
-    });
-    const unlistenUpdate = listen("check-update", () => {
-      checkForUpdates().then((info) => {
-        setUpdateInfo(info);
-        if (info.has_update) {
-          setShowUpdatePopup(true);
-          resizeWindow(SETTINGS_HEIGHT);
+    const listeners = [
+      listen<RpcStatusEvent>("rpc-status-changed", (event) => {
+        setConnected(event.payload.connected);
+        if (event.payload.is_music && event.payload.large_image_key) {
+          setAlbumBg(event.payload.large_image_key);
+        } else if (!event.payload.is_music) {
+          setAlbumBg(null);
         }
-      }).catch(() => {});
-    });
-    const unlistenService = listen<boolean>("service-changed", (event) => {
-      setRunning(event.payload);
-      if (!event.payload) {
-        setConnected(false);
-      }
-    });
-    return () => {
-      unlisten.then((fn) => fn());
-      unlistenNav.then((fn) => fn());
-      unlistenUpdate.then((fn) => fn());
-      unlistenService.then((fn) => fn());
-    };
+      }),
+      listen<string>("navigate", (event) => {
+        if (event.payload === "settings") openSettings();
+      }),
+      listen("check-update", () => {
+        checkForUpdates().then((info) => {
+          setUpdateInfo(info);
+          if (info.has_update) {
+            setShowUpdatePopup(true);
+            resizeWindow(SETTINGS_HEIGHT);
+          }
+        }).catch(() => {});
+      }),
+      listen<boolean>("service-changed", (event) => {
+        setRunning(event.payload);
+        if (!event.payload) setConnected(false);
+      }),
+    ];
+    return () => { listeners.forEach(p => p.then(fn => fn())); };
   }, []);
 
   const handleToggle = async () => {
@@ -169,16 +157,8 @@ export default function App() {
           await startPoller();
           setRunning(true);
         } catch {
-          // Discord probably not running — start retry loop
           setWaitingForDiscord(true);
-          const tryStart = () => {
-            startPoller()
-              .then(() => { setRunning(true); setWaitingForDiscord(false); })
-              .catch(() => {
-                setTimeout(() => tryStart(), 5000);
-              });
-          };
-          tryStart();
+          retryPoller();
         }
       }
     } finally { setLoading(false); }

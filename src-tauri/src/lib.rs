@@ -50,9 +50,7 @@ pub fn run() {
 
             // Setup system tray (unless hidden by config)
             if !config.hide_tray_icon {
-                if let Err(e) = setup_system_tray(&app.handle()) {
-                    eprintln!("Failed to setup system tray: {}", e);
-                }
+                let _ = setup_system_tray(&app.handle());
             }
 
             // Apply acrylic/mica effect
@@ -60,8 +58,7 @@ pub fn run() {
                 #[cfg(target_os = "windows")]
                 {
                     use window_vibrancy::apply_acrylic;
-                    if let Err(e) = apply_acrylic(&window, Some((18, 18, 20, 100))) {
-                        eprintln!("Acrylic failed: {:?}, trying blur...", e);
+                    if apply_acrylic(&window, Some((18, 18, 20, 100))).is_err() {
                         let _ = window_vibrancy::apply_blur(&window, Some((18, 18, 20, 100)));
                     }
                 }

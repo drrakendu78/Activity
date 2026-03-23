@@ -39,7 +39,7 @@ export default function Settings() {
     try {
       if (autoStart) { await disableAutoStartup(); setAutoStart(false); }
       else { await enableAutoStartup(); setAutoStart(true); }
-    } catch (e) { console.error(e); }
+    } catch {}
   };
 
   const handleLanguage = (code: string) => {

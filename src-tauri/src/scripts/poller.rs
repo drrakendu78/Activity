@@ -16,6 +16,52 @@ use super::window_detect::get_foreground_app_internal;
 
 const APP_ID: &str = "1482735786653778101";
 
+const BROWSER_SUFFIXES: &[&str] = &[
+    " — Mozilla Firefox", " - Mozilla Firefox",
+    " — Google Chrome", " - Google Chrome",
+    " — Microsoft Edge", " - Microsoft Edge",
+    " — Brave", " - Brave", " — Opera", " - Opera",
+    " — Vivaldi", " - Vivaldi", " — Arc", " - Arc",
+];
+
+/// Extract the site/page name from a browser window title
+fn clean_browser_title(title: &str) -> String {
+    let mut clean = title.to_string();
+    for suffix in BROWSER_SUFFIXES {
+        if let Some(pos) = clean.rfind(suffix) {
+            clean = clean[..pos].to_string();
+            break;
+        }
+    }
+    let site = clean.split(" — ").next()
+        .unwrap_or(&clean)
+        .split(" - ").next()
+        .unwrap_or(&clean)
+        .split(" | ").next()
+        .unwrap_or(&clean)
+        .trim()
+        .to_string();
+    if site.len() > 60 {
+        format!("{}…", &site.chars().take(58).collect::<String>())
+    } else {
+        site
+    }
+}
+
+/// Try to set RPC activity, reconnecting once if it fails
+fn try_set_activity(
+    rpc_state: &DiscordRpcState,
+    config: &AppConfig,
+    details: Option<&str>,
+    state: Option<&str>,
+    timestamp: Option<i64>,
+) {
+    if set_activity_internal(rpc_state, config, details, state, timestamp).is_err() {
+        let _ = connect_rpc_internal(rpc_state, APP_ID);
+        let _ = set_activity_internal(rpc_state, config, details, state, timestamp);
+    }
+}
+
 /// Check if the foreground app IS the music player itself (skip showing its own icon)
 fn resolved_is_music_player(exe_name: &str, player_name: &str) -> bool {
     let exe = exe_name.to_lowercase();
@@ -136,7 +182,7 @@ pub async fn start_poller(
                             let service_names = ["twitch", "youtube", "netflix", "disney+", "crunchyroll", "prime video"];
                             let is_watching = fg_title_lower.contains(&media_title_lower)
                                 || service_names.iter().any(|s| fg_title_lower.contains(s));
-                            // println!("[Poller] Browser video check: fg='{}' media='{}' is_watching={}", fg.window_title, media.title, is_watching);
+
                             if !is_watching {
                                 skip_browser_video = true;
                                 // Clear media state so normal detection picks up
@@ -277,31 +323,7 @@ pub async fn start_poller(
                                 }
                                 // For browsers, extract the site/page name from window title
                                 let label = if resolved.category == "browser" {
-                                    let title = fg.window_title.clone();
-                                    // Remove browser name suffix (e.g. " — Mozilla Firefox")
-                                    let browsers = [" — Mozilla Firefox", " - Mozilla Firefox",
-                                        " — Google Chrome", " - Google Chrome",
-                                        " — Microsoft Edge", " - Microsoft Edge",
-                                        " — Brave", " - Brave", " — Opera", " - Opera",
-                                        " — Vivaldi", " - Vivaldi", " — Arc", " - Arc"];
-                                    let mut clean = title.clone();
-                                    for b in &browsers {
-                                        if let Some(pos) = clean.rfind(b) {
-                                            clean = clean[..pos].to_string();
-                                            break;
-                                        }
-                                    }
-                                    // Take just the first meaningful part (before " — " or " - " or " | ")
-                                    let site = clean.split(" — ").next()
-                                        .unwrap_or(&clean)
-                                        .split(" - ").next()
-                                        .unwrap_or(&clean)
-                                        .split(" | ").next()
-                                        .unwrap_or(&clean)
-                                        .trim()
-                                        .to_string();
-                                    // Truncate long site names
-                                    let site = if site.len() > 60 { format!("{}…", &site[..58]) } else { site };
+                                    let site = clean_browser_title(&fg.window_title);
                                     if site.is_empty() { resolved.name.clone() } else { site }
                                 } else {
                                     resolved.name.clone()
@@ -350,24 +372,7 @@ pub async fn start_poller(
                         let timestamp = if show_timestamp { media.start_time_unix } else { None };
 
                         let rpc_state = app_handle_clone.state::<DiscordRpcState>();
-                        let result = set_activity_internal(
-                            &rpc_state,
-                            &music_config,
-                            None,
-                            None,
-                            timestamp,
-                        );
-
-                        if result.is_err() {
-                            let _ = connect_rpc_internal(&rpc_state, APP_ID);
-                            let _ = set_activity_internal(
-                                &rpc_state,
-                                &music_config,
-                                None,
-                                None,
-                                timestamp,
-                            );
-                        }
+                        try_set_activity(&rpc_state, &music_config, None, None, timestamp);
 
                         let connected = *rpc_state.connected.lock().unwrap_or_else(|e| e.into_inner());
 
@@ -426,9 +431,7 @@ pub async fn start_poller(
             }
 
             // ═══ NORMAL APP DETECTION ═══
-            // println!("[Poller] Normal app detection");
             if let Some(fg) = get_foreground_app_internal() {
-                // println!("[Poller] Foreground: exe={} title={}", fg.exe_name, fg.window_title);
                 // Skip ignored system apps
                 if super::config::is_ignored_app(&fg.exe_name) {
                     tokio::time::sleep(Duration::from_millis(poll_interval)).await;
@@ -507,7 +510,7 @@ pub async fn start_poller(
                 let app_changed = fg.exe_name != last_exe;
                 let heartbeat_due = now - last_activity_sent >= HEARTBEAT_SECS;
                 let force_emit = skip_browser_video; // Always emit when transitioning from browser video
-                // println!("[Poller] app_changed={} force_emit={}", app_changed, force_emit);
+
                 if app_changed || heartbeat_due || force_emit {
                     last_exe = fg.exe_name.clone();
 
@@ -527,31 +530,7 @@ pub async fn start_poller(
                     // For browsers: extract site name and show it
                     let is_browser_app = super::media_session::BROWSER_NAMES.iter().any(|b| fg.exe_name.to_lowercase().contains(b));
                     let (details_override, state_override) = if is_browser_app && !fg.window_title.is_empty() {
-                        let browsers_suffixes = [" — Mozilla Firefox", " - Mozilla Firefox",
-                            " — Google Chrome", " - Google Chrome",
-                            " — Microsoft Edge", " - Microsoft Edge",
-                            " — Brave", " - Brave", " — Opera", " - Opera",
-                            " — Vivaldi", " - Vivaldi", " — Arc", " - Arc"];
-                        let mut clean = fg.window_title.clone();
-                        for b in &browsers_suffixes {
-                            if let Some(pos) = clean.rfind(b) {
-                                clean = clean[..pos].to_string();
-                                break;
-                            }
-                        }
-                        let site = clean.split(" — ").next()
-                            .unwrap_or(&clean)
-                            .split(" - ").next()
-                            .unwrap_or(&clean)
-                            .split(" | ").next()
-                            .unwrap_or(&clean)
-                            .trim()
-                            .to_string();
-                        let site = if site.len() > 60 {
-                            format!("{}…", &site.chars().take(58).collect::<String>())
-                        } else {
-                            site
-                        };
+                        let site = clean_browser_title(&fg.window_title);
                         if !site.is_empty() {
                             (Some(format!("Sur {}", site)), state_override)
                         } else {
@@ -567,24 +546,13 @@ pub async fn start_poller(
                         None
                     };
 
-                    let result = set_activity_internal(
+                    try_set_activity(
                         &rpc_state,
                         &app_config,
                         details_override.as_deref(),
                         state_override.as_deref(),
                         timestamp,
                     );
-
-                    if result.is_err() {
-                        let _ = connect_rpc_internal(&rpc_state, APP_ID);
-                        let _ = set_activity_internal(
-                            &rpc_state,
-                            &app_config,
-                            details_override.as_deref(),
-                            state_override.as_deref(),
-                            timestamp,
-                        );
-                    }
 
                     let connected =
                         *rpc_state.connected.lock().unwrap_or_else(|e| e.into_inner());

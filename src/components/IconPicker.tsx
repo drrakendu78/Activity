@@ -47,7 +47,7 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
       // Small delay to show the pick animation
       setTimeout(() => onClose(), 300);
     } catch (e) {
-      console.error(e);
+      // silently ignore
       setSaving(null);
       setPicked(null);
     }
@@ -62,7 +62,7 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
         onPicked(url);
         setTimeout(() => onClose(), 300);
       } catch (e) {
-        console.error(e);
+        // silently ignore
         setSaving(null);
       }
     }

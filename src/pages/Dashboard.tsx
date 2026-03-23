@@ -170,14 +170,8 @@ export default function Dashboard({ waitingForDiscord }: { waitingForDiscord?: b
     if (key === albumFetchKey) return;
     setAlbumFetchKey(key);
     getAlbumTracks(artist, details)
-      .then((info) => {
-        console.log("[Tracklist] fetched:", info);
-        setAlbumInfo(info);
-      })
-      .catch((err) => {
-        console.error("[Tracklist] error:", err);
-        setAlbumInfo(null);
-      });
+      .then((info) => setAlbumInfo(info))
+      .catch(() => setAlbumInfo(null));
   }, [isMusic, rpcState, details]);
 
 
