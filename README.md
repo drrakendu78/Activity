@@ -23,7 +23,7 @@
 
 ### App Detection
 - **Auto Detection** — Detects running apps and games in real time and updates your Discord presence automatically.
-- **Browser Site Detection** — Shows which website you're on (GitHub, YouTube, Claude...) instead of just "Firefox".
+- **Browser Site Detection** — Shows which website you're on (GitHub, YouTube, Claude...) instead of just showing your browser name.
 - **Custom App Configs** — Create personalized presence configs for any application with custom details, state, and icons.
 - **Auto Icon Fetching** — Fetches app icons from SteamGridDB (free API key required) and Iconify automatically.
 - **Icon Picker** — Browse and choose from multiple icon variants for each app.
