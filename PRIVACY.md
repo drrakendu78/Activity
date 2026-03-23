@@ -62,7 +62,7 @@ Activity includes a silent auto-updater that checks for new releases via the Git
 - The current application version
 - Standard HTTPS headers (User-Agent)
 
-Downloaded update binaries are verified using SHA-256 hash comparison before execution. No user data is included in update requests.
+Downloaded update binaries are verified using SHA-256 hash comparison before execution. Downloads are capped at 50 MB to prevent abuse or corrupted payloads. No user data is included in update requests.
 
 ## 7. Permissions
 
