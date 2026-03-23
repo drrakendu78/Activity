@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   loadConfig, saveConfig, isAutoStartupEnabled,
   enableAutoStartup, disableAutoStartup, type RpcConfig,
-  checkForUpdates, startSilentUpdate, type UpdateInfo,
+  checkForUpdates, startSilentUpdate, relaunchApp, type UpdateInfo,
 } from "../lib/commands";
 import { useTheme } from "../lib/theme";
 import { LANGUAGES, getFlagUrl } from "../i18n";
@@ -18,6 +18,7 @@ export default function Settings() {
   const [updateChecking, setUpdateChecking] = useState(false);
   const [updateDownloading, setUpdateDownloading] = useState(false);
   const [updateError, setUpdateError] = useState<string | null>(null);
+  const [showRestartDialog, setShowRestartDialog] = useState(false);
   const { theme, toggle: toggleTheme } = useTheme();
 
   useEffect(() => {
@@ -56,7 +57,7 @@ export default function Settings() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)" }}>{t("settings.darkMode")}</div>
-            <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 1 }}>{t("settings.darkModeDesc")}</div>
+            <div style={{ fontSize: 11, color: "var(--text-2)", marginTop: 1 }}>{t("settings.darkModeDesc")}</div>
           </div>
           <button onClick={toggleTheme} className={`toggle-apple ${theme === "dark" ? "active" : ""}`}>
             <span className="thumb" />
@@ -69,7 +70,7 @@ export default function Settings() {
         <div className="section-label" style={{ marginBottom: 12 }}>{t("settings.language")}</div>
         <div>
           <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)", marginBottom: 4 }}>{t("settings.languageLabel")}</div>
-          <div style={{ fontSize: 11, color: "var(--text-3)", marginBottom: 10 }}>{t("settings.languageDesc")}</div>
+          <div style={{ fontSize: 11, color: "var(--text-2)", marginBottom: 10 }}>{t("settings.languageDesc")}</div>
           <div style={{
             display: "grid", gridTemplateColumns: "1fr 1fr", gap: 4,
             maxHeight: 200, overflowY: "auto", overflowX: "hidden", padding: 2,
@@ -103,7 +104,7 @@ export default function Settings() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: config.music_enabled ? 16 : 0 }}>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)" }}>{t("settings.musicEnabled")}</div>
-            <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 1 }}>{t("settings.musicEnabledDesc")}</div>
+            <div style={{ fontSize: 11, color: "var(--text-2)", marginTop: 1 }}>{t("settings.musicEnabledDesc")}</div>
           </div>
           <button
             onClick={() => setConfig({ ...config, music_enabled: !config.music_enabled })}
@@ -275,7 +276,7 @@ export default function Settings() {
               </div>
               <CheckRow label={t("settings.musicShowPlayIcon")} checked={mc.show_play_icon} onChange={(v) => setMc({ show_play_icon: v })} />
               <CheckRow label={t("settings.musicShowPlayerLogo")} checked={mc.show_player_logo} onChange={(v) => setMc({ show_player_logo: v })} />
-              <div style={{ fontSize: 10, color: "var(--text-3)", marginTop: 2, fontStyle: "italic" }}>
+              <div style={{ fontSize: 10, color: "var(--text-2)", marginTop: 2, fontStyle: "italic" }}>
                 {t("settings.musicOfflineNote")}
               </div>
 
@@ -318,7 +319,7 @@ export default function Settings() {
           <input type="range" min="1000" max="10000" step="500"
             value={config.poll_interval_ms}
             onChange={(e) => setConfig({ ...config, poll_interval_ms: Number(e.target.value) })} />
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "var(--text-3)", marginTop: 4 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "var(--text-2)", marginTop: 4 }}>
             <span>1s</span><span>10s</span>
           </div>
         </div>
@@ -327,7 +328,7 @@ export default function Settings() {
       {/* Default Presence */}
       <div className="card" style={{ padding: 16 }}>
         <div className="section-label" style={{ marginBottom: 12 }}>{t("settings.defaultPresence")}</div>
-        <p style={{ fontSize: 11, color: "var(--text-3)", marginBottom: 14 }}>
+        <p style={{ fontSize: 11, color: "var(--text-2)", marginBottom: 14 }}>
           {t("settings.defaultPresenceDesc2")}
         </p>
 
@@ -353,11 +354,11 @@ export default function Settings() {
               {config.default.details.replace("{app_name}", "Spotify")}
             </div>
             {config.default.state && (
-              <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 1 }}>
+              <div style={{ fontSize: 11, color: "var(--text-2)", marginTop: 1 }}>
                 {config.default.state}
               </div>
             )}
-            <div style={{ fontSize: 10, color: "var(--text-3)", marginTop: 3, opacity: 0.7 }}>
+            <div style={{ fontSize: 10, color: "var(--text-2)", marginTop: 3 }}>
               00:12:34 {t("dashboard.elapsed")}
             </div>
           </div>
@@ -445,7 +446,7 @@ export default function Settings() {
             value={config.steamgriddb_api_key || ""}
             onChange={(e) => setConfig({ ...config, steamgriddb_api_key: e.target.value })}
             placeholder={t("settings.apiKeyPlaceholder")} />
-          <p style={{ fontSize: 11, color: "var(--text-3)", marginTop: 6 }}>
+          <p style={{ fontSize: 11, color: "var(--text-2)", marginTop: 6 }}>
             {t("settings.apiKeyDesc")}
           </p>
         </div>
@@ -458,7 +459,7 @@ export default function Settings() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)" }}>{t("settings.startOnBoot")}</div>
-            <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 1 }}>{t("settings.startOnBootDesc")}</div>
+            <div style={{ fontSize: 11, color: "var(--text-2)", marginTop: 1 }}>{t("settings.startOnBootDesc")}</div>
           </div>
           <button onClick={handleAutoStart} className={`toggle-apple ${autoStart ? "active" : ""}`}>
             <span className="thumb" />
@@ -468,7 +469,7 @@ export default function Settings() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)" }}>{t("settings.autoStartService")}</div>
-            <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 1 }}>{t("settings.autoStartServiceDesc")}</div>
+            <div style={{ fontSize: 11, color: "var(--text-2)", marginTop: 1 }}>{t("settings.autoStartServiceDesc")}</div>
           </div>
           <button
             onClick={() => setConfig({ ...config, auto_start_service: !config.auto_start_service })}
@@ -481,10 +482,15 @@ export default function Settings() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text-1)" }}>{t("settings.hideTrayIcon")}</div>
-            <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 1 }}>{t("settings.hideTrayIconDesc")}</div>
+            <div style={{ fontSize: 11, color: "var(--text-2)", marginTop: 1 }}>{t("settings.hideTrayIconDesc")}</div>
           </div>
           <button
-            onClick={() => setConfig({ ...config, hide_tray_icon: !config.hide_tray_icon })}
+            onClick={async () => {
+              const newConfig = { ...config, hide_tray_icon: !config.hide_tray_icon };
+              setConfig(newConfig);
+              await saveConfig(newConfig);
+              setShowRestartDialog(true);
+            }}
             className={`toggle-apple ${config.hide_tray_icon ? "active" : ""}`}
           >
             <span className="thumb" />
@@ -510,7 +516,7 @@ export default function Settings() {
               </div>
             ) : null}
             {updateInfo?.has_update && updateInfo.install_type && (
-              <div style={{ fontSize: 10, color: "var(--text-3)", marginTop: 2 }}>
+              <div style={{ fontSize: 10, color: "var(--text-2)", marginTop: 2 }}>
                 {t("update.installType")} : {updateInfo.install_type.toUpperCase()}
               </div>
             )}
@@ -582,6 +588,43 @@ export default function Settings() {
         }}>
         {saved ? `\u2713 ${t("settings.saved")}` : t("settings.saveSettings")}
       </button>
+
+      {showRestartDialog && createPortal(
+        <div style={{
+          position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+          background: "rgba(0,0,0,0.6)", display: "flex", alignItems: "center", justifyContent: "center",
+          zIndex: 10000,
+        }} onClick={() => setShowRestartDialog(false)}>
+          <div style={{
+            background: "#1e1f22", borderRadius: 12, padding: 24, minWidth: 320, maxWidth: 400,
+            boxShadow: "0 8px 32px rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.08)",
+          }} onClick={e => e.stopPropagation()}>
+            <div style={{ fontSize: 16, fontWeight: 600, color: "var(--text-1)", marginBottom: 8 }}>
+              {t("settings.restartRequired")}
+            </div>
+            <div style={{ fontSize: 13, color: "var(--text-2)", marginBottom: 20 }}>
+              {t("settings.restartRequiredDesc")}
+            </div>
+            <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+              <button
+                onClick={() => setShowRestartDialog(false)}
+                className="btn-secondary"
+                style={{ padding: "8px 16px", borderRadius: 8, fontSize: 13 }}
+              >
+                {t("settings.restartLater")}
+              </button>
+              <button
+                onClick={() => relaunchApp()}
+                className="btn-primary"
+                style={{ padding: "8px 16px", borderRadius: 8, fontSize: 13 }}
+              >
+                {t("settings.restartNow")}
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

@@ -379,6 +379,15 @@ fn get_config_file() -> PathBuf {
     get_config_dir().join("config.json")
 }
 
+pub fn save_config_internal(config: &RpcConfig) -> Result<(), String> {
+    let dir = get_config_dir();
+    fs::create_dir_all(&dir).map_err(|e| format!("Failed to create config directory: {}", e))?;
+    let path = dir.join("config.json");
+    let json = serde_json::to_string_pretty(config).map_err(|e| format!("Serialization error: {}", e))?;
+    fs::write(&path, json).map_err(|e| format!("Failed to write config: {}", e))?;
+    Ok(())
+}
+
 pub fn load_config_internal() -> RpcConfig {
     let path = get_config_file();
     if path.exists() {

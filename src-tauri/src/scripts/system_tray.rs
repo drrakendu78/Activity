@@ -82,6 +82,10 @@ pub fn setup_system_tray(app: &AppHandle) -> Result<(), String> {
     let check_update = MenuItem::with_id(app, "check_update", "Vérifier les mises à jour", true, None::<&str>)
         .map_err(|e| e.to_string())?;
 
+    // -- Hide tray icon --
+    let hide_tray = MenuItem::with_id(app, "hide_tray", "Cacher l'icône de la barre des tâches", true, None::<&str>)
+        .map_err(|e| e.to_string())?;
+
     // -- Quit --
     let quit_item = MenuItem::with_id(app, "quit", "Quitter", true, None::<&str>)
         .map_err(|e| e.to_string())?;
@@ -105,6 +109,7 @@ pub fn setup_system_tray(app: &AppHandle) -> Result<(), String> {
             &settings_item,
             &check_update,
             &sep4,
+            &hide_tray,
             &quit_item,
         ])
         .build()
@@ -171,6 +176,13 @@ pub fn setup_system_tray(app: &AppHandle) -> Result<(), String> {
             }
             "prev_track" => {
                 tauri::async_runtime::spawn(async { let _ = super::media_session::media_previous().await; });
+            }
+            "hide_tray" => {
+                // Toggle hide_tray_icon in config and restart
+                let mut config = super::config::load_config_internal();
+                config.hide_tray_icon = !config.hide_tray_icon;
+                let _ = super::config::save_config_internal(&config);
+                app.restart();
             }
             "quit" => {
                 app.exit(0);

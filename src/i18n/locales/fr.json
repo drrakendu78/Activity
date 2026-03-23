@@ -91,9 +91,9 @@
     "musicEnabledDesc": "Affiche les infos du morceau sur Discord quand de la musique joue",
     "musicPresence": "Présence",
     "musicActivityType": "Type d'activité",
-    "musicActivityListening": "Listening / Écoute",
-    "musicActivityWatching": "Watching / Regarde",
-    "musicActivityPlaying": "Playing / Joue à",
+    "musicActivityListening": "Écoute",
+    "musicActivityWatching": "Regarde",
+    "musicActivityPlaying": "Joue à",
     "musicDisplayText": "Afficher le texte",
     "musicDisplayPlayer": "Nom du lecteur",
     "musicDisplayArtist": "Ligne de l'artiste",
@@ -129,7 +129,11 @@
     "musicFallbackNote": "Note de musique",
     "musicFallbackPlayback": "État de la lecture",
     "musicFallbackCd": "CD",
-    "musicFallbackApp": "Logo de l'application"
+    "musicFallbackApp": "Logo de l'application",
+    "restartRequired": "Redémarrage requis",
+    "restartRequiredDesc": "Ce changement nécessite un redémarrage de l'application pour prendre effet.",
+    "restartNow": "Redémarrer maintenant",
+    "restartLater": "Plus tard"
   },
   "apps": {
     "title": "Applications",

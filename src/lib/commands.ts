@@ -204,3 +204,5 @@ export const checkForUpdates = () =>
 
 export const startSilentUpdate = (downloadUrl: string, fileName?: string, fileSha256?: string) =>
   invoke<void>("start_silent_update", { downloadUrl, fileName, fileSha256 });
+
+export const relaunchApp = () => invoke<void>("relaunch_app");

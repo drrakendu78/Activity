@@ -13,6 +13,11 @@ use scripts::window_detect::get_active_window;
 use tauri::Manager;
 
 #[tauri::command]
+fn relaunch_app(app: tauri::AppHandle) {
+    app.restart();
+}
+
+#[tauri::command]
 fn open_url(url: String) -> Result<(), String> {
     #[cfg(target_os = "windows")]
     const CREATE_NO_WINDOW: u32 = 0x08000000;
@@ -99,6 +104,7 @@ pub fn run() {
             open_url,
             check_for_updates,
             start_silent_update,
+            relaunch_app,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
