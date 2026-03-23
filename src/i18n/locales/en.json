@@ -217,7 +217,7 @@
     "steamgridDesc": "Automatically fetch icons for games and applications",
     "steamgridPlaceholder": "SteamGridDB API key...",
     "steamgridValid": "API key saved!",
-    "steamgridOptional": "Optional — Get a free key at steamgriddb.com for beautiful automatic icons.",
+    "steamgridOptional": "Optional — Get a free key at steamgriddb.com (Sign in, then Preferences → API) for beautiful automatic icons.",
     "getStarted": "Get Started",
     "next": "Next",
     "back": "Back",

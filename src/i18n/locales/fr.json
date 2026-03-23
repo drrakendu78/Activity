@@ -217,7 +217,7 @@
     "steamgridDesc": "Récupérer automatiquement les icônes des jeux et applications",
     "steamgridPlaceholder": "Clé API SteamGridDB...",
     "steamgridValid": "Clé API enregistrée !",
-    "steamgridOptional": "Optionnel — Obtenez une clé gratuite sur steamgriddb.com pour avoir de belles icônes automatiquement.",
+    "steamgridOptional": "Optionnel — Obtenez une clé gratuite sur steamgriddb.com (Connectez-vous, puis Préférences → API) pour avoir de belles icônes automatiquement.",
     "getStarted": "Commencer",
     "next": "Suivant",
     "back": "Retour",

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES, getFlagUrl } from "../i18n";
 import { useTheme } from "../lib/theme";
-import { enableAutoStartup, loadConfig, saveConfig, startPoller } from "../lib/commands";
+import { enableAutoStartup, loadConfig, saveConfig, startPoller, openUrl } from "../lib/commands";
 import { resizeWindow } from "../App";
 
 interface Props {
@@ -309,8 +309,12 @@ export default function SetupWizard({ onComplete }: Props) {
                   {t("setup.steamgridValid")}
                 </p>
               )}
-              <p style={{ fontSize: 12, color: "var(--text-3)", textAlign: "center", lineHeight: 1.5 }}>
-                {t("setup.steamgridOptional")}
+              <p style={{ fontSize: 12, color: "var(--text-2)", textAlign: "center", lineHeight: 1.5 }}>
+                {t("setup.steamgridOptional").split("steamgriddb.com").map((part, i, arr) =>
+                  i < arr.length - 1 ? (
+                    <span key={i}>{part}<a href="#" onClick={(e) => { e.preventDefault(); openUrl("https://www.steamgriddb.com"); }} style={{ color: "var(--accent)", textDecoration: "underline", cursor: "pointer" }}>steamgriddb.com</a></span>
+                  ) : part
+                )}
               </p>
             </div>
           )}

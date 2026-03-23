@@ -25,7 +25,7 @@
 - **Auto Detection** — Detects running apps and games in real time and updates your Discord presence automatically.
 - **Browser Site Detection** — Shows which website you're on (GitHub, YouTube, Claude...) instead of just "Firefox".
 - **Custom App Configs** — Create personalized presence configs for any application with custom details, state, and icons.
-- **Auto Icon Fetching** — Fetches app icons from SteamGridDB and Iconify automatically. No manual setup needed.
+- **Auto Icon Fetching** — Fetches app icons from SteamGridDB (free API key required) and Iconify automatically.
 - **Icon Picker** — Browse and choose from multiple icon variants for each app.
 
 ### Music Player
@@ -102,6 +102,10 @@ npm run tauri build
 ## Contributing
 
 Contributions are welcome. Feel free to open an issue or submit a pull request.
+
+## Privacy
+
+Activity collects **no data**. Everything runs locally. See the full [Privacy Policy](PRIVACY.md).
 
 ## License
 
