@@ -223,5 +223,9 @@
     "updateNow": "Opdater nu",
     "checkError": "Tjek mislykkedes",
     "onPrefix": "På"
+  },
+  "home": {
+    "waitingForDiscord": "Venter på Discord...",
+    "waitingForDiscordHint": "Tjenesten starter automatisk, når Discord registreres."
   }
 }

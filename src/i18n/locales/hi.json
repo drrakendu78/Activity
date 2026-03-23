@@ -223,5 +223,9 @@
     "updateNow": "अभी अपडेट करें",
     "checkError": "जाँच विफल",
     "onPrefix": "पर"
+  },
+  "home": {
+    "waitingForDiscord": "Discord की प्रतीक्षा...",
+    "waitingForDiscordHint": "Discord पता चलने पर सेवा स्वचालित रूप से शुरू हो जाएगी।"
   }
 }

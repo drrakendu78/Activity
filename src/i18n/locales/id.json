@@ -223,5 +223,9 @@
     "updateNow": "Perbarui sekarang",
     "checkError": "Pemeriksaan gagal",
     "onPrefix": "Di"
+  },
+  "home": {
+    "waitingForDiscord": "Menunggu Discord...",
+    "waitingForDiscordHint": "Layanan akan dimulai secara otomatis saat Discord terdeteksi."
   }
 }

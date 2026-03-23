@@ -223,5 +223,9 @@
     "updateNow": "Aktualizovat nyní",
     "checkError": "Kontrola selhala",
     "onPrefix": "Na"
+  },
+  "home": {
+    "waitingForDiscord": "Čekání na Discord...",
+    "waitingForDiscordHint": "Služba se automaticky spustí, jakmile bude Discord detekován."
   }
 }

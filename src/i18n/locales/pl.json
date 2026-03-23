@@ -223,5 +223,9 @@
     "updateNow": "Aktualizuj teraz",
     "checkError": "Sprawdzanie nieudane",
     "onPrefix": "Na"
+  },
+  "home": {
+    "waitingForDiscord": "Oczekiwanie na Discord...",
+    "waitingForDiscordHint": "Usługa uruchomi się automatycznie po wykryciu Discorda."
   }
 }

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   loadConfig, saveConfig, isAutoStartupEnabled,
   enableAutoStartup, disableAutoStartup, type RpcConfig,
-  checkForUpdates, startSilentUpdate, relaunchApp, type UpdateInfo,
+  checkForUpdates, startSilentUpdate, relaunchApp, setTrayLanguage, type UpdateInfo,
 } from "../lib/commands";
 import { useTheme } from "../lib/theme";
 import { LANGUAGES, getFlagUrl } from "../i18n";
@@ -45,6 +45,12 @@ export default function Settings() {
   const handleLanguage = (code: string) => {
     i18n.changeLanguage(code);
     localStorage.setItem("language", code);
+    setTrayLanguage(code);
+    if (config) {
+      const updated = { ...config, language: code };
+      setConfig(updated);
+      saveConfig(updated);
+    }
   };
 
   if (!config) return <div style={{ padding: 24, color: "var(--text-3)" }}>{t("apps.loading")}</div>;

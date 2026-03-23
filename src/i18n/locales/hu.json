@@ -223,5 +223,9 @@
     "updateNow": "Frissítés most",
     "checkError": "Ellenőrzés sikertelen",
     "onPrefix": "Ezen"
+  },
+  "home": {
+    "waitingForDiscord": "Várakozás a Discordra...",
+    "waitingForDiscordHint": "A szolgáltatás automatikusan elindul, amikor a Discord észlelésre kerül."
   }
 }

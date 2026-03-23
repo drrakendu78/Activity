@@ -8,13 +8,18 @@ use scripts::media_session::{get_current_media_cmd, media_play_pause, media_next
 use scripts::poller::{is_poller_running, start_poller, stop_poller, get_detected_apps, PollerState};
 use scripts::startup::{disable_auto_startup, enable_auto_startup, is_auto_startup_enabled};
 use scripts::updater::{check_for_updates, start_silent_update};
-use scripts::system_tray::setup_system_tray;
+use scripts::system_tray::{setup_system_tray, update_tray_language};
 use scripts::window_detect::get_active_window;
 use tauri::Manager;
 
 #[tauri::command]
 fn relaunch_app(app: tauri::AppHandle) {
     app.restart();
+}
+
+#[tauri::command]
+fn set_tray_language(lang: String) {
+    update_tray_language(&lang);
 }
 
 #[tauri::command]
@@ -105,6 +110,7 @@ pub fn run() {
             check_for_updates,
             start_silent_update,
             relaunch_app,
+            set_tray_language,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

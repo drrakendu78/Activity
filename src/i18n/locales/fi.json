@@ -223,5 +223,9 @@
     "updateNow": "Päivitä nyt",
     "checkError": "Tarkistus epäonnistui",
     "onPrefix": "Käytössä"
+  },
+  "home": {
+    "waitingForDiscord": "Odotetaan Discordia...",
+    "waitingForDiscordHint": "Palvelu käynnistyy automaattisesti, kun Discord havaitaan."
   }
 }

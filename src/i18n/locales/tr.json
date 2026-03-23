@@ -223,5 +223,9 @@
     "updateNow": "Şimdi güncelle",
     "checkError": "Kontrol başarısız",
     "onPrefix": "Üzerinde"
+  },
+  "home": {
+    "waitingForDiscord": "Discord bekleniyor...",
+    "waitingForDiscordHint": "Discord algılandığında hizmet otomatik olarak başlayacaktır."
   }
 }

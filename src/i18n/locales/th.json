@@ -223,5 +223,9 @@
     "updateNow": "อัปเดตเดี๋ยวนี้",
     "checkError": "ตรวจสอบล้มเหลว",
     "onPrefix": "บน"
+  },
+  "home": {
+    "waitingForDiscord": "กำลังรอ Discord...",
+    "waitingForDiscordHint": "บริการจะเริ่มทำงานโดยอัตโนมัติเมื่อตรวจพบ Discord"
   }
 }

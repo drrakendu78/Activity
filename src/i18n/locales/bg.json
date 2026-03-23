@@ -223,5 +223,9 @@
     "updateNow": "Актуализирай сега",
     "checkError": "Проверката неуспешна",
     "onPrefix": "На"
+  },
+  "home": {
+    "waitingForDiscord": "Изчакване на Discord...",
+    "waitingForDiscordHint": "Услугата ще се стартира автоматично, когато Discord бъде открит."
   }
 }

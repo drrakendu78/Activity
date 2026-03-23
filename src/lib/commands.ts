@@ -60,6 +60,7 @@ export interface RpcConfig {
   music_config: MusicConfig;
   auto_start_service: boolean;
   hide_tray_icon: boolean;
+  language: string;
 }
 
 export interface RpcStatus {
@@ -206,3 +207,4 @@ export const startSilentUpdate = (downloadUrl: string, fileName?: string, fileSh
   invoke<void>("start_silent_update", { downloadUrl, fileName, fileSha256 });
 
 export const relaunchApp = () => invoke<void>("relaunch_app");
+export const setTrayLanguage = (lang: string) => invoke<void>("set_tray_language", { lang });

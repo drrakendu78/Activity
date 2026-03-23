@@ -223,5 +223,9 @@
     "updateNow": "Ενημέρωση τώρα",
     "checkError": "Ο έλεγχος απέτυχε",
     "onPrefix": "Σε"
+  },
+  "home": {
+    "waitingForDiscord": "Αναμονή για Discord...",
+    "waitingForDiscordHint": "Η υπηρεσία θα ξεκινήσει αυτόματα όταν εντοπιστεί το Discord."
   }
 }

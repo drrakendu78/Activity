@@ -223,5 +223,9 @@
     "updateNow": "Actualizar ahora",
     "checkError": "Error de verificación",
     "onPrefix": "En"
+  },
+  "home": {
+    "waitingForDiscord": "Esperando a Discord...",
+    "waitingForDiscordHint": "El servicio se iniciará automáticamente cuando se detecte Discord."
   }
 }

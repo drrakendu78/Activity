@@ -223,5 +223,9 @@
     "updateNow": "Aggiorna ora",
     "checkError": "Controllo fallito",
     "onPrefix": "Su"
+  },
+  "home": {
+    "waitingForDiscord": "In attesa di Discord...",
+    "waitingForDiscordHint": "Il servizio si avvierà automaticamente quando Discord verrà rilevato."
   }
 }

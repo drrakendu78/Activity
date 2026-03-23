@@ -223,5 +223,9 @@
     "updateNow": "지금 업데이트",
     "checkError": "확인 실패",
     "onPrefix": "사용 중"
+  },
+  "home": {
+    "waitingForDiscord": "Discord 대기 중...",
+    "waitingForDiscordHint": "Discord가 감지되면 서비스가 자동으로 시작됩니다."
   }
 }

@@ -223,5 +223,9 @@
     "updateNow": "Nu bijwerken",
     "checkError": "Controle mislukt",
     "onPrefix": "Op"
+  },
+  "home": {
+    "waitingForDiscord": "Wachten op Discord...",
+    "waitingForDiscordHint": "De service start automatisch wanneer Discord wordt gedetecteerd."
   }
 }

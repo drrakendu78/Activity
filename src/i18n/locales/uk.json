@@ -223,5 +223,9 @@
     "updateNow": "Оновити зараз",
     "checkError": "Помилка перевірки",
     "onPrefix": "На"
+  },
+  "home": {
+    "waitingForDiscord": "Очікування Discord...",
+    "waitingForDiscordHint": "Служба запуститься автоматично, коли Discord буде виявлено."
   }
 }

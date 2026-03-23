@@ -223,5 +223,9 @@
     "updateNow": "Ažuriraj sada",
     "checkError": "Provjera neuspješna",
     "onPrefix": "Na"
+  },
+  "home": {
+    "waitingForDiscord": "Čekanje na Discord...",
+    "waitingForDiscordHint": "Usluga će se automatski pokrenuti kada se otkrije Discord."
   }
 }

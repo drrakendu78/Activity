@@ -223,5 +223,9 @@
     "updateNow": "今すぐ更新",
     "checkError": "確認に失敗しました",
     "onPrefix": "使用中"
+  },
+  "home": {
+    "waitingForDiscord": "Discordを待機中...",
+    "waitingForDiscordHint": "Discordが検出されると、サービスは自動的に開始されます。"
   }
 }

@@ -223,5 +223,9 @@
     "updateNow": "Cập nhật ngay",
     "checkError": "Kiểm tra thất bại",
     "onPrefix": "Trên"
+  },
+  "home": {
+    "waitingForDiscord": "Đang chờ Discord...",
+    "waitingForDiscordHint": "Dịch vụ sẽ tự động khởi động khi phát hiện Discord."
   }
 }

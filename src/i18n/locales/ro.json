@@ -223,5 +223,9 @@
     "updateNow": "Actualizează acum",
     "checkError": "Verificarea a eșuat",
     "onPrefix": "Pe"
+  },
+  "home": {
+    "waitingForDiscord": "Se așteaptă Discord...",
+    "waitingForDiscordHint": "Serviciul va porni automat când Discord este detectat."
   }
 }

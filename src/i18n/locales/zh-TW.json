@@ -223,5 +223,9 @@
     "updateNow": "立即更新",
     "checkError": "檢查失敗",
     "onPrefix": "在"
+  },
+  "home": {
+    "waitingForDiscord": "等待 Discord...",
+    "waitingForDiscordHint": "偵測到 Discord 後，服務將自動啟動。"
   }
 }

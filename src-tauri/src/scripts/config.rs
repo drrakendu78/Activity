@@ -169,6 +169,12 @@ pub struct RpcConfig {
     pub auto_start_service: bool,
     #[serde(default)]
     pub hide_tray_icon: bool,
+    #[serde(default = "default_language")]
+    pub language: String,
+}
+
+fn default_language() -> String {
+    "en".to_string()
 }
 
 fn default_poll_interval() -> u64 {
@@ -195,6 +201,7 @@ impl Default for RpcConfig {
             music_config: MusicConfig::default(),
             auto_start_service: true,
             hide_tray_icon: false,
+            language: default_language(),
         }
     }
 }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES, getFlagUrl } from "../i18n";
 import { useTheme } from "../lib/theme";
-import { enableAutoStartup, loadConfig, saveConfig, startPoller, openUrl } from "../lib/commands";
+import { enableAutoStartup, loadConfig, saveConfig, startPoller, openUrl, setTrayLanguage } from "../lib/commands";
 import { resizeWindow } from "../App";
 
 interface Props {
@@ -130,9 +130,15 @@ export default function SetupWizard({ onComplete }: Props) {
                 <button
                   key={lang.code}
                   className="wizard-lang-item"
-                  onClick={() => {
+                  onClick={async () => {
                     i18n.changeLanguage(lang.code);
                     localStorage.setItem("language", lang.code);
+                    setTrayLanguage(lang.code);
+                    try {
+                      const cfg = await loadConfig();
+                      cfg.language = lang.code;
+                      await saveConfig(cfg);
+                    } catch {}
                   }}
                   style={{
                     display: "flex", alignItems: "center", gap: 8,

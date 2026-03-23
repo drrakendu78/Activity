@@ -223,5 +223,9 @@
     "updateNow": "Atnaujinti dabar",
     "checkError": "Tikrinimas nepavyko",
     "onPrefix": "Naudojant"
+  },
+  "home": {
+    "waitingForDiscord": "Laukiama Discord...",
+    "waitingForDiscordHint": "Paslauga bus paleista automatiškai, kai bus aptiktas Discord."
   }
 }

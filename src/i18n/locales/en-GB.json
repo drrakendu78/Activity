@@ -223,5 +223,9 @@
     "updateNow": "Update now",
     "checkError": "Check failed",
     "onPrefix": "On"
+  },
+  "home": {
+    "waitingForDiscord": "Waiting for Discord...",
+    "waitingForDiscordHint": "The service will start automatically when Discord is detected."
   }
 }
