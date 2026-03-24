@@ -30,7 +30,9 @@
     "listeningTo": "Ακούει μουσική",
     "listenOn": "Ακούστε",
     "watching": "Παρακολούθηση",
-    "watchOn": "Παρακολούθηση"
+    "watchOn": "Παρακολούθηση",
+    "waitingForDiscord": "Αναμονή για Discord...",
+    "waitingForDiscordHint": "Η υπηρεσία θα ξεκινήσει αυτόματα όταν εντοπιστεί το Discord."
   },
   "settings": {
     "title": "Ρυθμίσεις",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Αναζήτηση εικονιδίων...",
     "search": "Αναζήτηση",
     "noIcons": "Δεν βρέθηκαν εικονίδια. Δοκιμάστε άλλο όρο.",
-    "customUrl": "Προσαρμοσμένο URL...",
+    "customUrl": "Προσαρμοσμένη εικόνα...",
+    "browseFile": "Τοπικό αρχείο",
+    "confirm": "ΟΚ",
+    "localFile": "Επιλέχθηκε τοπική εικόνα",
     "cancel": "Ακύρωση",
-    "enterUrl": "Εισάγετε URL εικόνας (PNG/JPG):"
+    "enterUrl": "Επικόλληση URL εικόνας (PNG/JPG)"
   },
   "setup": {
     "welcome": "Καλώς ήρθατε!",
@@ -223,9 +228,5 @@
     "updateNow": "Ενημέρωση τώρα",
     "checkError": "Ο έλεγχος απέτυχε",
     "onPrefix": "Σε"
-  },
-  "home": {
-    "waitingForDiscord": "Αναμονή για Discord...",
-    "waitingForDiscordHint": "Η υπηρεσία θα ξεκινήσει αυτόματα όταν εντοπιστεί το Discord."
   }
 }

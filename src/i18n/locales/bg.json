@@ -30,7 +30,9 @@
     "listeningTo": "Слуша музика",
     "listenOn": "Слушай",
     "watching": "Гледане",
-    "watchOn": "Гледай"
+    "watchOn": "Гледай",
+    "waitingForDiscord": "Изчакване на Discord...",
+    "waitingForDiscordHint": "Услугата ще се стартира автоматично, когато Discord бъде открит."
   },
   "settings": {
     "title": "Настройки",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Търсене на икони...",
     "search": "Търси",
     "noIcons": "Не са намерени икони.",
-    "customUrl": "Персонализиран URL...",
+    "customUrl": "Потребителско изображение...",
+    "browseFile": "Локален файл",
+    "confirm": "ОК",
+    "localFile": "Избрано локално изображение",
     "cancel": "Отказ",
-    "enterUrl": "Въведете URL на изображение (PNG/JPG):"
+    "enterUrl": "Поставете URL на изображение (PNG/JPG)"
   },
   "setup": {
     "welcome": "Добре дошли!",
@@ -223,9 +228,5 @@
     "updateNow": "Актуализирай сега",
     "checkError": "Проверката неуспешна",
     "onPrefix": "На"
-  },
-  "home": {
-    "waitingForDiscord": "Изчакване на Discord...",
-    "waitingForDiscordHint": "Услугата ще се стартира автоматично, когато Discord бъде открит."
   }
 }

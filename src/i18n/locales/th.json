@@ -30,7 +30,9 @@
     "listeningTo": "กำลังฟังเพลง",
     "listenOn": "ฟัง",
     "watching": "กำลังดู",
-    "watchOn": "ดู"
+    "watchOn": "ดู",
+    "waitingForDiscord": "กำลังรอ Discord...",
+    "waitingForDiscordHint": "บริการจะเริ่มทำงานโดยอัตโนมัติเมื่อตรวจพบ Discord"
   },
   "settings": {
     "title": "ตั้งค่า",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "ค้นหาไอคอน...",
     "search": "ค้นหา",
     "noIcons": "ไม่พบไอคอน",
-    "customUrl": "URL กำหนดเอง...",
+    "customUrl": "รูปภาพกำหนดเอง...",
+    "browseFile": "ไฟล์ในเครื่อง",
+    "confirm": "ตกลง",
+    "localFile": "เลือกรูปภาพในเครื่องแล้ว",
     "cancel": "ยกเลิก",
-    "enterUrl": "ป้อน URL รูปภาพโดยตรง (PNG/JPG):"
+    "enterUrl": "วาง URL รูปภาพ (PNG/JPG)"
   },
   "setup": {
     "welcome": "ยินดีต้อนรับ!",
@@ -223,9 +228,5 @@
     "updateNow": "อัปเดตเดี๋ยวนี้",
     "checkError": "ตรวจสอบล้มเหลว",
     "onPrefix": "บน"
-  },
-  "home": {
-    "waitingForDiscord": "กำลังรอ Discord...",
-    "waitingForDiscordHint": "บริการจะเริ่มทำงานโดยอัตโนมัติเมื่อตรวจพบ Discord"
   }
 }

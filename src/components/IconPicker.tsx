@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { searchIcons, setAppIcon, type IconCandidate } from "../lib/commands";
 
@@ -17,6 +17,9 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
   const [saving, setSaving] = useState<string | null>(null);
   const [picked, setPicked] = useState<string | null>(null);
   const [closing, setClosing] = useState(false);
+  const [showCustom, setShowCustom] = useState(false);
+  const [customUrl, setCustomUrl] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const animateClose = () => {
     setClosing(true);
@@ -53,19 +56,28 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
     }
   };
 
-  const handleCustomUrl = async () => {
-    const url = prompt(t("iconPicker.enterUrl"));
-    if (url && url.startsWith("http")) {
-      setSaving("custom");
-      try {
-        await setAppIcon(exeName, url);
-        onPicked(url);
-        setTimeout(() => onClose(), 300);
-      } catch (e) {
-        // silently ignore
-        setSaving(null);
-      }
+  const handleCustomSubmit = async (url: string) => {
+    if (!url.trim()) return;
+    setSaving("custom");
+    try {
+      await setAppIcon(exeName, url.trim());
+      onPicked(url.trim());
+      setTimeout(() => onClose(), 300);
+    } catch {
+      setSaving(null);
     }
+  };
+
+  const handleFilePick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUri = reader.result as string;
+      setCustomUrl(dataUri);
+      handleCustomSubmit(dataUri);
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -135,7 +147,7 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
               display: "flex", flexDirection: "column", alignItems: "center",
               justifyContent: "center", height: 200, gap: 10,
             }}>
-              <span style={{ fontSize: 32, opacity: 0.6 }}>🔍</span>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6 }}><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
               <span style={{ fontSize: 13, color: "var(--text-3)" }}>
                 {t("iconPicker.noIcons")}
               </span>
@@ -205,24 +217,71 @@ export default function IconPicker({ exeName, appName, onClose, onPicked }: Icon
         </div>
 
         {/* Footer */}
-        <div style={{
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          paddingTop: 4, borderTop: "1px solid var(--border-light)",
-        }}>
-          <button
-            className="btn-secondary"
-            onClick={handleCustomUrl}
-            style={{ padding: "7px 14px", fontSize: 11, borderRadius: 8 }}
-          >
-            {t("iconPicker.customUrl")}
-          </button>
-          <button
-            className="btn-secondary"
-            onClick={animateClose}
-            style={{ padding: "7px 16px", fontSize: 12, borderRadius: 8 }}
-          >
-            {t("iconPicker.cancel")}
-          </button>
+        <div style={{ paddingTop: 4, borderTop: "1px solid var(--border-light)", display: "flex", flexDirection: "column", gap: 8 }}>
+          {showCustom ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                {customUrl && (customUrl.startsWith("http") || customUrl.startsWith("data:")) && (
+                  <img
+                    src={customUrl}
+                    alt="preview"
+                    style={{ width: 32, height: 32, borderRadius: 8, objectFit: "contain", background: "var(--bg-input)", flexShrink: 0 }}
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                  />
+                )}
+                <input
+                  className="input-apple"
+                  value={customUrl.startsWith("data:") ? t("iconPicker.localFile") : customUrl}
+                  onChange={(e) => setCustomUrl(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") handleCustomSubmit(customUrl); }}
+                  placeholder={t("iconPicker.enterUrl")}
+                  style={{ flex: 1, fontSize: 12 }}
+                  readOnly={customUrl.startsWith("data:")}
+                  autoFocus
+                />
+                <button
+                  className="btn-secondary"
+                  onClick={() => fileInputRef.current?.click()}
+                  style={{ padding: "7px 10px", fontSize: 13, borderRadius: 8, flexShrink: 0 }}
+                  title={t("iconPicker.browseFile")}
+                >
+                  <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M2 4c0-1 .5-1.5 1.5-1.5h4L9 4.5h8.5c1 0 1.5.5 1.5 1.5v10c0 1-.5 1.5-1.5 1.5h-15C1.5 17.5 1 17 1 16V5.5"/><path d="M1 8h18"/></svg>
+                </button>
+                <button
+                  className="btn-primary"
+                  onClick={() => handleCustomSubmit(customUrl)}
+                  disabled={!customUrl.trim() || saving !== null}
+                  style={{ padding: "7px 12px", fontSize: 11, borderRadius: 8, flexShrink: 0 }}
+                >
+                  {t("iconPicker.confirm")}
+                </button>
+              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleFilePick}
+              />
+            </div>
+          ) : (
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <button
+                className="btn-secondary"
+                onClick={() => setShowCustom(true)}
+                style={{ padding: "7px 14px", fontSize: 11, borderRadius: 8 }}
+              >
+                {t("iconPicker.customUrl")}
+              </button>
+              <button
+                className="btn-secondary"
+                onClick={animateClose}
+                style={{ padding: "7px 16px", fontSize: 12, borderRadius: 8 }}
+              >
+                {t("iconPicker.cancel")}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

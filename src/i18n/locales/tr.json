@@ -30,7 +30,9 @@
     "listeningTo": "Müzik dinliyor",
     "listenOn": "Dinle",
     "watching": "İzliyor",
-    "watchOn": "İzle"
+    "watchOn": "İzle",
+    "waitingForDiscord": "Discord bekleniyor...",
+    "waitingForDiscordHint": "Discord algılandığında hizmet otomatik olarak başlayacaktır."
   },
   "settings": {
     "title": "Ayarlar",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Simge ara...",
     "search": "Ara",
     "noIcons": "Simge bulunamadı. Farklı bir terim deneyin.",
-    "customUrl": "Özel URL...",
+    "customUrl": "Özel görsel...",
+    "browseFile": "Yerel dosya",
+    "confirm": "Tamam",
+    "localFile": "Yerel görsel seçildi",
     "cancel": "İptal",
-    "enterUrl": "Doğrudan görsel URL'si girin (PNG/JPG):"
+    "enterUrl": "Görsel URL yapıştır (PNG/JPG)"
   },
   "setup": {
     "welcome": "Hoş geldiniz!",
@@ -223,9 +228,5 @@
     "updateNow": "Şimdi güncelle",
     "checkError": "Kontrol başarısız",
     "onPrefix": "Üzerinde"
-  },
-  "home": {
-    "waitingForDiscord": "Discord bekleniyor...",
-    "waitingForDiscordHint": "Discord algılandığında hizmet otomatik olarak başlayacaktır."
   }
 }

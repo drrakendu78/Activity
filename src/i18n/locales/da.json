@@ -30,7 +30,9 @@
     "listeningTo": "Lytter til musik",
     "listenOn": "Lyt",
     "watching": "Ser",
-    "watchOn": "Se"
+    "watchOn": "Se",
+    "waitingForDiscord": "Venter på Discord...",
+    "waitingForDiscordHint": "Tjenesten starter automatisk, når Discord registreres."
   },
   "settings": {
     "title": "Indstillinger",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Søg ikoner...",
     "search": "Søg",
     "noIcons": "Ingen ikoner fundet. Prøv et andet søgeord.",
-    "customUrl": "Brugerdefineret URL...",
+    "customUrl": "Brugerdefineret billede...",
+    "browseFile": "Lokal fil",
+    "confirm": "OK",
+    "localFile": "Lokalt billede valgt",
     "cancel": "Annuller",
-    "enterUrl": "Indtast en direkte billed-URL (PNG/JPG):"
+    "enterUrl": "Indsæt billed-URL (PNG/JPG)"
   },
   "setup": {
     "welcome": "Velkommen!",
@@ -223,9 +228,5 @@
     "updateNow": "Opdater nu",
     "checkError": "Tjek mislykkedes",
     "onPrefix": "På"
-  },
-  "home": {
-    "waitingForDiscord": "Venter på Discord...",
-    "waitingForDiscordHint": "Tjenesten starter automatisk, når Discord registreres."
   }
 }

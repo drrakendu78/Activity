@@ -30,7 +30,9 @@
     "listeningTo": "Mendengarkan musik",
     "listenOn": "Dengar",
     "watching": "Menonton",
-    "watchOn": "Tonton"
+    "watchOn": "Tonton",
+    "waitingForDiscord": "Menunggu Discord...",
+    "waitingForDiscordHint": "Layanan akan dimulai secara otomatis saat Discord terdeteksi."
   },
   "settings": {
     "title": "Pengaturan",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Cari ikon...",
     "search": "Cari",
     "noIcons": "Ikon tidak ditemukan.",
-    "customUrl": "URL kustom...",
+    "customUrl": "Gambar kustom...",
+    "browseFile": "File lokal",
+    "confirm": "OK",
+    "localFile": "Gambar lokal dipilih",
     "cancel": "Batal",
-    "enterUrl": "Masukkan URL gambar langsung (PNG/JPG):"
+    "enterUrl": "Tempel URL gambar (PNG/JPG)"
   },
   "setup": {
     "welcome": "Selamat datang!",
@@ -223,9 +228,5 @@
     "updateNow": "Perbarui sekarang",
     "checkError": "Pemeriksaan gagal",
     "onPrefix": "Di"
-  },
-  "home": {
-    "waitingForDiscord": "Menunggu Discord...",
-    "waitingForDiscordHint": "Layanan akan dimulai secara otomatis saat Discord terdeteksi."
   }
 }

@@ -30,7 +30,9 @@
     "listeningTo": "Hört Musik",
     "listenOn": "Anhören",
     "watching": "Schaut",
-    "watchOn": "Ansehen"
+    "watchOn": "Ansehen",
+    "waitingForDiscord": "Warte auf Discord...",
+    "waitingForDiscordHint": "Der Dienst startet automatisch, sobald Discord erkannt wird."
   },
   "settings": {
     "title": "Einstellungen",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Symbole suchen...",
     "search": "Suchen",
     "noIcons": "Keine Symbole gefunden. Versuche einen anderen Suchbegriff.",
-    "customUrl": "Eigene URL...",
+    "customUrl": "Eigenes Bild...",
+    "browseFile": "Lokale Datei",
+    "confirm": "OK",
+    "localFile": "Lokales Bild ausgewählt",
     "cancel": "Abbrechen",
-    "enterUrl": "Gib eine direkte Bild-URL ein (PNG/JPG):"
+    "enterUrl": "Bild-URL einfügen (PNG/JPG)"
   },
   "setup": {
     "welcome": "Willkommen!",
@@ -223,9 +228,5 @@
     "updateNow": "Jetzt aktualisieren",
     "checkError": "Prüfung fehlgeschlagen",
     "onPrefix": "Auf"
-  },
-  "home": {
-    "waitingForDiscord": "Warte auf Discord...",
-    "waitingForDiscordHint": "Der Dienst startet automatisch, sobald Discord erkannt wird."
   }
 }

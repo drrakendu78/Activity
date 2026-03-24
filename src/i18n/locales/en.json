@@ -183,9 +183,12 @@
     "searchPlaceholder": "Search icons...",
     "search": "Search",
     "noIcons": "No icons found. Try a different search term.",
-    "customUrl": "Custom URL...",
+    "customUrl": "Custom image...",
+    "browseFile": "Browse local file",
+    "confirm": "OK",
+    "localFile": "Local image selected",
     "cancel": "Cancel",
-    "enterUrl": "Enter a direct image URL (PNG/JPG):"
+    "enterUrl": "Paste image URL (PNG/JPG)"
   },
   "setup": {
     "welcome": "Welcome!",

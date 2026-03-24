@@ -30,7 +30,9 @@
     "listeningTo": "Poslouchá hudbu",
     "listenOn": "Poslechnout",
     "watching": "Sledování",
-    "watchOn": "Sledovat"
+    "watchOn": "Sledovat",
+    "waitingForDiscord": "Čekání na Discord...",
+    "waitingForDiscordHint": "Služba se automaticky spustí, jakmile bude Discord detekován."
   },
   "settings": {
     "title": "Nastavení",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Hledat ikony...",
     "search": "Hledat",
     "noIcons": "Žádné ikony nenalezeny. Zkuste jiný výraz.",
-    "customUrl": "Vlastní URL...",
+    "customUrl": "Vlastní obrázek...",
+    "browseFile": "Místní soubor",
+    "confirm": "OK",
+    "localFile": "Vybrán místní obrázek",
     "cancel": "Zrušit",
-    "enterUrl": "Zadejte přímý URL obrázku (PNG/JPG):"
+    "enterUrl": "Vložit URL obrázku (PNG/JPG)"
   },
   "setup": {
     "welcome": "Vítejte!",
@@ -223,9 +228,5 @@
     "updateNow": "Aktualizovat nyní",
     "checkError": "Kontrola selhala",
     "onPrefix": "Na"
-  },
-  "home": {
-    "waitingForDiscord": "Čekání na Discord...",
-    "waitingForDiscordHint": "Služba se automaticky spustí, jakmile bude Discord detekován."
   }
 }

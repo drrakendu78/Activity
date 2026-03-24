@@ -62,7 +62,15 @@ export default function SetupWizard({ onComplete }: Props) {
     setTimeout(() => onComplete(serviceStarted), 300);
   };
 
-  const stepIcons = ["\uD83C\uDF10", "\uD83C\uDFA8", "\u26A1", "\uD83D\uDD27", "\uD83C\uDFB5", "\uD83C\uDFAE"];
+  const svgProps = { width: 28, height: 28, fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  const stepIcons = [
+    /* Globe */ <svg {...svgProps} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>,
+    /* Palette */ <svg {...svgProps} viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="17.5" cy="10.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="8.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="6.5" cy="12" r="1.5" fill="currentColor" stroke="none"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.1-.7-.4-1-.2-.3-.4-.6-.4-1 0-.8.7-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-5.5-4.5-9-10-9z"/></svg>,
+    /* Zap */ <svg {...svgProps} viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>,
+    /* Settings */ <svg {...svgProps} viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>,
+    /* Music */ <svg {...svgProps} viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>,
+    /* Gamepad */ <svg {...svgProps} viewBox="0 0 24 24"><path d="M6 11h4M8 9v4"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.544-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>,
+  ];
   const stepTitles = [
     t("setup.welcome"),
     t("setup.chooseTheme"),
@@ -104,7 +112,7 @@ export default function SetupWizard({ onComplete }: Props) {
       >
         {/* Header */}
         <div style={{ padding: "24px 24px 0", textAlign: "center" }}>
-          <div style={{ fontSize: 32, marginBottom: 8 }}>
+          <div style={{ marginBottom: 8, color: "var(--accent)", display: "flex", justifyContent: "center" }}>
             {stepIcons[step]}
           </div>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--text-1)", marginBottom: 4 }}>
@@ -184,8 +192,11 @@ export default function SetupWizard({ onComplete }: Props) {
                     animationDelay: `${idx * 100}ms`,
                   }}
                 >
-                  <div style={{ fontSize: 36, marginBottom: 8 }}>
-                    {t_ === "light" ? "\u2600\uFE0F" : "\uD83C\uDF19"}
+                  <div style={{ marginBottom: 8, display: "flex", justifyContent: "center", color: theme === t_ ? "var(--accent)" : "var(--text-2)" }}>
+                    {t_ === "light"
+                      ? <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                      : <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    }
                   </div>
                   <div style={{
                     fontSize: 14, fontWeight: 600,
@@ -207,7 +218,10 @@ export default function SetupWizard({ onComplete }: Props) {
                 display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "all 0.3s ease",
               }}>
-                <span style={{ fontSize: 36 }}>{autoStart ? "\u2705" : "\uD83D\uDCA4"}</span>
+                {autoStart
+                  ? <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                  : <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M18.36 5.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+                }
               </div>
               <button
                 onClick={() => setAutoStart(!autoStart)}
@@ -231,7 +245,10 @@ export default function SetupWizard({ onComplete }: Props) {
                 display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "all 0.3s ease",
               }}>
-                <span style={{ fontSize: 36 }}>{autoService ? "\uD83D\uDE80" : "\u23F8\uFE0F"}</span>
+                {autoService
+                  ? <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                  : <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                }
               </div>
               <button
                 onClick={() => setAutoService(!autoService)}
@@ -255,7 +272,10 @@ export default function SetupWizard({ onComplete }: Props) {
                 display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "all 0.3s ease",
               }}>
-                <span style={{ fontSize: 36 }}>{musicEnabled ? "\uD83C\uDFB6" : "\uD83D\uDD07"}</span>
+                {musicEnabled
+                  ? <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                  : <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                }
               </div>
               <button
                 onClick={() => setMusicEnabled(!musicEnabled)}
@@ -279,7 +299,10 @@ export default function SetupWizard({ onComplete }: Props) {
                 display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "all 0.3s ease",
               }}>
-                <span style={{ fontSize: 36, width: 72, height: 72, lineHeight: "72px", textAlign: "center", display: "block" }}>{steamGridKey.trim() ? "\uD83C\uDFAE" : "\uD83D\uDD11"}</span>
+                {steamGridKey.trim()
+                  ? <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M6 11h4M8 9v4"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.544-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>
+                  : <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                }
               </div>
               <div style={{ position: "relative", width: "100%", maxWidth: 320 }}>
                 <input

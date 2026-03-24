@@ -30,7 +30,9 @@
     "listeningTo": "Ouvindo música",
     "listenOn": "Ouvir",
     "watching": "Assistindo",
-    "watchOn": "Assistir"
+    "watchOn": "Assistir",
+    "waitingForDiscord": "Aguardando o Discord...",
+    "waitingForDiscordHint": "O serviço será iniciado automaticamente quando o Discord for detectado."
   },
   "settings": {
     "title": "Configurações",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Buscar ícones...",
     "search": "Buscar",
     "noIcons": "Nenhum ícone encontrado. Tente outro termo.",
-    "customUrl": "URL personalizada...",
+    "customUrl": "Imagem personalizada...",
+    "browseFile": "Arquivo local",
+    "confirm": "OK",
+    "localFile": "Imagem local selecionada",
     "cancel": "Cancelar",
-    "enterUrl": "Insira uma URL direta de imagem (PNG/JPG):"
+    "enterUrl": "Colar URL da imagem (PNG/JPG)"
   },
   "setup": {
     "welcome": "Bem-vindo!",
@@ -223,9 +228,5 @@
     "updateNow": "Atualizar agora",
     "checkError": "Verificação falhou",
     "onPrefix": "Em"
-  },
-  "home": {
-    "waitingForDiscord": "Aguardando o Discord...",
-    "waitingForDiscordHint": "O serviço será iniciado automaticamente quando o Discord for detectado."
   }
 }

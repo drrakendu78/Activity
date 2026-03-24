@@ -30,7 +30,9 @@
     "listeningTo": "Klausosi muzikos",
     "listenOn": "Klausytis",
     "watching": "Žiūri",
-    "watchOn": "Žiūrėti"
+    "watchOn": "Žiūrėti",
+    "waitingForDiscord": "Laukiama Discord...",
+    "waitingForDiscordHint": "Paslauga bus paleista automatiškai, kai bus aptiktas Discord."
   },
   "settings": {
     "title": "Nustatymai",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Ieškoti piktogramų...",
     "search": "Ieškoti",
     "noIcons": "Piktogramų nerasta.",
-    "customUrl": "Pasirinktinis URL...",
+    "customUrl": "Pasirinktinis vaizdas...",
+    "browseFile": "Vietinis failas",
+    "confirm": "Gerai",
+    "localFile": "Pasirinktas vietinis vaizdas",
     "cancel": "Atšaukti",
-    "enterUrl": "Įveskite tiesioginį paveikslėlio URL (PNG/JPG):"
+    "enterUrl": "Įklijuokite vaizdo URL (PNG/JPG)"
   },
   "setup": {
     "welcome": "Sveiki!",
@@ -223,9 +228,5 @@
     "updateNow": "Atnaujinti dabar",
     "checkError": "Tikrinimas nepavyko",
     "onPrefix": "Naudojant"
-  },
-  "home": {
-    "waitingForDiscord": "Laukiama Discord...",
-    "waitingForDiscordHint": "Paslauga bus paleista automatiškai, kai bus aptiktas Discord."
   }
 }

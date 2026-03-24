@@ -30,7 +30,9 @@
     "listeningTo": "Luistert naar muziek",
     "listenOn": "Luister",
     "watching": "Kijken",
-    "watchOn": "Bekijk"
+    "watchOn": "Bekijk",
+    "waitingForDiscord": "Wachten op Discord...",
+    "waitingForDiscordHint": "De service start automatisch wanneer Discord wordt gedetecteerd."
   },
   "settings": {
     "title": "Instellingen",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Pictogrammen zoeken...",
     "search": "Zoeken",
     "noIcons": "Geen pictogrammen gevonden. Probeer een andere zoekterm.",
-    "customUrl": "Aangepaste URL...",
+    "customUrl": "Eigen afbeelding...",
+    "browseFile": "Lokaal bestand",
+    "confirm": "OK",
+    "localFile": "Lokale afbeelding geselecteerd",
     "cancel": "Annuleren",
-    "enterUrl": "Voer een directe afbeeldings-URL in (PNG/JPG):"
+    "enterUrl": "Plak afbeeldings-URL (PNG/JPG)"
   },
   "setup": {
     "welcome": "Welkom!",
@@ -223,9 +228,5 @@
     "updateNow": "Nu bijwerken",
     "checkError": "Controle mislukt",
     "onPrefix": "Op"
-  },
-  "home": {
-    "waitingForDiscord": "Wachten op Discord...",
-    "waitingForDiscordHint": "De service start automatisch wanneer Discord wordt gedetecteerd."
   }
 }

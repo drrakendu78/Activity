@@ -30,7 +30,9 @@
     "listeningTo": "Lyssnar på musik",
     "listenOn": "Lyssna",
     "watching": "Tittar",
-    "watchOn": "Titta"
+    "watchOn": "Titta",
+    "waitingForDiscord": "Väntar på Discord...",
+    "waitingForDiscordHint": "Tjänsten startar automatiskt när Discord upptäcks."
   },
   "settings": {
     "title": "Inställningar",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Sök ikoner...",
     "search": "Sök",
     "noIcons": "Inga ikoner hittade. Prova ett annat sökord.",
-    "customUrl": "Anpassad URL...",
+    "customUrl": "Anpassad bild...",
+    "browseFile": "Lokal fil",
+    "confirm": "OK",
+    "localFile": "Lokal bild vald",
     "cancel": "Avbryt",
-    "enterUrl": "Ange en direkt bild-URL (PNG/JPG):"
+    "enterUrl": "Klistra in bild-URL (PNG/JPG)"
   },
   "setup": {
     "welcome": "Välkommen!",
@@ -223,9 +228,5 @@
     "updateNow": "Uppdatera nu",
     "checkError": "Kontrollen misslyckades",
     "onPrefix": "På"
-  },
-  "home": {
-    "waitingForDiscord": "Väntar på Discord...",
-    "waitingForDiscordHint": "Tjänsten startar automatiskt när Discord upptäcks."
   }
 }

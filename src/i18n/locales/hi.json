@@ -30,7 +30,9 @@
     "listeningTo": "संगीत सुन रहे हैं",
     "listenOn": "सुनें",
     "watching": "देख रहे हैं",
-    "watchOn": "देखें"
+    "watchOn": "देखें",
+    "waitingForDiscord": "Discord की प्रतीक्षा...",
+    "waitingForDiscordHint": "Discord पता चलने पर सेवा स्वचालित रूप से शुरू हो जाएगी।"
   },
   "settings": {
     "title": "सेटिंग्स",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "आइकन खोजें...",
     "search": "खोजें",
     "noIcons": "कोई आइकन नहीं मिला।",
-    "customUrl": "कस्टम URL...",
+    "customUrl": "कस्टम छवि...",
+    "browseFile": "स्थानीय फ़ाइल",
+    "confirm": "ठीक",
+    "localFile": "स्थानीय छवि चयनित",
     "cancel": "रद्द करें",
-    "enterUrl": "सीधा छवि URL दर्ज करें (PNG/JPG):"
+    "enterUrl": "छवि URL चिपकाएँ (PNG/JPG)"
   },
   "setup": {
     "welcome": "स्वागत है!",
@@ -223,9 +228,5 @@
     "updateNow": "अभी अपडेट करें",
     "checkError": "जाँच विफल",
     "onPrefix": "पर"
-  },
-  "home": {
-    "waitingForDiscord": "Discord की प्रतीक्षा...",
-    "waitingForDiscordHint": "Discord पता चलने पर सेवा स्वचालित रूप से शुरू हो जाएगी।"
   }
 }

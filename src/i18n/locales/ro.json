@@ -30,7 +30,9 @@
     "listeningTo": "Ascultă muzică",
     "listenOn": "Ascultă",
     "watching": "Vizionare",
-    "watchOn": "Vizionează"
+    "watchOn": "Vizionează",
+    "waitingForDiscord": "Se așteaptă Discord...",
+    "waitingForDiscordHint": "Serviciul va porni automat când Discord este detectat."
   },
   "settings": {
     "title": "Setări",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Caută pictograme...",
     "search": "Caută",
     "noIcons": "Nicio pictogramă găsită.",
-    "customUrl": "URL personalizat...",
+    "customUrl": "Imagine personalizată...",
+    "browseFile": "Fișier local",
+    "confirm": "OK",
+    "localFile": "Imagine locală selectată",
     "cancel": "Anulare",
-    "enterUrl": "Introduceți URL-ul imaginii (PNG/JPG):"
+    "enterUrl": "Lipește URL-ul imaginii (PNG/JPG)"
   },
   "setup": {
     "welcome": "Bun venit!",
@@ -223,9 +228,5 @@
     "updateNow": "Actualizează acum",
     "checkError": "Verificarea a eșuat",
     "onPrefix": "Pe"
-  },
-  "home": {
-    "waitingForDiscord": "Se așteaptă Discord...",
-    "waitingForDiscordHint": "Serviciul va porni automat când Discord este detectat."
   }
 }

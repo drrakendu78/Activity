@@ -78,7 +78,7 @@ export default function AppConfigs() {
               {detectedApps.map((app, i) => {
                 const customApp = config.apps[app.exe_name];
                 const iconUrl = customApp?.large_image_key || app.large_image_key;
-                const hasIcon = iconUrl && iconUrl.startsWith("http");
+                const hasIcon = iconUrl && (iconUrl.startsWith("http") || iconUrl.startsWith("data:"));
                 return (
                   <div key={app.exe_name}
                     className={`apple-list-item ${i === 0 ? "first" : ""} ${i === detectedApps.length - 1 ? "last" : ""}`}
@@ -132,7 +132,7 @@ export default function AppConfigs() {
             <div className="apple-list">
               {customEntries.map(([exe, appConfig], i) => {
                 const iconUrl = appConfig.large_image_key;
-                const hasIcon = iconUrl && iconUrl.startsWith("http");
+                const hasIcon = iconUrl && (iconUrl.startsWith("http") || iconUrl.startsWith("data:"));
                 return (
                 <div key={exe}
                   className={`apple-list-item ${i === 0 ? "first" : ""} ${i === customEntries.length - 1 ? "last" : ""}`}

@@ -30,7 +30,9 @@
     "listeningTo": "Kuuntelee musiikkia",
     "listenOn": "Kuuntele",
     "watching": "Katsoo",
-    "watchOn": "Katso"
+    "watchOn": "Katso",
+    "waitingForDiscord": "Odotetaan Discordia...",
+    "waitingForDiscordHint": "Palvelu käynnistyy automaattisesti, kun Discord havaitaan."
   },
   "settings": {
     "title": "Asetukset",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Hae kuvakkeita...",
     "search": "Hae",
     "noIcons": "Kuvakkeita ei löytynyt. Kokeile toista hakusanaa.",
-    "customUrl": "Mukautettu URL...",
+    "customUrl": "Mukautettu kuva...",
+    "browseFile": "Paikallinen tiedosto",
+    "confirm": "OK",
+    "localFile": "Paikallinen kuva valittu",
     "cancel": "Peruuta",
-    "enterUrl": "Syötä suora kuva-URL (PNG/JPG):"
+    "enterUrl": "Liitä kuvan URL (PNG/JPG)"
   },
   "setup": {
     "welcome": "Tervetuloa!",
@@ -223,9 +228,5 @@
     "updateNow": "Päivitä nyt",
     "checkError": "Tarkistus epäonnistui",
     "onPrefix": "Käytössä"
-  },
-  "home": {
-    "waitingForDiscord": "Odotetaan Discordia...",
-    "waitingForDiscordHint": "Palvelu käynnistyy automaattisesti, kun Discord havaitaan."
   }
 }

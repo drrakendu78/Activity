@@ -30,7 +30,9 @@
     "listeningTo": "Zenét hallgat",
     "listenOn": "Hallgasd",
     "watching": "Nézi",
-    "watchOn": "Nézd"
+    "watchOn": "Nézd",
+    "waitingForDiscord": "Várakozás a Discordra...",
+    "waitingForDiscordHint": "A szolgáltatás automatikusan elindul, amikor a Discord észlelésre kerül."
   },
   "settings": {
     "title": "Beállítások",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Ikonok keresése...",
     "search": "Keresés",
     "noIcons": "Nem található ikon. Próbáljon mást.",
-    "customUrl": "Egyéni URL...",
+    "customUrl": "Egyéni kép...",
+    "browseFile": "Helyi fájl",
+    "confirm": "OK",
+    "localFile": "Helyi kép kiválasztva",
     "cancel": "Mégse",
-    "enterUrl": "Adja meg a kép közvetlen URL-jét (PNG/JPG):"
+    "enterUrl": "Kép URL beillesztése (PNG/JPG)"
   },
   "setup": {
     "welcome": "Üdvözöljük!",
@@ -223,9 +228,5 @@
     "updateNow": "Frissítés most",
     "checkError": "Ellenőrzés sikertelen",
     "onPrefix": "Ezen"
-  },
-  "home": {
-    "waitingForDiscord": "Várakozás a Discordra...",
-    "waitingForDiscordHint": "A szolgáltatás automatikusan elindul, amikor a Discord észlelésre kerül."
   }
 }

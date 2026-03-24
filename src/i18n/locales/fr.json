@@ -183,9 +183,12 @@
     "searchPlaceholder": "Rechercher des icônes...",
     "search": "Rechercher",
     "noIcons": "Aucune icône trouvée. Essayez un autre terme de recherche.",
-    "customUrl": "URL personnalisée...",
+    "customUrl": "Image personnalisée...",
+    "browseFile": "Parcourir un fichier",
+    "confirm": "Valider",
+    "localFile": "Image locale sélectionnée",
     "cancel": "Annuler",
-    "enterUrl": "Entrez une URL d'image directe (PNG/JPG) :"
+    "enterUrl": "Coller une URL d'image (PNG/JPG)"
   },
   "setup": {
     "welcome": "Bienvenue !",

@@ -30,7 +30,9 @@
     "listeningTo": "Đang nghe nhạc",
     "listenOn": "Nghe",
     "watching": "Đang xem",
-    "watchOn": "Xem"
+    "watchOn": "Xem",
+    "waitingForDiscord": "Đang chờ Discord...",
+    "waitingForDiscordHint": "Dịch vụ sẽ tự động khởi động khi phát hiện Discord."
   },
   "settings": {
     "title": "Cài đặt",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Tìm biểu tượng...",
     "search": "Tìm",
     "noIcons": "Không tìm thấy biểu tượng.",
-    "customUrl": "URL tùy chỉnh...",
+    "customUrl": "Ảnh tùy chỉnh...",
+    "browseFile": "Tệp cục bộ",
+    "confirm": "OK",
+    "localFile": "Đã chọn ảnh cục bộ",
     "cancel": "Hủy",
-    "enterUrl": "Nhập URL hình ảnh trực tiếp (PNG/JPG):"
+    "enterUrl": "Dán URL ảnh (PNG/JPG)"
   },
   "setup": {
     "welcome": "Chào mừng!",
@@ -223,9 +228,5 @@
     "updateNow": "Cập nhật ngay",
     "checkError": "Kiểm tra thất bại",
     "onPrefix": "Trên"
-  },
-  "home": {
-    "waitingForDiscord": "Đang chờ Discord...",
-    "waitingForDiscordHint": "Dịch vụ sẽ tự động khởi động khi phát hiện Discord."
   }
 }

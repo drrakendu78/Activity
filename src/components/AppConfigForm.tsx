@@ -103,7 +103,7 @@ export default function AppConfigForm({ exeName: initialExe, config, onSave, onC
                 <label style={labelStyle}>{t("appConfigForm.largeImage")}</label>
                 <input className="input-apple" value={largeImageKey}
                   onChange={(e) => setLargeImageKey(e.target.value)} placeholder={t("appConfigForm.largeImagePlaceholder")} />
-                {largeImageKey && largeImageKey.startsWith("http") && (
+                {largeImageKey && (largeImageKey.startsWith("http") || largeImageKey.startsWith("data:")) && (
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 8 }}>
                     <img src={largeImageKey} alt="preview"
                       style={{ width: 36, height: 36, borderRadius: 8, background: "var(--bg-input)", objectFit: "contain", padding: 3 }}

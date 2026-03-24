@@ -30,7 +30,9 @@
     "listeningTo": "Sluša glazbu",
     "listenOn": "Slušaj",
     "watching": "Gleda",
-    "watchOn": "Gledaj"
+    "watchOn": "Gledaj",
+    "waitingForDiscord": "Čekanje na Discord...",
+    "waitingForDiscordHint": "Usluga će se automatski pokrenuti kada se otkrije Discord."
   },
   "settings": {
     "title": "Postavke",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "Traži ikone...",
     "search": "Traži",
     "noIcons": "Ikone nisu pronađene.",
-    "customUrl": "Prilagođeni URL...",
+    "customUrl": "Prilagođena slika...",
+    "browseFile": "Lokalna datoteka",
+    "confirm": "OK",
+    "localFile": "Odabrana lokalna slika",
     "cancel": "Odustani",
-    "enterUrl": "Unesite izravni URL slike (PNG/JPG):"
+    "enterUrl": "Zalijepite URL slike (PNG/JPG)"
   },
   "setup": {
     "welcome": "Dobrodošli!",
@@ -223,9 +228,5 @@
     "updateNow": "Ažuriraj sada",
     "checkError": "Provjera neuspješna",
     "onPrefix": "Na"
-  },
-  "home": {
-    "waitingForDiscord": "Čekanje na Discord...",
-    "waitingForDiscordHint": "Usluga će se automatski pokrenuti kada se otkrije Discord."
   }
 }

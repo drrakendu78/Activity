@@ -30,7 +30,9 @@
     "listeningTo": "正在聽音樂",
     "listenOn": "收聽",
     "watching": "正在觀看",
-    "watchOn": "觀看"
+    "watchOn": "觀看",
+    "waitingForDiscord": "等待 Discord...",
+    "waitingForDiscordHint": "偵測到 Discord 後，服務將自動啟動。"
   },
   "settings": {
     "title": "設定",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "搜尋圖示...",
     "search": "搜尋",
     "noIcons": "未找到圖示。請嘗試其他搜尋詞。",
-    "customUrl": "自訂 URL...",
+    "customUrl": "自訂圖片...",
+    "browseFile": "本地檔案",
+    "confirm": "確定",
+    "localFile": "已選擇本地圖片",
     "cancel": "取消",
-    "enterUrl": "輸入圖片直連 URL（PNG/JPG）："
+    "enterUrl": "貼上圖片URL (PNG/JPG)"
   },
   "setup": {
     "welcome": "歡迎！",
@@ -223,9 +228,5 @@
     "updateNow": "立即更新",
     "checkError": "檢查失敗",
     "onPrefix": "在"
-  },
-  "home": {
-    "waitingForDiscord": "等待 Discord...",
-    "waitingForDiscordHint": "偵測到 Discord 後，服務將自動啟動。"
   }
 }

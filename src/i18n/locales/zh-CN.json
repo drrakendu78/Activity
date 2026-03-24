@@ -30,7 +30,9 @@
     "listeningTo": "正在听音乐",
     "listenOn": "收听",
     "watching": "正在观看",
-    "watchOn": "观看"
+    "watchOn": "观看",
+    "waitingForDiscord": "等待 Discord...",
+    "waitingForDiscordHint": "检测到 Discord 后，服务将自动启动。"
   },
   "settings": {
     "title": "设置",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "搜索图标...",
     "search": "搜索",
     "noIcons": "未找到图标，请尝试其他搜索词。",
-    "customUrl": "自定义 URL...",
+    "customUrl": "自定义图片...",
+    "browseFile": "本地文件",
+    "confirm": "确定",
+    "localFile": "已选择本地图片",
     "cancel": "取消",
-    "enterUrl": "输入图片直链（PNG/JPG）："
+    "enterUrl": "粘贴图片URL (PNG/JPG)"
   },
   "setup": {
     "welcome": "欢迎！",
@@ -223,9 +228,5 @@
     "updateNow": "立即更新",
     "checkError": "检查失败",
     "onPrefix": "在"
-  },
-  "home": {
-    "waitingForDiscord": "等待 Discord...",
-    "waitingForDiscordHint": "检测到 Discord 后，服务将自动启动。"
   }
 }

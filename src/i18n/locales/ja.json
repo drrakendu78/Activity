@@ -30,7 +30,9 @@
     "listeningTo": "音楽を聴いています",
     "listenOn": "聴く",
     "watching": "視聴中",
-    "watchOn": "視聴"
+    "watchOn": "視聴",
+    "waitingForDiscord": "Discordを待機中...",
+    "waitingForDiscordHint": "Discordが検出されると、サービスは自動的に開始されます。"
   },
   "settings": {
     "title": "設定",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "アイコンを検索...",
     "search": "検索",
     "noIcons": "アイコンが見つかりません。別の検索語をお試しください。",
-    "customUrl": "カスタムURL...",
+    "customUrl": "カスタム画像...",
+    "browseFile": "ローカルファイル",
+    "confirm": "OK",
+    "localFile": "ローカル画像を選択済み",
     "cancel": "キャンセル",
-    "enterUrl": "画像の直接URL（PNG/JPG）を入力："
+    "enterUrl": "画像URLを貼り付け (PNG/JPG)"
   },
   "setup": {
     "welcome": "ようこそ！",
@@ -223,9 +228,5 @@
     "updateNow": "今すぐ更新",
     "checkError": "確認に失敗しました",
     "onPrefix": "使用中"
-  },
-  "home": {
-    "waitingForDiscord": "Discordを待機中...",
-    "waitingForDiscordHint": "Discordが検出されると、サービスは自動的に開始されます。"
   }
 }

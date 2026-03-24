@@ -30,7 +30,9 @@
     "listeningTo": "음악 감상 중",
     "listenOn": "듣기",
     "watching": "시청 중",
-    "watchOn": "시청"
+    "watchOn": "시청",
+    "waitingForDiscord": "Discord 대기 중...",
+    "waitingForDiscordHint": "Discord가 감지되면 서비스가 자동으로 시작됩니다."
   },
   "settings": {
     "title": "설정",
@@ -177,9 +179,12 @@
     "searchPlaceholder": "아이콘 검색...",
     "search": "검색",
     "noIcons": "아이콘을 찾을 수 없습니다. 다른 검색어를 시도해 보세요.",
-    "customUrl": "사용자 지정 URL...",
+    "customUrl": "사용자 지정 이미지...",
+    "browseFile": "로컬 파일",
+    "confirm": "확인",
+    "localFile": "로컬 이미지 선택됨",
     "cancel": "취소",
-    "enterUrl": "이미지 직접 URL 입력 (PNG/JPG):"
+    "enterUrl": "이미지 URL 붙여넣기 (PNG/JPG)"
   },
   "setup": {
     "welcome": "환영합니다!",
@@ -223,9 +228,5 @@
     "updateNow": "지금 업데이트",
     "checkError": "확인 실패",
     "onPrefix": "사용 중"
-  },
-  "home": {
-    "waitingForDiscord": "Discord 대기 중...",
-    "waitingForDiscordHint": "Discord가 감지되면 서비스가 자동으로 시작됩니다."
   }
 }

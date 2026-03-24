@@ -68,7 +68,7 @@ export default function Dashboard({ waitingForDiscord }: { waitingForDiscord?: b
   const [albumFetchKey, setAlbumFetchKey] = useState("");
 
   const isMedia = category === "media" && !isMusic;
-  const hasIcon = largeImageKey && largeImageKey.startsWith("http");
+  const hasIcon = largeImageKey && (largeImageKey.startsWith("http") || largeImageKey.startsWith("data:"));
 
   // Ref to always have the latest "details" value inside async closures
   const detailsRef = useRef(details);
@@ -526,7 +526,7 @@ export default function Dashboard({ waitingForDiscord }: { waitingForDiscord?: b
                   <img
                     src={largeImageKey!}
                     alt={currentApp}
-                    style={{ width: 34, height: 34, objectFit: "contain" }}
+                    style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 12 }}
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = "none";
                       (e.target as HTMLImageElement).parentElement!.innerHTML = `<span style="font-size:24px">${emoji}</span>`;
