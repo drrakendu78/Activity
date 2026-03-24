@@ -536,7 +536,12 @@ export default function Settings() {
                   const info = await checkForUpdates();
                   setUpdateInfo(info);
                 } catch (e) {
-                  setUpdateError(t("update.checkError"));
+                  const msg = String(e);
+                  if (msg.includes("403") || msg.includes("rate")) {
+                    setUpdateError(t("update.rateLimited"));
+                  } else {
+                    setUpdateError(t("update.checkError") + (msg ? ` (${msg})` : ""));
+                  }
                 }
                 setUpdateChecking(false);
               }}

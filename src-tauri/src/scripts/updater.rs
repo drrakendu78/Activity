@@ -1,7 +1,12 @@
 use serde::{Deserialize, Serialize};
+use std::sync::Mutex;
+use std::time::Instant;
 use tauri::command;
 
 const GITHUB_REPO: &str = "drrakendu78/Activity";
+const CHECK_COOLDOWN_SECS: u64 = 300; // 5 minutes between API calls
+
+static LAST_CHECK: Mutex<Option<(Instant, UpdateInfo)>> = Mutex::new(None);
 
 #[derive(Deserialize)]
 struct GithubRelease {
@@ -124,6 +129,15 @@ fn safe_file_name(name: &str) -> String {
 
 #[command]
 pub async fn check_for_updates() -> Result<UpdateInfo, String> {
+    // Return cached result if checked recently
+    if let Ok(guard) = LAST_CHECK.lock() {
+        if let Some((instant, ref info)) = *guard {
+            if instant.elapsed().as_secs() < CHECK_COOLDOWN_SECS {
+                return Ok(info.clone());
+            }
+        }
+    }
+
     let current_version = env!("CARGO_PKG_VERSION").to_string();
     let install_type = detect_install_type();
 
@@ -134,6 +148,10 @@ pub async fn check_for_updates() -> Result<UpdateInfo, String> {
 
     let url = format!("https://api.github.com/repos/{}/releases/latest", GITHUB_REPO);
     let resp = client.get(&url).send().await.map_err(|e| e.to_string())?;
+
+    if resp.status() == 403 {
+        return Err("rate limit exceeded".to_string());
+    }
 
     if resp.status() == 404 {
         return Ok(UpdateInfo {
@@ -165,7 +183,7 @@ pub async fn check_for_updates() -> Result<UpdateInfo, String> {
         release.body.as_ref().and_then(|notes| extract_sha256_from_notes(notes, &a.name))
     });
 
-    Ok(UpdateInfo {
+    let info = UpdateInfo {
         current_version,
         latest_version,
         has_update,
@@ -176,7 +194,14 @@ pub async fn check_for_updates() -> Result<UpdateInfo, String> {
         file_size: asset.map(|a| a.size),
         file_sha256,
         install_type,
-    })
+    };
+
+    // Cache the result
+    if let Ok(mut guard) = LAST_CHECK.lock() {
+        *guard = Some((Instant::now(), info.clone()));
+    }
+
+    Ok(info)
 }
 
 /// Spawn the Activity-Updater.exe with download args, then exit

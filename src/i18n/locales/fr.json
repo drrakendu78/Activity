@@ -250,6 +250,7 @@
     "later": "Plus tard",
     "updateNow": "Mettre à jour",
     "checkError": "Erreur de vérification",
+    "rateLimited": "Trop de requêtes — réessaie dans quelques minutes",
     "onPrefix": "Sur"
   }
 }

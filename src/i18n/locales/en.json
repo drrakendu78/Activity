@@ -250,6 +250,7 @@
     "later": "Later",
     "updateNow": "Update now",
     "checkError": "Check failed",
+    "rateLimited": "Too many requests — try again in a few minutes",
     "onPrefix": "On"
   }
 }
